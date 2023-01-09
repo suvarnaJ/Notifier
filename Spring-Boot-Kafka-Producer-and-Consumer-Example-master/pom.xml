@@ -63,6 +63,23 @@
 		<defaultGoal>install</defaultGoal>
 		<!-- Source directory configuration -->
 		<sourceDirectory>src</sourceDirectory>
+
+		<plugins>
+			<plugin>
+				<!-- Build an executable JAR -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<mainClass>com.netsurfingzone.main.SpringMain</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 
 </project>
