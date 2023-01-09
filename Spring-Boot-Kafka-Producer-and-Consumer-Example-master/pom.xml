@@ -13,6 +13,10 @@
 		<version>2.0.2.RELEASE</version>
 	</parent>
 
+	<properties>
+		<start-class>com.netsurfingzone.main.SpringMain</start-class>
+	</properties>
+
 	<dependencies>
 
 		<dependency>
