@@ -71,7 +71,7 @@
             </option>
             <option name="goals">
               <list>
-                <option value="install" />
+                <option value="spring-boot:run" />
               </list>
             </option>
             <option name="pomFileName" />
