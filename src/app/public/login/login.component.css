@@ -8,14 +8,14 @@ a,a:hover{
   padding: 100px 0;
   position: relative;
 }
-.myform-area .form-area{
+/* .myform-area .form-area{
   position: relative;
   background: rgba(103,58,183,0.7);
   width: 100%;
   height: 100%;
   overflow: hidden;
   box-shadow: 0 0 10px 0 #e1e1e1;
-}
+} */
 
 .myform-area .form-area .form-content,
 .myform-area .form-area .form-input{
@@ -95,7 +95,7 @@ a,a:hover{
   box-shadow: 0 0 40px 0 #e1e1e1;
 }
 .myform-area .form-area .form-input{
-    width: 50%;
+    width: 100%;
     background: #fff;
     padding: 40px 30px;
 }
