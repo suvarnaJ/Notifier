@@ -1,0 +1,85 @@
+<mat-sidenav-container>
+
+	<mat-sidenav #sidenav mode="over">
+		<a class="navbar-brand"><img style="border-radius:100%;margin-bottom:-8px;margin-right: 9px;" src="https://sg-res.9appsdownloading.com/sg/res/jpg/5b/92/f9b3c2c0589cfdf37ca505ec6927-s5s1.jpg?x-oss-process=style/mq200"  width="30" height="30" class="d-inline-block align-top" alt=""><label>Centralized Notification</label></a> 
+    <hr/>   
+		<nav>
+			<a routerLink="home" (click)="clickHandler()" routerLinkActive="active">Home</a>
+			<a routerLink="about" (click)="clickHandler()" routerLinkActive="active">About</a>
+			<a *ngIf="!isLoggedIn" routerLink="login" (click)="clickHandler()" routerLinkActive="active">Login</a>
+			<a *ngIf="!isLoggedIn" routerLink="sign-up" (click)="clickHandler()" routerLinkActive="active">Sign Up</a>
+			<a routerLink="dashboard" *ngIf="loginService.isLoggedIn && user" routerLinkActive="active">{{ user.firstName+" "+user.lastName }}</a>
+			<a style="cursor: pointer;" (click)="logout()" *ngIf="isLoggedIn" routerLinkActive="active">Logout</a>
+			<a *ngIf="!isLoggedIn" routerLink="contact" (click)="clickHandler()" routerLinkActive="active">Contact</a>
+		</nav>
+	</mat-sidenav>
+
+	<mat-sidenav-content>
+		<mat-toolbar class="mat-elevation-z6 bg-primary">
+			<header>
+				<mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+				<a class="navbar-brand"><img style="border-radius:100%;margin-bottom:-8px;margin-right: 4px;margin-left: 14px;" src="https://sg-res.9appsdownloading.com/sg/res/jpg/5b/92/f9b3c2c0589cfdf37ca505ec6927-s5s1.jpg?x-oss-process=style/mq200"  width="30" height="30" class="d-inline-block align-top" alt=""><span style="color:white;">Centralized Notification</span></a>     
+        <nav>
+          <a routerLink="home"    routerLinkActive="active">Home</a>
+          <a routerLink="about"   routerLinkActive="active">About</a>
+          <a *ngIf="!isLoggedIn" routerLink="login"   routerLinkActive="active">Login</a>
+          <a *ngIf="!isLoggedIn" routerLink="sign-up" routerLinkActive="active">Sign Up</a>
+		  <a routerLink="dashboard" *ngIf="loginService.isLoggedIn && user" routerLinkActive="active">{{ user.firstName+" "+user.lastName }}</a>
+		  <a style="cursor: pointer;" (click)="logout()" *ngIf="isLoggedIn" routerLinkActive="active">Logout</a>
+          <a *ngIf="!isLoggedIn"  routerLink="contact" routerLinkActive="active">Contact</a>
+        </nav>        
+      </header>
+		</mat-toolbar>
+    <section class="banner">
+      <router-outlet></router-outlet>
+    </section>
+	<!-- start footer -->
+<footer class="bg-dark text-center text-white">
+	<!-- Grid container -->
+	<div class="container p-4 pb-0">
+	  <!-- Section: Social media -->
+	  <section class="mb-5">
+		<!-- Facebook -->
+		<a class="btn btn-outline-light btn-floating m-1" href="https://www.facebook.com/mukul.sharma.5249349" role="button"
+		><i class="fab fa-facebook-f"></i
+		></a>
+  
+		<!-- Twitter -->
+		<a class="btn btn-outline-light btn-floating m-1" href="https://twitter.com/" role="button"
+		><i class="fab fa-twitter"></i
+		></a>
+  
+		<!-- Google -->
+		<a class="btn btn-outline-light btn-floating m-1" href="http://gmail.com/" role="button"
+		><i class="fab fa-google"></i
+		></a>
+  
+		<!-- Instagram -->
+		<a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/" role="button"
+		><i class="fab fa-instagram"></i
+		></a>
+  
+		<!-- Linkedin -->
+		<a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/in/mukul-sharma-995574170/" role="button"
+		><i class="fab fa-linkedin-in"></i
+		></a>
+  
+		<!-- Github -->
+		<a class="btn btn-outline-light btn-floating m-1" href="https://github.com/" role="button"
+		><i class="fab fa-github"></i
+		></a>
+	  </section>
+	  <!-- Section: Social media -->
+	</div>
+	<!-- Grid container -->
+  
+	<!-- Copyright -->
+	<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+	  © 2020 Copyright:
+	  <a class="text-white" href="https://smartcontactmanager-production.up.railway.app/home">https://smartcontactmanager.com</a>
+	</div>
+	<!-- Copyright -->
+  </footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
