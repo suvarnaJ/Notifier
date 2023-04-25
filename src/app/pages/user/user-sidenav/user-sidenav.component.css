@@ -1,0 +1,25 @@
+.active {
+    color: black;
+    background-color: rgb(194, 193, 193);
+}
+a:hover{
+    color: black;
+    background-color: rgb(194, 193, 193);
+}
+a{
+    color: black;
+}
+ul li a{
+    display: block;
+    padding: 10px 20px;
+    border-bottom: 1px solid rgb(239, 237, 237);
+    position: relative;
+}
+.icon{
+    width: 30px;
+    display: inline-block;
+}
+.disabled {
+    pointer-events:none;
+    opacity:0.6;         
+}

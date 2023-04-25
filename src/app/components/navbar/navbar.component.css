@@ -1,0 +1,21 @@
+.navbar{
+    background-color: rgb(68, 72, 78);
+    color: white;
+    height: 100%;
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+.nav-item{
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+}
+.nav-item:hover{
+    background-color: black;
+}
+.nav-item.active{
+    padding-top: 8px;
+    padding-bottom: 8px;
+    color: white;
+    background-color: black;
+}

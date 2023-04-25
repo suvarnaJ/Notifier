@@ -1,0 +1,19 @@
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+			<h1 style="margin-bottom: -2px;" class="navbar-brand"><img style="border-radius:100%" src="../../assets/img/tcl_logo.png"  width="30" height="30" class="d-inline-block align-top" alt="">&nbsp;<span style="color:white;font-size:22px;">Centralized Notification</span></h1>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto">
+                    <a style="margin-right:4px;margin-top:1px;" routerLink="/" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active" class="nav-item nav-link">Home</a>
+					<a style="margin-right:4px;margin-top:1px;" [routerLink]="'about'" routerLinkActive="active" class="nav-item nav-link">About</a>
+                    <a style="margin-right:4px;margin-top:1px;" *ngIf="!isLoggedIn" [routerLink]="'login'" routerLinkActive="active" class="nav-item nav-link">Login</a>
+                    <a style="margin-right:4px;margin-top:1px;" *ngIf="!isLoggedIn" [routerLink]="'signup'" routerLinkActive="active" class="nav-item nav-link">SignUp</a>
+					<a style="margin-right:4px;margin-top:1px;" routerLink="/user-dashboard/{{user.id}}" *ngIf="loginService.isLoggedIn && user" routerLinkActive="active" class="nav-item nav-link">{{ user.firstName+" "+user.lastName }}</a>
+					<a style="cursor: pointer;" (click)="logout()" *ngIf="isLoggedIn" routerLinkActive="active" class="nav-item nav-link">Logout</a>
+                    <a *ngIf="!isLoggedIn" [routerLink]="'contact'" routerLinkActive="active" class="nav-item nav-link" tabindex="-1">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>

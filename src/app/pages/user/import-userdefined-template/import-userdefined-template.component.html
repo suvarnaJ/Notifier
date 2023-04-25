@@ -1,0 +1,26 @@
+<div class="center">
+	<div class="row">
+		<div class="col-md-12">
+			<h1 style="margin-bottom:15px;font-size:35px;">User Defined Template Upload</h1>
+			<p style="margin-bottom: 30px;">In this section, submit is allowed only in case the user uploads a valid file.</p>
+		</div>
+	</div>
+	
+    <div class="row">
+	<div class="col-8 offset-2">
+	<form (ngSubmit)="formSubmit()" name="upload">
+				<div class="btn-container">
+                   <angular-editor style="text-align: left;" name="htmlContent" [(ngModel)]="htmlContent" [config]="config"></angular-editor><br><br>
+				   <button class="file-button" (click)="saveAsFile()">Save As</button>
+				   <input (change)="selectFile($event)" type="file" id="file" />
+				   <label for="file" class="btn-2">Choose File</label>
+				   <input type="file" value="" name="fileup" id="fileup"><br><br>
+                    <progress [value]=progress.loaded  [max]=progress.total></progress>
+                    <br><br>
+				</div>
+				<button [disabled]="progress.disabled" type="submit" class="btn btn-secondary" id="submitbtn">Submit</button>
+	</form>
+    </div>
+    </div>
+</div>
+

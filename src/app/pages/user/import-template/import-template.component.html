@@ -1,0 +1,25 @@
+<div class="center">
+	<div class="row">
+		<div class="col-md-12">
+			<h1 style="margin-bottom:15px;font-size:35px;">Custom Template Upload</h1>
+			<p style="margin-bottom: 30px;">In this section, submit is allowed only in case the user uploads a valid file.</p>
+		</div>
+	</div>
+	
+    <div class="row">
+	<div class="col-8 offset-2">
+	<form name="upload" method="post" action="#" enctype="multipart/form-data" accept-charset="utf-8">
+				<div class="btn-container"><h1 class="imgupload"><i class="fa fa-file-image-o"></i></h1>
+					<p id="namefile">Only template allowed! (html)</p>
+                    <input (change)="selectFile($event)" type="file" id="file" />
+                    <label for="file" class="btn-2">Choose File</label>
+					<input type="file" value="" name="fileup" id="fileup"><br><br>
+                    <progress [value]=progress.loaded  [max]=progress.total></progress>
+                    <br><br>
+				</div>
+				<button [disabled]="progress.disabled" (click)="uploadFile()" type="submit" class="btn btn-secondary" id="submitbtn">Submit</button>
+	</form>
+    </div>
+    </div>
+</div>
+

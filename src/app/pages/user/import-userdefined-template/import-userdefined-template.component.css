@@ -1,0 +1,111 @@
+.container{
+    background-color:#1E2832;
+    }
+    .center{
+    text-align:center;  
+    background-color: white;
+    padding-top: 30px;
+    margin-top: -30px;
+    margin-bottom: 15px;
+    }
+    .btn-container{
+    background:white;
+    border-radius:5px;
+    padding-bottom:20px;
+    margin-bottom:20px;
+    box-shadow: 0 0 15px 0 black;
+    }
+    .imgupload{
+    color:#1E2832;
+    padding-top:40px;
+    font-size:7em;
+    }
+    #submitbtn{
+        margin-bottom: 30px;
+        margin-top: 17px;
+        padding:5px 40px;
+    }
+[type=file] {
+  height: 0;
+  overflow: hidden;
+  width: 0;
+}
+[type=file] + label {
+  background: #f15d22;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Rubik", sans-serif;
+  font-size: inherit;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  outline: none;
+  padding: 1rem 50px;
+  position: relative;
+  transition: all 0.3s;
+  vertical-align: middle;
+}
+[type=file] + label.btn-2 {
+  font-weight: bold;
+  color: dodgerblue;
+  padding: 0.5em;
+  border: thin solid grey;
+  border-radius: 3px;
+  background-color: rgb(237, 237, 237);
+}
+.btn-2{
+    margin-top: 13px;
+}
+
+progress[value] {
+  -webkit-appearance: none;
+   appearance: none;
+}
+progress[value]::-webkit-progress-bar {
+  background-color: #eee;
+  border-radius: 2px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+}
+progress[value]::-webkit-progress-value {
+  background-image:
+	   -webkit-linear-gradient(-45deg, 
+	                           transparent 33%, rgba(0, 0, 0, .1) 33%, 
+	                           rgba(0,0, 0, .1) 66%, transparent 66%),
+	   -webkit-linear-gradient(top, 
+	                           rgba(255, 255, 255, .25), 
+	                           rgba(0, 0, 0, .25)),
+	   -webkit-linear-gradient(left, #09c, #f44);
+
+    border-radius: 2px; 
+    background-size: 35px 20px, 100% 100%, 100% 100%;
+}
+@-webkit-keyframes animate-stripes {
+  100% { background-position: -100px 0px; }
+}
+
+@keyframes animate-stripes {
+  100% { background-position: -100px 0px; }
+}
+progress:after {
+  content: attr(value)'%';
+}
+.file-button{
+  outline: none;
+  cursor: pointer;
+  border: 1px solid #55c2da;
+  border-radius: 5px;
+  background: #55c2da;
+  color: #fff;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 5px 20px;
+}
+.file-button:hover{
+  background: #9bddec;
+  border: 1px solid #9bddec;
+}
+

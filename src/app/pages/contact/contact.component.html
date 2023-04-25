@@ -1,0 +1,50 @@
+
+<section class="myform-area">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="form-area">
+                    <!-- <div class="form-content">
+                        <h2>Contact</h2>
+                        <p>The social Contact button is a simple way to trigger the Facebook Contact process and Twitter Contact process on your website or web app.</p>
+                        <ul>
+                            <li><a href="#" class="facebook"><i class="fab fa-facebook-f"></i><span>facebook</span></a></li>
+                            <li><a href="#" class="twitter"><i class="fab fa-twitter"></i><span>twitter</span></a></li>
+                        </ul>
+                    </div> -->
+                    <div class="form-input">
+                        <h2>Contact Us</h2>
+                        <form (ngSubmit)="formSubmit()">
+                            <div class="form-group">
+                                <input type="text" [(ngModel)]="user.fullName"  id="fullName" name="fullName" required>
+                                <label>Full Name</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" [(ngModel)]="user.email"  id="email" name="email" required>
+                                <label>E-mail</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" [(ngModel)]="user.contactnumber"  id="contactnumber" name="contactnumber" required>
+                                <label>Contact Number</label>
+                            </div>
+                            <div class="form-group">
+                                <textarea type="text" [(ngModel)]="user.message"  id="message" name="message" required></textarea>
+                                <label>Message</label>
+                            </div>
+  
+                            <br>
+                            <br>
+                            <label>
+                                <input style="width: 15px;height: 15px;"  type="checkbox" checked="checked" name="remember"> I agree to the <a style="color: rgba(103,58,183);" routerLink="login">Terms & Conditions</a>
+                            </label>
+  
+                            <div class="myform-button">
+                                <button type="submit" class="myform-btn">Send</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>

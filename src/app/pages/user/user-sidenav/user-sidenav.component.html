@@ -1,0 +1,16 @@
+<ul class="nav flex-column sticky-top pl-0 pt-5 mt-3">
+    <h1>Content</h1>
+    <li class="nav-item"><a class="nav-link" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active" routerLink="/user-dashboard/{{user.id}}"><span class="icon"><i class="fas fa-chart-line"></i></span><span class="item">Overview</span></a></li>
+    <li class="nav-item">
+        <a class="nav-link" href="#submenu1" data-toggle="collapse" data-target="#submenu1"><span class="icon"><i class="fas fa-flag-checkered"></i></span><span class="item">Reports▾</span></a>
+        <ul class="list-unstyled flex-column pl-3 collapse" id="submenu1" aria-expanded="false">
+           <li class="nav-item"><a class="nav-link" href="">Report 1</a></li>
+           <li class="nav-item"><a class="nav-link" href="">Report 2</a></li>
+        </ul>
+    </li>
+    <li class="nav-item"><a routerLinkActive="active" class="nav-link" routerLink="/user-dashboard/{{user.id}}/export-template"><span class="icon"><i class="fas fa-file-export"></i></span><span class="item">Export</span></a></li>
+    <li class="nav-item"><a routerLinkActive="active" routerLink="/user-dashboard/{{user.id}}/import-template" class="nav-link"><span class="icon"><i class="fas fa-upload"></i></span><span class="item">Import</span></a></li>
+    <li class="nav-item"><a class="nav-link" routerLinkActive="active" routerLink="/user-dashboard/{{user.id}}/show-template"><span class="icon"><i class="fas fa-layer-group"></i></span><span class="item">Layouts</span></a></li>
+    <li class="nav-item"><a class="nav-link" routerLinkActive="active" routerLink="/user-dashboard/{{user.id}}/import-userdefined-template"><span class="icon"><i class="fas fa-upload"></i></span><span class="item">Templates</span></a></li>
+    <li class="nav-item"><a class="nav-link" href="#"><span class="icon"><i class="fab fa-themeco"></i></span><span class="item">Themes</span></a></li>
+</ul>
