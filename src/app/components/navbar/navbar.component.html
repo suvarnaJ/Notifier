@@ -6,13 +6,13 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto">
-                    <a style="margin-right:4px;margin-top:1px;" routerLink="/" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active" class="nav-item nav-link">Home</a>
-					<a style="margin-right:4px;margin-top:1px;" [routerLink]="'about'" routerLinkActive="active" class="nav-item nav-link">About</a>
-                    <a style="margin-right:4px;margin-top:1px;" *ngIf="!isLoggedIn" [routerLink]="'login'" routerLinkActive="active" class="nav-item nav-link">Login</a>
-                    <a style="margin-right:4px;margin-top:1px;" *ngIf="!isLoggedIn" [routerLink]="'signup'" routerLinkActive="active" class="nav-item nav-link">SignUp</a>
-					<a style="margin-right:4px;margin-top:1px;" routerLink="/user-dashboard/{{user.id}}" *ngIf="loginService.isLoggedIn && user" routerLinkActive="active" class="nav-item nav-link">{{ user.firstName+" "+user.lastName }}</a>
-					<a style="cursor: pointer;" (click)="logout()" *ngIf="isLoggedIn" routerLinkActive="active" class="nav-item nav-link">Logout</a>
-                    <a *ngIf="!isLoggedIn" [routerLink]="'contact'" routerLinkActive="active" class="nav-item nav-link" tabindex="-1">Contact</a>
+                    <a style="margin-right:4px;margin-top:1px;" routerLink="/" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active" class="nav-item nav-link"><i class="fas fa-home"></i>&nbsp;Home</a>
+					<a style="margin-right:4px;margin-top:1px;" [routerLink]="'about'" routerLinkActive="active" class="nav-item nav-link"><i class="fas fa-address-card"></i>&nbsp;About</a>
+                    <a style="margin-right:4px;margin-top:1px;" *ngIf="!isLoggedIn" [routerLink]="'login'" routerLinkActive="active" class="nav-item nav-link"><i class="fas fa-sign-in-alt"></i>&nbsp;Login</a>
+                    <a style="margin-right:4px;margin-top:1px;" *ngIf="!isLoggedIn" [routerLink]="'signup'" routerLinkActive="active" class="nav-item nav-link"><i class="fas fa-user-plus"></i>&nbsp;SignUp</a>
+					<a style="margin-right:4px;margin-top:1px;" routerLink="/user-dashboard/{{user.id}}" *ngIf="loginService.isLoggedIn && user" routerLinkActive="active" class="nav-item nav-link"><i class="fas fa-user"></i>&nbsp;{{ user.firstName+" "+user.lastName }}</a>
+					<a style="cursor: pointer;" (click)="logout()" *ngIf="isLoggedIn" routerLinkActive="active" class="nav-item nav-link"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a>
+                    <a *ngIf="!isLoggedIn" [routerLink]="'contact'" routerLinkActive="active" class="nav-item nav-link" tabindex="-1"><i class="fas fa-id-card-alt"></i>&nbsp;Contact</a>
                 </div>
             </div>
         </div>

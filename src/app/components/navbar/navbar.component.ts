@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatSidenav} from '@angular/material/sidenav';
 import { LoginService } from 'src/app/services/login.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
