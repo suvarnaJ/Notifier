@@ -3,14 +3,25 @@ package com.java.centralizedNotificationBackend.controller;
 import com.java.centralizedNotificationBackend.entities.Role;
 import com.java.centralizedNotificationBackend.entities.User;
 import com.java.centralizedNotificationBackend.entities.UserRole;
+import com.java.centralizedNotificationBackend.entities.UserTemplates;
+import com.java.centralizedNotificationBackend.helper.FileUploadHelper;
+import com.java.centralizedNotificationBackend.payload.ErrorResponse;
+import com.java.centralizedNotificationBackend.payload.SuccessResponse;
+import com.java.centralizedNotificationBackend.repository.UserTemplateRepository;
 import com.java.centralizedNotificationBackend.services.UserService;
+import com.java.centralizedNotificationBackend.services.UserTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -23,6 +34,15 @@ public class UserController {
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    FileUploadHelper fileUploadHelper;
+
+    @Autowired
+    private UserTemplateService userTemplateService;
+
+    @Autowired
+    private UserTemplateRepository userTemplateRepository;
 
     //creating user
     @PostMapping("/")
@@ -52,6 +72,94 @@ public class UserController {
             return response;
         }
     }
+
+    @PostMapping("/{userId}/upload-file")
+    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file,@PathVariable("userId") Long userId){
+        try {
+            if (file.isEmpty()) {
+                return ErrorResponse.errorHandler(HttpStatus.INTERNAL_SERVER_ERROR,true,"Request must contain file");
+            }
+            if (!file.getContentType().equals("text/html")) {
+                return ErrorResponse.errorHandler(HttpStatus.INTERNAL_SERVER_ERROR,true,"Only HTML content are allowed");
+            }
+            boolean f = fileUploadHelper.uploadFile(file);
+            if(f){
+                UserTemplates userTemplates = new UserTemplates();
+                UserTemplates userTemplateByUserTemplate = userTemplateRepository.getUserTemplateByUserTemplate(file.getOriginalFilename());
+                if(userTemplateByUserTemplate==null){
+                    userTemplates.setUserTemplate(file.getOriginalFilename());
+                    User user = this.userService.getUserById(userId);
+                    userTemplates.setUser(user);
+                    this.userTemplateService.createUserTemplate(userTemplates);
+                    return SuccessResponse.successHandler(HttpStatus.OK,false,"File uploaded successfully",null);
+                }else{
+                    userTemplateService.updateUserTemplate(userTemplateByUserTemplate.getId(), userTemplateByUserTemplate);
+                    return SuccessResponse.successHandler(HttpStatus.OK,false,"File uploaded successfully",null);
+                }
+            }
+        }catch (Exception ex){
+            return ErrorResponse.errorHandler(HttpStatus.INTERNAL_SERVER_ERROR,true,ex.getMessage());
+        }
+        return ErrorResponse.errorHandler(HttpStatus.INTERNAL_SERVER_ERROR,true,"Something went wrong ! Try again");
+    }
+
+
+    @GetMapping("/{userId}/get-all-templates")
+    public ResponseEntity<?> getUserTemplatesByUser(@PathVariable("userId") Long userId,@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size){
+        try{
+            Pageable pageable = PageRequest.of(page,size);
+            Page<UserTemplates> userTemplatesList = this.userTemplateRepository.findUserTemplatesByUser(userId,pageable);
+            return SuccessResponse.successHandler(HttpStatus.OK,false,"Templates fetched successfully",userTemplatesList);
+        }catch (Exception ex){
+            return ErrorResponse.errorHandler(HttpStatus.INTERNAL_SERVER_ERROR,true,ex.getMessage());
+        }
+    }
+
+    @GetMapping("/{userId}/get-single-template/{templateId}")
+    public ResponseEntity<?> getUserTemplateByTemplateId(@PathVariable("userId") Long userId,@PathVariable("templateId") Long templateId){
+        try{
+            UserTemplates userTemplate = this.userTemplateService.getUserTemplateById(templateId);
+            return SuccessResponse.successHandler(HttpStatus.OK,false,"Templates fetched successfully",userTemplate);
+        }catch (Exception ex){
+            return ErrorResponse.errorHandler(HttpStatus.INTERNAL_SERVER_ERROR,true,ex.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{userId}/delete-single-template/{templateId}")
+    public ResponseEntity<?> deleteUserTemplateByTemplateId(@PathVariable("userId") Long userId,@PathVariable("templateId") Long templateId){
+        try{
+            UserTemplates userTemplateById = this.userTemplateService.getUserTemplateById(templateId);
+            if(userId.equals(userTemplateById.getUser().getId())){
+                this.userTemplateService.deleteUserTemplate(templateId);
+                return SuccessResponse.successHandler(HttpStatus.OK,false,"Templates deleted successfully",null);
+            }else{
+                return ErrorResponse.errorHandler(HttpStatus.INTERNAL_SERVER_ERROR,true,"User not found");
+            }
+        }catch (Exception ex){
+            return ErrorResponse.errorHandler(HttpStatus.INTERNAL_SERVER_ERROR,true,ex.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{userId}/delete-all-templates")
+    public ResponseEntity<?> deleteAllUserTemplates(@PathVariable("userId") Long userId){
+        try{
+            this.userTemplateService.deleteAllUserTemplate();
+            return SuccessResponse.successHandler(HttpStatus.OK,false,"Templates deleted successfully",null);
+        }catch (Exception ex){
+            return ErrorResponse.errorHandler(HttpStatus.INTERNAL_SERVER_ERROR,true,ex.getMessage());
+        }
+    }
+
+    @GetMapping("/{userId}/export-file/{fileName}")
+    public ResponseEntity<?> exportFile(@PathVariable("fileName") String fileName){
+        try{
+            String fileContent = fileUploadHelper.load(fileName);
+            return SuccessResponse.successHandler(HttpStatus.OK,false,"Templates fetched successfully",fileContent);
+        }catch (Exception ex){
+            return ErrorResponse.errorHandler(HttpStatus.INTERNAL_SERVER_ERROR,true,ex.getMessage());
+        }
+    }
+
 
     //get user by username
     @GetMapping("/{username}")

@@ -34,6 +34,10 @@ public class User implements UserDetails {
     @JsonIgnore
     private Set<UserRole> userRoles=new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "user")
+    @JsonIgnore
+    private Set<UserTemplates> userTemplates=new HashSet<>();
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
