@@ -13,7 +13,8 @@ import java.nio.file.Path;
 @Component
 public class FileUploadHelper {
 
-    public final String UPLOAD_DIR="C:\\Users\\SHARMAMU\\Desktop\\CentralizedNotificationEngine\\CentralizedNotificationEngineBackend\\target\\classes\\static\\file";
+
+    public final String UPLOAD_DIR="target\\classes\\static\\file";
 
     public boolean uploadFile(MultipartFile multipartFile){
         boolean f = false;
@@ -37,7 +38,7 @@ public class FileUploadHelper {
 
     public String load(String filename) throws IOException {
         try {
-            File file = ResourceUtils.getFile("classpath:static/file/"+filename);
+            File file = ResourceUtils.getFile("target/classes/static/file/"+filename);
             String content = new String(Files.readAllBytes(file.toPath()));
             return content;
         } catch (MalformedURLException e) {

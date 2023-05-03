@@ -5,6 +5,7 @@ import com.java.centralizedNotificationBackend.entities.JwtRequest;
 import com.java.centralizedNotificationBackend.entities.JwtResponse;
 import com.java.centralizedNotificationBackend.entities.User;
 import com.java.centralizedNotificationBackend.services.Impl.UserDetailsServiceImpl;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Date;
 
 @RestController
 @CrossOrigin("*")
@@ -41,7 +43,9 @@ public class AuthenticateController {
         }
         UserDetails userDetails=this.userDetailsService.loadUserByUsername(jwtRequest.getUsername());
         String token = this.jwtUtils.generateToken(userDetails);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(new JwtResponse(token));
+        Claims claims = this.jwtUtils.extractAllClaims(token);
+        Date expiration = claims.getExpiration();
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(new JwtResponse(token,expiration));
     }
 
     private void authenticate(String username,String password) throws Exception {

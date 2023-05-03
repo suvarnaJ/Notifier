@@ -44,10 +44,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             }catch (ExpiredJwtException e){
                 e.printStackTrace();
-                System.out.println("jwt token has expired");
+                throw new Error("jwt token has expired");
             } catch (Exception e){
                 e.printStackTrace();
-                System.out.println("error");
+                throw new Error(e.getMessage());
             }
         }else{
             System.out.println("Invalid token , not start with bearer string");

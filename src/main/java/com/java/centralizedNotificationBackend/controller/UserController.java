@@ -1,5 +1,6 @@
 package com.java.centralizedNotificationBackend.controller;
 
+import com.java.centralizedNotificationBackend.config.JwtUtils;
 import com.java.centralizedNotificationBackend.entities.Role;
 import com.java.centralizedNotificationBackend.entities.User;
 import com.java.centralizedNotificationBackend.entities.UserRole;
@@ -10,6 +11,8 @@ import com.java.centralizedNotificationBackend.payload.SuccessResponse;
 import com.java.centralizedNotificationBackend.repository.UserTemplateRepository;
 import com.java.centralizedNotificationBackend.services.UserService;
 import com.java.centralizedNotificationBackend.services.UserTemplateService;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -20,8 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -43,6 +46,9 @@ public class UserController {
 
     @Autowired
     private UserTemplateRepository userTemplateRepository;
+
+    @Autowired
+    private JwtUtils jwtUtil;
 
     //creating user
     @PostMapping("/")
@@ -171,5 +177,17 @@ public class UserController {
     @DeleteMapping("/{userId}")
     public void deleteUser(@PathVariable("userId") Long userId) {
         this.userService.deleteUser(userId);
+    }
+
+    //delete the user by id
+    @GetMapping("/expireTokenStatus")
+    public ResponseEntity<?> expireTokenStatus(@RequestParam("token") String token) {
+        try {
+            Claims claims = jwtUtil.extractAllClaims(token);
+            Date expiration = claims.getExpiration();
+            return SuccessResponse.successHandler(HttpStatus.OK, false, "Claimed fetched successfully", expiration);
+        }catch (ExpiredJwtException ex){
+            return ErrorResponse.errorHandler(HttpStatus.UNAUTHORIZED,true,ex.getMessage());
+        }
     }
 }

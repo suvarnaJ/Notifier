@@ -10,7 +10,7 @@ public class ErrorResponse {
 
     public static ResponseEntity<?> errorHandler(HttpStatus status, boolean error, String message){
         Map map = new HashMap<String,Object>();
-        map.put("status",status);
+        map.put("status",status.value());
         map.put("error",error);
         map.put("message",message);
         return new ResponseEntity<Object>(map,status);

@@ -2,6 +2,8 @@ package com.java.centralizedNotificationBackend.entities;
 
 import lombok.*;
 
+import java.util.Date;
+
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
@@ -10,4 +12,6 @@ import lombok.*;
 public class JwtResponse {
 
     String token;
+
+    Date tokenExpiry;
 }
