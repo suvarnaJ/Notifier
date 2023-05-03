@@ -3,3 +3,22 @@
 <router-outlet></router-outlet>
 </div>
 <app-footer></app-footer>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" bsModal #childModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="exampleModalLabel">Your Session is About to Expire!</h1>
+        </div>
+        <div class="modal-body">
+            <p>Your session is about to expire.</p>
+            <p>Redirecting in {{idleState}} seconds.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="logout()" class="btn btn-secondary">Logout</button>
+          <button type="button" (click)="stay()" class="btn btn-primary">Stay Connected</button>
+        </div>
+      </div>
+    </div>
+  </div>

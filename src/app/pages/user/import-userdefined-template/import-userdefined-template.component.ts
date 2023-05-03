@@ -21,6 +21,7 @@ export class ImportUserdefinedTemplateComponent implements OnInit {
   progress = { loaded : 0 , total : 0, disabled:true };
   htmlContent = '';
   file:any;
+  date = new Date();
   config: AngularEditorConfig = {
     editable: true,
       spellcheck: true,
@@ -67,7 +68,7 @@ formSubmit(){
   if(!(this.file.type=="text/html")){
     Swal.fire({
       icon: 'error',
-      title: 'Error !!',
+      title: 'Something went wrong',
       text: "Only HTML content are allowed",
     });
   }else{
@@ -92,7 +93,10 @@ formSubmit(){
           })
           this.progress.disabled=true;
           setTimeout(() => {
-            window.location.reload();
+            if(this.progress.loaded==100 && this.progress.total==100){
+              this.progress.loaded = 0;
+              this.progress.total = 0;
+            }
           }, 4000);
     },
     (error)=>{
@@ -100,7 +104,7 @@ formSubmit(){
       this.progress.total = 100;
       Swal.fire({
         icon: 'error',
-        title: 'Error !!',
+        title: 'Something went wrong',
         text: error.error.message,
       });
     });
@@ -118,6 +122,7 @@ writeContents(content:any, fileName:any, contentType:any) {
 
 selectFile(event:any){
   this.file = event.target.files[0];
+  event.target.value="";
   this.progress.loaded=50;
   this.progress.total=100;
   this.progress.disabled=false;
@@ -131,7 +136,7 @@ saveAsFile(){
       text: "Field can't be null",
     });
   }else{
-    this.writeContents(this.htmlContent, 'User_Defined'+'.html', 'text/html');
+    this.writeContents(this.htmlContent, `Template_${this.date.getTime()}`+'.html', 'text/html');
   }
 }
 

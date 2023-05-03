@@ -27,7 +27,7 @@ export class SignupComponent {
     if(this.user.firstName == '' || this.user.firstName == null){
      Swal.fire({
        icon: 'error',
-       title: 'Error !!',
+       title: 'Something went wrong',
        text: 'firstName is required !!'
      });
       return;
@@ -51,7 +51,7 @@ export class SignupComponent {
         console.log(error);
         Swal.fire({
          icon: 'error',
-         title: 'Error !!',
+         title: 'Something went wrong',
          text: error.error
          
        });

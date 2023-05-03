@@ -25,7 +25,7 @@ export class LoginComponent {
     if(this.loginData.username.trim()=='' || this.loginData.username==null){
       Swal.fire({
         icon: 'error',
-        title: 'Error !!',
+        title: 'Something went wrong',
         text: 'Email is required !!'
       });
        return;
@@ -34,7 +34,7 @@ export class LoginComponent {
     if(this.loginData.password.trim()=='' || this.loginData.password==null){
       Swal.fire({
         icon: 'error',
-        title: 'Error !!',
+        title: 'Something went wrong',
         text: 'Password is required !!'
       });
        return;
@@ -43,8 +43,7 @@ export class LoginComponent {
     //request to server to generate token
     this.loginService.generateToken(this.loginData).subscribe(
       (data:any)=>{
-        console.log('Success');
-        console.log(data);
+        console.log(new Date(data.tokenExpiry));
 
         this.loginService.loginUser(data.token);
 
@@ -84,7 +83,7 @@ export class LoginComponent {
         console.log(error);
         Swal.fire({
           icon: 'error',
-          title: 'Error !!',
+          title: 'Something went wrong',
           text: 'Invalid Details !! Try Again'
         });
       }

@@ -25,6 +25,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { ShowTemplateComponent } from './pages/user/show-template/show-template.component';
 import { ImportUserdefinedTemplateComponent } from './pages/user/import-userdefined-template/import-userdefined-template.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     HttpClientModule,
     CommonModule,
     NgxPaginationModule,
-    AngularEditorModule
+    AngularEditorModule,
+    NgIdleKeepaliveModule.forRoot(),
+    ModalModule.forRoot()
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

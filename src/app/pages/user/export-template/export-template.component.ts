@@ -44,6 +44,7 @@ export class ExportTemplateComponent implements OnInit {
       this.templatesData = payload.data;
       this.pagingConfig.totalItems = this.templatesData.totalElements;
     },error=>{
+      console.log(error);
       Swal.fire({
         icon: 'error',
         title: 'Something went wrong',

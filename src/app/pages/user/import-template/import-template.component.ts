@@ -23,6 +23,7 @@ export class ImportTemplateComponent implements OnInit {
 
   selectFile(event:any){
     this.file = event.target.files[0];
+    event.target.value="";
     this.progress.loaded=50;
     this.progress.total=100;
     this.progress.disabled=false;
@@ -60,7 +61,10 @@ export class ImportTemplateComponent implements OnInit {
             })
             this.progress.disabled=true;
             setTimeout(() => {
-              window.location.reload();
+              if(this.progress.loaded==100 && this.progress.total==100){
+                this.progress.loaded = 0;
+                this.progress.total = 0;
+              }
             }, 4000);
       },
       (error)=>{
@@ -68,7 +72,7 @@ export class ImportTemplateComponent implements OnInit {
         this.progress.total = 100;
         Swal.fire({
           icon: 'error',
-          title: 'Error !!',
+          title: 'Something went wrong',
           text: error.error.message,
         });
       });

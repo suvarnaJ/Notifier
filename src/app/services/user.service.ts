@@ -43,4 +43,12 @@ export class UserService {
    public exportTemplate(userId:any,templateName:any){
     return this.http.get(`${baseUrl}/user/${userId}/export-file/${templateName}`);
  }
+
+  //Get tokenStatus
+  public getTokenStatus(){
+    let params = new HttpParams();
+    let tokenStr:any = localStorage.getItem('token');
+    params = params.append('token',tokenStr);
+      return this.http.get(`${baseUrl}/user/expireTokenStatus`,{params: params});
+   }
 }

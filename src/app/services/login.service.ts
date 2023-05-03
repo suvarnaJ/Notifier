@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import baseUrl from './helper';
-import { Subject } from 'rxjs';
+import { Subject,Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -70,6 +70,14 @@ export class LoginService {
   public getUserRole(){
     let user = this.getUser();
     return user.authorities[0].authority;
+  }
+
+  getUserLoggedIn(): Observable<boolean> {
+    return this.loginStatusSubject.asObservable();
+  }
+
+  setUserLoggedIn(userLoggedIn: boolean) {
+    this.loginStatusSubject.next(userLoggedIn);
   }
 
 }
