@@ -29,6 +29,7 @@ public class User implements UserDetails {
     private String phone;
     private boolean enabled = true;
     private String companyName;
+    private boolean termsAndConditions;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "user")
     @JsonIgnore
