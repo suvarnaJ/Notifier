@@ -14,32 +14,76 @@
                     </div> -->
                     <div class="form-input">
                         <h2>Contact Us</h2>
-                        <form (ngSubmit)="formSubmit()">
+                        <form [formGroup]="userForm" (ngSubmit) = "onSubmit(userForm.value)">
                             <div class="form-group">
-                                <input type="text" [(ngModel)]="user.fullName"  id="fullName" name="fullName" required>
-                                <label>Full Name</label>
+                                <input  [ngStyle]="{'border-bottom':f['fullName'].invalid && (f['fullName'].dirty || f['fullName'].touched) ? '2px solid red' : ''}" type="text" formControlName="fullName" id="fullName" name="fullName" minlength="4" maxlength="20" required [ngClass]="{ 'is-invalid':  submitted || (f['fullName'].touched || f['fullName'].dirty) && f['fullName'].errors}">
+                                <label [ngStyle]="{'opacity':f['fullName'].invalid && f['fullName'].value && (f['fullName'].dirty || f['fullName'].touched) ? '0' : ''}">Full Name</label>
+                                <div *ngIf=" submitted || f['fullName'].invalid && (f['fullName'].dirty || f['fullName'].touched)" class="invalid-feedback">
+                                    <div *ngIf="f['fullName'].errors?.['required']">
+                                      Full Name is required
+                                    </div>
+                                    <div *ngIf="f['fullName'].errors?.['minlength']">
+                                      Full Name must have at least 4 characters
+                                    </div>
+                                    <div *ngIf="f['fullName'].errors?.['maxlength']">
+                                      Full Name must have at most 20 characters
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <input type="email" [(ngModel)]="user.email"  id="email" name="email" required>
-                                <label>E-mail</label>
+                                <input [ngStyle]="{'border-bottom':f['email'].invalid && (f['email'].dirty || f['email'].touched) ? '2px solid red' : ''}" type="email" formControlName="email" id="email" name="email" required [ngClass]="{ 'is-invalid':  submitted || (f['email'].touched || f['email'].dirty) && f['email'].errors}">
+                                <label [ngStyle]="{'opacity':f['email'].invalid && f['email'].value && (f['email'].dirty || f['email'].touched) ? '0' : ''}">E-mail</label>
+                                <div *ngIf=" submitted || f['email'].invalid && (f['email'].dirty || f['email'].touched)" class="invalid-feedback">
+                                    <div *ngIf="f['email'].errors?.['required']">
+                                      Email is required
+                                    </div>
+                                    <div *ngIf="f['email'].errors?.['email']">
+                                      Email must be a valid email address
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <input type="number" [(ngModel)]="user.contactnumber"  id="contactnumber" name="contactnumber" required>
-                                <label>Contact Number</label>
+                                <input [ngStyle]="{'border-bottom':f['contactnumber'].invalid && (f['contactnumber'].dirty || f['contactnumber'].touched) ? '2px solid red' : ''}" type="text" formControlName="contactnumber" id="contactnumber" name="contactnumber" required [ngClass]="{ 'is-invalid':  submitted || (f['contactnumber'].touched || f['contactnumber'].dirty) && f['contactnumber'].errors}">
+                                <label [ngStyle]="{'opacity':f['contactnumber'].invalid && f['contactnumber'].value && (f['contactnumber'].dirty || f['contactnumber'].touched) ? '0' : ''}">Contact Number</label>
+                                <div *ngIf=" submitted || f['contactnumber'].invalid && (f['contactnumber'].dirty || f['contactnumber'].touched)" class="invalid-feedback">
+                                    <div *ngIf="f['contactnumber'].errors?.['required']">
+                                      Phone Number is required
+                                    </div>
+                                    <div *ngIf="f['contactnumber'].errors?.['pattern']">
+                                      Phone Number must be a valid phone number
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <textarea type="text" [(ngModel)]="user.message"  id="message" name="message" required></textarea>
-                                <label>Message</label>
+                                <textarea [ngStyle]="{'border-bottom':f['message'].invalid && (f['message'].dirty || f['message'].touched) ? '2px solid red' : ''}" type="text" formControlName="message" id="message" name="message" minlength="20" maxlength="200" required [ngClass]="{ 'is-invalid':  submitted || (f['message'].touched || f['message'].dirty) && f['message'].errors}"></textarea>
+                                <label [ngStyle]="{'opacity':f['message'].invalid && f['message'].value && (f['message'].dirty || f['message'].touched) ? '0' : ''}">Message</label>
+                                <div *ngIf=" submitted || f['message'].invalid && (f['message'].dirty || f['message'].touched)" class="invalid-feedback">
+                                    <div *ngIf="f['message'].errors?.['required']">
+                                      Message is required
+                                    </div>
+                                    <div *ngIf="f['message'].errors?.['minlength']">
+                                      Message must have at least 20 characters
+                                    </div>
+                                    <div *ngIf="f['message'].errors?.['maxlength']">
+                                      Message must have at most 200 characters
+                                    </div>
+                                </div>
                             </div>
   
                             <br>
                             <br>
-                            <label>
-                                <input style="width: 15px;height: 15px;"  type="checkbox" checked="checked" name="remember"> I agree to the <a style="color: rgba(103,58,183);" routerLink="login">Terms & Conditions</a>
-                            </label>
+                           
+                            <div style="padding-left: 0px;" class="form-group form-check">
+                                <input formControlName="termsAndConditions" required style="width: 15px;height: 15px;" [ngClass]="{ 'is-invalid':  submitted || (f['termsAndConditions'].touched || f['termsAndConditions'].dirty) && f['termsAndConditions'].errors}"  type="checkbox" checked="checked" name="termsAndConditions" id="termsAndConditions"> I agree to the <a style="color: rgba(103,58,183);" routerLink="login">Terms & Conditions</a>
+                                <div *ngIf="submitted || f['termsAndConditions'].invalid && (f['termsAndConditions'].dirty || f['termsAndConditions'].touched)" class="invalid-feedback">
+                                    <div *ngIf="f['termsAndConditions'].errors?.['required']">
+                                        Accept Ts & Cs is required
+                                    </div>
+                                </div>
+                            </div>
   
                             <div class="myform-button">
-                                <button type="submit" class="myform-btn">Send</button>
+                                <button [ngStyle]="!userForm.valid ? {background: 'lightgrey', cursor: 'no-drop'} : {}" [disabled]="!userForm.valid" type="submit" class="myform-btn">Send</button>
                             </div>
                         </form>
                     </div>

@@ -14,17 +14,33 @@
                     </div> -->
                     <div class="form-input">
                         <h2>Login Form</h2>
-                        <form (ngSubmit)="formSubmit()">
+                        <form [formGroup]="userForm" (ngSubmit) = "onSubmit(userForm.value)">
                             <div class="form-group">
-                                <input type="text" [(ngModel)]="loginData.username"  id="username" name="username" required>
-                                <label>User Name</label>
+                                <input [ngStyle]="{'border-bottom':f['username'].invalid && (f['username'].dirty || f['username'].touched) ? '2px solid red' : ''}" type="text" formControlName="username"  id="username" name="username" [ngClass]="{ 'is-invalid':  submitted || (f['username'].touched || f['username'].dirty) && f['username'].errors}" required>
+                                <label [ngStyle]="{'opacity':f['username'].invalid && f['username'].value && (f['username'].dirty || f['username'].touched) ? '0' : ''}">Email</label>
+                                <div *ngIf=" submitted || f['username'].invalid && (f['username'].dirty || f['username'].touched)" class="invalid-feedback">
+                                    <div *ngIf="f['username'].errors?.['required']">
+                                      Email is required
+                                    </div>
+                                    <div *ngIf="f['username'].errors?.['email']">
+                                      Email must be a valid email address
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <input type="password" [(ngModel)]="loginData.password" id="password" name="password" required>
-                                <label>password</label>
+                                <input [ngStyle]="{'border-bottom':f['password'].invalid && (f['password'].dirty || f['password'].touched) ? '2px solid red' : ''}" formControlName="password" type="password" formControlName="password" id="password" name="password" [ngClass]="{ 'is-invalid':  submitted || (f['password'].touched || f['password'].dirty) && f['password'].errors}" required>
+                                <label [ngStyle]="{'opacity':f['password'].invalid && f['password'].value && (f['password'].dirty || f['password'].touched) ? '0' : ''}">password</label>
+                                <div *ngIf=" submitted || f['password'].invalid && (f['password'].dirty || f['password'].touched)" class="invalid-feedback">
+                                    <div *ngIf="f['password'].errors?.['required']">
+                                      Password is required
+                                    </div>
+                                    <div *ngIf="f['password'].errors?.['pattern']">
+                                      Password must be a valid
+                                    </div>
+                                </div>
                             </div>
                             <div class="myform-button">
-                                <button type="submit" class="myform-btn">Login</button>
+                                <button [ngStyle]="!userForm.valid ? {background: 'lightgrey', cursor: 'no-drop'} : {}" [disabled]="!userForm.valid" type="submit" class="myform-btn">Login</button>
                             </div>
                             <br>
                             <a style="color: rgba(103,58,183);" class="reset-psw" href="#">Forgot your password?</a>

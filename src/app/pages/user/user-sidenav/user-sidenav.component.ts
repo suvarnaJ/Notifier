@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
   templateUrl: './user-sidenav.component.html',
   styleUrls: ['./user-sidenav.component.css']
 })
+
 export class UserSidenavComponent {
   
   user:any;

@@ -9,6 +9,7 @@ import { LoginService } from 'src/app/services/login.service';
   templateUrl: './show-template.component.html',
   styleUrls: ['./show-template.component.css'],
 })
+
 export class ShowTemplateComponent implements OnInit {
 
   templateData:any;

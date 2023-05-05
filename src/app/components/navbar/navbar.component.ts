@@ -8,11 +8,12 @@ import Swal from 'sweetalert2';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
+
 export class NavbarComponent implements OnInit {
 
   isLoggedIn = false;
   user:any;
-
+  
   constructor(public loginService:LoginService,private router:Router) { }
 
   ngOnInit() {

@@ -11,10 +11,10 @@ import Swal from 'sweetalert2';
   templateUrl: './import-userdefined-template.component.html',
   styleUrls: ['./import-userdefined-template.component.css']
 })
+
 export class ImportUserdefinedTemplateComponent implements OnInit {
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   constructor(private UserService:UserService,private router:Router,private http: HttpClient,private loginService:LoginService) { }
 
@@ -59,7 +59,6 @@ export class ImportUserdefinedTemplateComponent implements OnInit {
       },
     ],
 };
-
 
 formSubmit(){
   let formData=new FormData();

@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './export-template.component.html',
   styleUrls: ['./export-template.component.css']
 })
+
 export class ExportTemplateComponent implements OnInit {
 
   user:any;
@@ -53,9 +54,7 @@ export class ExportTemplateComponent implements OnInit {
     });
   }
 
-
   deleteFile(templateId:any){
-
     Swal.fire({
       icon: 'warning',
       title: 'Are you sure ?',
@@ -90,7 +89,6 @@ export class ExportTemplateComponent implements OnInit {
      }
     });
   }
-
 
   deleteAllFile(){
     Swal.fire({
@@ -128,7 +126,6 @@ export class ExportTemplateComponent implements OnInit {
     });
   }
 
-
 viewFile(userTemplate:any){
   this.userService.exportTemplate(this.user.id,userTemplate).subscribe((data:any)=>{
     this.templateData = data.data;
@@ -138,9 +135,9 @@ viewFile(userTemplate:any){
   }));
 }
 
-openWindow() {  
+openWindow(){  
   let newtab:any = window.open("", "anotherWindow", "width=auto,height=auto");  
   newtab.document.write(this.templateData);  
-  }  
+}  
 
 }

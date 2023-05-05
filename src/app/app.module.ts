@@ -27,6 +27,7 @@ import { ImportUserdefinedTemplateComponent } from './pages/user/import-userdefi
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     NgxPaginationModule,
     AngularEditorModule,
     NgIdleKeepaliveModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    ReactiveFormsModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
