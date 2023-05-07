@@ -28,6 +28,11 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ReactiveFormsModule } from '@angular/forms';
+import {
+  NgxUiLoaderModule,
+  NgxUiLoaderRouterModule,
+  NgxUiLoaderHttpModule
+} from 'ngx-ui-loader';
 
 @NgModule({
   declarations: [
@@ -60,7 +65,16 @@ import { ReactiveFormsModule } from '@angular/forms';
     AngularEditorModule,
     NgIdleKeepaliveModule.forRoot(),
     ModalModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxUiLoaderModule.forRoot({
+      text:"Please wait...",
+    }),
+    NgxUiLoaderRouterModule.forRoot({
+      showForeground:true,
+    }),
+    NgxUiLoaderHttpModule.forRoot({
+      showForeground:true,
+    }),
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
