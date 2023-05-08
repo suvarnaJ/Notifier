@@ -5,8 +5,52 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fcfc6f0d-54f7-4fab-b473-1a4fb061b542" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/helper/FileUploadHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/helper/FileUploadHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/.classpath" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/.project" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/.settings/org.eclipse.core.resources.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/.settings/org.eclipse.m2e.core.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/src/main/java/com/netsurfingzone/config/SpringKafkaConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/src/main/java/com/netsurfingzone/config/sample.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/src/main/java/com/netsurfingzone/constant/ApplicationConstant.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/src/main/java/com/netsurfingzone/consumer/KafkaConsumer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/src/main/java/com/netsurfingzone/dto/Body.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/src/main/java/com/netsurfingzone/dto/CcRecipient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/src/main/java/com/netsurfingzone/dto/EmailAddress.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/src/main/java/com/netsurfingzone/dto/Message.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/src/main/java/com/netsurfingzone/dto/Root.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/src/main/java/com/netsurfingzone/dto/Student.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/src/main/java/com/netsurfingzone/dto/ToRecipient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/src/main/java/com/netsurfingzone/main/SpringMain.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/src/main/java/com/netsurfingzone/producer/KafkaProducer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/target/classes/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/target/classes/com/netsurfingzone/config/SpringKafkaConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/target/classes/com/netsurfingzone/config/sample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/target/classes/com/netsurfingzone/constant/ApplicationConstant.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/target/classes/com/netsurfingzone/consumer/KafkaConsumer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/target/classes/com/netsurfingzone/dto/Body.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/target/classes/com/netsurfingzone/dto/CcRecipient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/target/classes/com/netsurfingzone/dto/EmailAddress.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/target/classes/com/netsurfingzone/dto/Message.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/target/classes/com/netsurfingzone/dto/Root.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/target/classes/com/netsurfingzone/dto/Student.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/target/classes/com/netsurfingzone/dto/ToRecipient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/target/classes/com/netsurfingzone/main/SpringMain.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/target/classes/com/netsurfingzone/producer/KafkaProducer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring-Boot-Kafka-Producer-and-Consumer-Example-master/target/spring-boot-kafka-json-message-example-0.0.1-SNAPSHOT.jar" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
