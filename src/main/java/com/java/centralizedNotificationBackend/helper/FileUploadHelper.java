@@ -14,7 +14,7 @@ import java.nio.file.Path;
 public class FileUploadHelper {
 
 
-    public final String UPLOAD_DIR="target\\classes\\static\\file";
+    public final String UPLOAD_DIR="src\\main\\resources\\static\\file";
 
     public boolean uploadFile(MultipartFile multipartFile){
         boolean f = false;
@@ -38,7 +38,7 @@ public class FileUploadHelper {
 
     public String load(String filename) throws IOException {
         try {
-            File file = ResourceUtils.getFile("target/classes/static/file/"+filename);
+            File file = ResourceUtils.getFile("src/main/resources/static/file/"+filename);
             String content = new String(Files.readAllBytes(file.toPath()));
             return content;
         } catch (MalformedURLException e) {
