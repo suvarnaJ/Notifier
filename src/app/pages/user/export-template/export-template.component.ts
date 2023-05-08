@@ -128,6 +128,7 @@ export class ExportTemplateComponent implements OnInit {
 
 viewFile(userTemplate:any){
   this.userService.exportTemplate(this.user.id,userTemplate).subscribe((data:any)=>{
+    console.log(data);
     this.templateData = data.data;
     this.openWindow();
   },(error=>{
