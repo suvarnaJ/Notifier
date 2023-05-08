@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fcfc6f0d-54f7-4fab-b473-1a4fb061b542" name="Default Changelist" comment="" />
+    <list default="true" id="fcfc6f0d-54f7-4fab-b473-1a4fb061b542" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/helper/FileUploadHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/helper/FileUploadHelper.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
