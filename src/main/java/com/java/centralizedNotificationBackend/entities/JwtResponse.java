@@ -12,6 +12,5 @@ import java.util.Date;
 public class JwtResponse {
 
     String token;
-
     Date tokenExpiry;
 }
