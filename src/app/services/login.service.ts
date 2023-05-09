@@ -19,7 +19,7 @@ export class LoginService {
 
   //Genearte a token
   public generateToken(loginData:any){
-    return this.http.post(`${baseUrl}/generate-token`,loginData);
+    return this.http.post(`${baseUrl}/login`,loginData);
   }
 
   //Login user: set token in localStorage

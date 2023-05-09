@@ -46,9 +46,8 @@ export class LoginComponent {
     }
        //request to server to generate token
        this.loginService.generateToken(user).subscribe(
-        (data: any) => {
-          console.log(new Date(data.tokenExpiry));
-          this.loginService.loginUser(data.token);
+        (response: any) => {
+          this.loginService.loginUser(response.data.token);
           this.loginService.getCurrentUser().subscribe(
             (user: any) => {
               this.loginService.setUser(user);
