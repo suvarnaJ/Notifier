@@ -30,6 +30,8 @@ public class User implements UserDetails {
     private boolean enabled = true;
     private String companyName;
     private boolean termsAndConditions;
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "user")
     @JsonIgnore
@@ -38,6 +40,10 @@ public class User implements UserDetails {
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "user")
     @JsonIgnore
     private Set<UserTemplates> userTemplates=new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "user")
+    @JsonIgnore
+    private Set<UserOtp> userOtp = new HashSet<>();
 
     @Override
     public boolean isAccountNonExpired() {

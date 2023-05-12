@@ -4,6 +4,8 @@ import com.java.centralizedNotificationBackend.config.JwtUtils;
 import com.java.centralizedNotificationBackend.entities.JwtRequest;
 import com.java.centralizedNotificationBackend.entities.JwtResponse;
 import com.java.centralizedNotificationBackend.entities.User;
+import com.java.centralizedNotificationBackend.payload.ErrorResponse;
+import com.java.centralizedNotificationBackend.payload.SuccessResponse;
 import com.java.centralizedNotificationBackend.services.Impl.UserDetailsServiceImpl;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @CrossOrigin("*")
@@ -33,19 +37,22 @@ public class AuthenticateController {
     @Autowired
     private JwtUtils jwtUtils;
 
-    @PostMapping("/generate-token")
+    @PostMapping("/login")
     public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception {
         try{
             authenticate(jwtRequest.getUsername(),jwtRequest.getPassword());
-        }catch (UsernameNotFoundException e){
+        }catch (Exception e){
             e.printStackTrace();
-            throw new Exception("User not found");
+            return ErrorResponse.errorHandler(HttpStatus.INTERNAL_SERVER_ERROR,true,e.getMessage());
         }
         UserDetails userDetails=this.userDetailsService.loadUserByUsername(jwtRequest.getUsername());
         String token = this.jwtUtils.generateToken(userDetails);
         Claims claims = this.jwtUtils.extractAllClaims(token);
         Date expiration = claims.getExpiration();
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(new JwtResponse(token,expiration));
+        Map<String,String> map = new HashMap<String,String>();
+        map.put("token",token);
+        map.put("tokenExpired", String.valueOf(expiration));
+        return SuccessResponse.successHandler(HttpStatus.OK,false,"Login successfully",map);
     }
 
     private void authenticate(String username,String password) throws Exception {

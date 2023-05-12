@@ -5,8 +5,55 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fcfc6f0d-54f7-4fab-b473-1a4fb061b542" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/entities/ChangePassword.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/entities/UserOtp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/exceptions/GlobalExceptions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/exceptions/UserNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/repository/UserOtpRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/services/EmailService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/services/Impl/UserOtpServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/services/ResetPasswordService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/services/UserOtpService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/file/Template_1682590264961.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/file/change_password.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/file/demo.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/config/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/config/JwtAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/config/MySecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/config/MySecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/controller/AuthenticateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/controller/AuthenticateController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/entities/JwtResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/entities/JwtResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/entities/UserTemplates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/entities/UserTemplates.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/helper/FileUploadHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/helper/FileUploadHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/CentralizedNotificationBackendApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/CentralizedNotificationBackendApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/config/JwtAuthenticationFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/config/JwtAuthenticationFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/config/JwtUnauthorizedHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/config/JwtUnauthorizedHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/config/JwtUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/config/JwtUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/config/MySecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/config/MySecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/controller/AuthenticateController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/controller/AuthenticateController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/controller/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/entities/Authority.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/entities/Authority.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/entities/JwtRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/entities/JwtRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/entities/JwtResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/entities/JwtResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/entities/Role.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/entities/Role.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/entities/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/entities/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/entities/UserRole.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/entities/UserRole.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/entities/UserTemplates.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/entities/UserTemplates.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/helper/FileUploadHelper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/helper/FileUploadHelper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/payload/ErrorResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/payload/ErrorResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/payload/SuccessResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/payload/SuccessResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/repository/RoleRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/repository/RoleRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/repository/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/repository/UserTemplateRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/repository/UserTemplateRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/services/Impl/UserDetailsServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/services/Impl/UserDetailsServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/services/Impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/services/Impl/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/services/Impl/UserTemplateServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/services/Impl/UserTemplateServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/services/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/services/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/services/UserTemplateService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/services/UserTemplateService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/java/centralizedNotificationBackend/CentralizedNotificationBackendApplicationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/java/centralizedNotificationBackend/CentralizedNotificationBackendApplicationTests.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +83,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../ExamServer/examportal/examserver" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />

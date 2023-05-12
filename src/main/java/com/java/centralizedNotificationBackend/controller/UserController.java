@@ -1,18 +1,17 @@
 package com.java.centralizedNotificationBackend.controller;
 
 import com.java.centralizedNotificationBackend.config.JwtUtils;
-import com.java.centralizedNotificationBackend.entities.Role;
-import com.java.centralizedNotificationBackend.entities.User;
-import com.java.centralizedNotificationBackend.entities.UserRole;
-import com.java.centralizedNotificationBackend.entities.UserTemplates;
+import com.java.centralizedNotificationBackend.entities.*;
 import com.java.centralizedNotificationBackend.helper.FileUploadHelper;
 import com.java.centralizedNotificationBackend.payload.ErrorResponse;
 import com.java.centralizedNotificationBackend.payload.SuccessResponse;
+import com.java.centralizedNotificationBackend.repository.UserOtpRepository;
+import com.java.centralizedNotificationBackend.repository.UserRepository;
 import com.java.centralizedNotificationBackend.repository.UserTemplateRepository;
-import com.java.centralizedNotificationBackend.services.UserService;
-import com.java.centralizedNotificationBackend.services.UserTemplateService;
+import com.java.centralizedNotificationBackend.services.*;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
+import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -23,9 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import javax.servlet.http.HttpSession;
+import java.util.*;
 
 @RestController
 @RequestMapping("/user")
@@ -49,6 +47,25 @@ public class UserController {
 
     @Autowired
     private JwtUtils jwtUtil;
+
+    @Autowired
+    private EmailService emailService;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private UserOtpService userOtpService;
+
+    @Autowired
+    private UserOtpRepository userOtpRepository;
+
+    @Autowired
+    private ResetPasswordService resetPasswordService;
+
+    Random random=new Random();
+
+    private static final long OTP_VALID_DURATION = 5 * 60 * 1000;   // 5 minutes
 
     //creating user
     @PostMapping("/")
@@ -166,20 +183,16 @@ public class UserController {
         }
     }
 
-
-    //get user by username
     @GetMapping("/{username}")
     public User getUser(@PathVariable("username") String username) {
         return this.userService.getUser(username);
     }
 
-    //delete the user by id
     @DeleteMapping("/{userId}")
     public void deleteUser(@PathVariable("userId") Long userId) {
         this.userService.deleteUser(userId);
     }
 
-    //delete the user by id
     @GetMapping("/expireTokenStatus")
     public ResponseEntity<?> expireTokenStatus(@RequestParam("token") String token) {
         try {
@@ -190,4 +203,121 @@ public class UserController {
             return ErrorResponse.errorHandler(HttpStatus.UNAUTHORIZED,true,ex.getMessage());
         }
     }
+
+    @PostMapping("/send-otp")
+    public ResponseEntity<?> sendOTP(@RequestParam("email") String email) {
+        try {
+            if(email==""){
+                return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Field can't be empty");
+            }else{
+                Map<String,Object> map = new HashMap<String,Object>();
+                User user = userRepository.findByEmail(email);
+                String token = RandomString.make(30);
+                if(user==null){
+                    return ErrorResponse.errorHandler(HttpStatus.NOT_FOUND,true,"Email not found");
+                }
+                int otp = random.nextInt(999999);
+                String subject = "Here's your One Time Password (OTP) - Expire in 5 minutes!";
+                String message = ""
+                        + "<div style='background-color:lightgrey;padding:20px'>"
+                        + "<div style='background-color:white;padding:30px'>"
+                        + "<div style='text-align:center;'>"
+                        + "<img width='150' height='150' src='cid:image'>"
+                        + "<h1 style='margin-bottom:40px;'>"
+                        + "Verification Code"
+                        + "</h1>"
+                        + "</div>"
+                        + "<p>"
+                        + "Please use the verification code below to forgot password."
+                        + "<br>"
+                        + "<h2 style='background: #00466a;width: max-content;padding: 5px 10px;color: #fff;border-radius: 4px;'>" + otp
+                        + "</h2>"
+                        + "If you did not request this, you can ignore this email."
+                        + "<br>"
+                        + "<br>"
+                        + "Thanks,"
+                        + "<br>"
+                        + "The IT team"
+                        + "</p>"
+                        + "</div>"
+                        + "<div style='background: #F0F0F0; text-align: center; padding: 30px;margin-top:10px'>"
+                        + "Note: Please do not reply to this Email. For any queries please contact your IT Resource Manager."
+                        + "</div>"
+                        + "</div>";
+                String to = email;
+                this.emailService.sendEmail(subject, message, to);
+                this.resetPasswordService.updateResetPasswordToken(token,email);
+                UserOtp userOtp = new UserOtp();
+                userOtp.setUser(user);
+                userOtp.setOneTimePassword(String.valueOf(otp));
+                userOtp.setOtpRequestedTime(new Date());
+                userOtpService.createUserOtp(userOtp);
+                map.put("resetPasswordToken",token);
+                return SuccessResponse.successHandler(HttpStatus.OK, false, "OTP send successfully", map);
+            }
+        }catch (Exception ex){
+            return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,ex.getMessage());
+        }
+    }
+
+    @PostMapping("/verify-otp")
+    public ResponseEntity<?> verifyOtp(@RequestParam(value = "otp",required = false) Long otp,@RequestParam("token") String token) {
+        try {
+            if(otp==null || token==""){
+                return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Field can't be empty");
+            }else if(this.userOtpRepository.getOneTimePasswordByOneTimePassword(String.valueOf(otp))==null){
+                return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Invalid Otp");
+            }else{
+                UserOtp userOtp = this.userOtpRepository.getOneTimePasswordByOneTimePassword(String.valueOf(otp));
+                if (userOtp != null) {
+                    String resetPasswordToken = userOtp.getUser().getResetPasswordToken();
+                    if(resetPasswordToken.equals(token)){
+                        long currentTimeInMillis = System.currentTimeMillis();
+                        long otpRequestedTimeInMillis = userOtp.getOtpRequestedTime().getTime();
+                        if (otpRequestedTimeInMillis + OTP_VALID_DURATION < currentTimeInMillis) {
+                            this.userOtpService.deleteUserOtp(userOtp.getId());
+                            return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "OTP has been expired");
+                        } else {
+                            return SuccessResponse.successHandler(HttpStatus.OK, false, "OTP verified successfully", null);
+                        }
+                    }else {
+                        return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Invalid user");
+                    }
+                } else {
+                    System.out.println("helooo");
+                    return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "OTP Validation failed");
+                }
+            }
+        }catch (Exception ex){
+            return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, ex.getMessage());
+        }
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePassword changePassword,@RequestParam("token") String token) {
+        try{
+            if(changePassword.getNewPassword()=="" || changePassword.getConfirmNewPassword()=="" || changePassword.getOldPassword()=="" || token==""){
+                return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Field can't be empty");
+            }else if(this.userRepository.findByResetPasswordToken(token)==null){
+                return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Invalid user");
+            }else{
+                Boolean data = bCryptPasswordEncoder.matches(changePassword.getOldPassword(),this.userRepository.findByResetPasswordToken(token).getPassword());
+                if(data){
+                    if(changePassword.getNewPassword().equals(changePassword.getConfirmNewPassword())){
+                        User user = this.userRepository.findByResetPasswordToken(token);
+                        user.setPassword(bCryptPasswordEncoder.encode(changePassword.getNewPassword()));
+                        this.userRepository.save(user);
+                        return SuccessResponse.successHandler(HttpStatus.OK, false, "Password changed successfully",null);
+                    }else{
+                        return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true,"Password must be match");
+                    }
+                }else{
+                    return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Incorrect password");
+                }
+            }
+        }catch (Exception ex){
+            return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, ex.getMessage());
+        }
+    }
+
 }

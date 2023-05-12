@@ -19,6 +19,7 @@ public class UserTemplates {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String userTemplate;
 
     @ManyToOne
