@@ -1,0 +1,43 @@
+
+<section class="myform-area">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="form-area">
+                    <!-- <div class="form-content">
+                        <h2>Signup</h2>
+                        <p>The social Signup button is a simple way to trigger the Facebook Signup process and Twitter Signup process on your website or web app.</p>
+                        <ul>
+                            <li><a href="#" class="facebook"><i class="fab fa-facebook-f"></i><span>facebook</span></a></li>
+                            <li><a href="#" class="twitter"><i class="fab fa-twitter"></i><span>twitter</span></a></li>
+                        </ul>
+                    </div> -->
+                    <div class="form-input">
+                        <div class="reset-psw">
+                            <h3><i class="fa fa-lock fa-4x"></i></h3>
+                            <h2 class="reset-psw">Forgot Password?</h2>
+                            <p>You can reset your password here.</p>
+                        </div>
+                        <form [formGroup]="userForm" (ngSubmit) = "onSubmit(userForm.value)">
+                            <div class="form-group">
+                                <input [ngStyle]="{'border-bottom':f['otp'].invalid && (f['otp'].dirty || f['otp'].touched) ? '2px solid red' : ''}" type="text" formControlName="otp" id="otp" name="otp" required [ngClass]="{ 'is-invalid':  submitted || (f['otp'].touched || f['otp'].dirty) && f['otp'].errors}">
+                                <label [ngStyle]="{'opacity':f['otp'].invalid && f['otp'].value && (f['otp'].dirty || f['otp'].touched) ? '0' : ''}">Otp</label>
+                                <div *ngIf=" submitted || f['otp'].invalid && (f['otp'].dirty || f['otp'].touched)" class="invalid-feedback">
+                                    <div *ngIf="f['otp'].errors?.['required']">
+                                      OTP is required
+                                    </div>
+                                    <div *ngIf="f['otp'].errors?.['pattern']">
+                                      OTP Number must be a valid otp
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="myform-button">
+                                <button [ngStyle]="!userForm.valid ? {background: 'lightgrey', cursor: 'no-drop'} : {}" [disabled]="!userForm.valid" type="submit" class="myform-btn">Verify OTP</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

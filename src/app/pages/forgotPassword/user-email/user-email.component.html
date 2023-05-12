@@ -13,7 +13,11 @@
                         </ul>
                     </div> -->
                     <div class="form-input">
-                        <h2>Login Form</h2>
+                        <div class="reset-psw">
+                            <h3><i class="fa fa-lock fa-4x"></i></h3>
+                            <h2 class="reset-psw">Forgot Password?</h2>
+                            <p>You can reset your password here.</p>
+                        </div>
                         <form [formGroup]="userForm" (ngSubmit) = "onSubmit(userForm.value)">
                             <div class="form-group">
                                 <input [ngStyle]="{'border-bottom':f['username'].invalid && (f['username'].dirty || f['username'].touched) ? '2px solid red' : ''}" type="text" formControlName="username"  id="username" name="username" [ngClass]="{ 'is-invalid':  submitted || (f['username'].touched || f['username'].dirty) && f['username'].errors}" required>
@@ -27,23 +31,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <input [ngStyle]="{'border-bottom':f['password'].invalid && (f['password'].dirty || f['password'].touched) ? '2px solid red' : ''}" formControlName="password" type="password" formControlName="password" id="password" name="password" [ngClass]="{ 'is-invalid':  submitted || (f['password'].touched || f['password'].dirty) && f['password'].errors}" required>
-                                <label [ngStyle]="{'opacity':f['password'].invalid && f['password'].value && (f['password'].dirty || f['password'].touched) ? '0' : ''}">password</label>
-                                <div *ngIf=" submitted || f['password'].invalid && (f['password'].dirty || f['password'].touched)" class="invalid-feedback">
-                                    <div *ngIf="f['password'].errors?.['required']">
-                                      Password is required
-                                    </div>
-                                    <div *ngIf="f['password'].errors?.['pattern']">
-                                      Password must be a valid
-                                    </div>
-                                </div>
-                            </div>
                             <div class="myform-button">
-                                <button [ngStyle]="!userForm.valid ? {background: 'lightgrey', cursor: 'no-drop'} : {}" [disabled]="!userForm.valid" type="submit" class="myform-btn">Login</button>
+                                <button [ngStyle]="!userForm.valid ? {background: 'lightgrey', cursor: 'no-drop'} : {}" [disabled]="!userForm.valid" type="submit" class="myform-btn">Send OTP</button>
                             </div>
-                            <br>
-                            <a style="color: rgba(103,58,183);" class="reset-psw" routerLink="/forgot-password/send-otp">Forgot your password?</a>
                         </form>
                     </div>
                 </div>

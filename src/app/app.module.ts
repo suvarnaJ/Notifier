@@ -33,6 +33,9 @@ import {
   NgxUiLoaderRouterModule,
   NgxUiLoaderHttpModule
 } from 'ngx-ui-loader';
+import { UserEmailComponent } from './pages/forgotPassword/user-email/user-email.component';
+import { UserOtpComponent } from './pages/forgotPassword/user-otp/user-otp.component';
+import { UserVerifyPasswordComponent } from './pages/forgotPassword/user-verify-password/user-verify-password.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +56,9 @@ import {
     WelcomeDashboardComponent,
     ShowTemplateComponent,
     ImportUserdefinedTemplateComponent,
+    UserEmailComponent,
+    UserOtpComponent,
+    UserVerifyPasswordComponent,
   ],
   imports: [
     AppRoutingModule,

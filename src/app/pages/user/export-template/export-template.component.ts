@@ -19,6 +19,7 @@ export class ExportTemplateComponent implements OnInit {
   currentPage:number  = 0;
   itemsPerPage: number = 5;
   totalItems: number = 0;
+  deleted:any;
 
   pagingConfig: PagingConfig = {} as PagingConfig;
 
@@ -43,6 +44,11 @@ export class ExportTemplateComponent implements OnInit {
   fetchAllTemplate(){
     this.userService.getAllTemplates(this.user.id,this.currentPage,this.itemsPerPage).subscribe((payload:any)=>{
       this.templatesData = payload.data;
+      if(this.templatesData?.content?.length==0){
+        this.deleted=true;
+      }else{
+        this.deleted=false;
+      }
       this.pagingConfig.totalItems = this.templatesData.totalElements;
     },error=>{
       console.log(error);
@@ -128,7 +134,6 @@ export class ExportTemplateComponent implements OnInit {
 
 viewFile(userTemplate:any){
   this.userService.exportTemplate(this.user.id,userTemplate).subscribe((data:any)=>{
-    console.log(data);
     this.templateData = data.data;
     this.openWindow();
   },(error=>{

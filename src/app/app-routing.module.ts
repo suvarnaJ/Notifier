@@ -14,6 +14,9 @@ import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-das
 import { WelcomeComponent } from './pages/admin/welcome/welcome.component';
 import { ShowTemplateComponent } from './pages/user/show-template/show-template.component';
 import { ImportUserdefinedTemplateComponent } from './pages/user/import-userdefined-template/import-userdefined-template.component';
+import { UserEmailComponent } from './pages/forgotPassword/user-email/user-email.component';
+import { UserOtpComponent } from './pages/forgotPassword/user-otp/user-otp.component';
+import { UserVerifyPasswordComponent } from './pages/forgotPassword/user-verify-password/user-verify-password.component';
 
 const routes: Routes = [
   {
@@ -44,6 +47,21 @@ const routes: Routes = [
   {
     path : 'home',
     component: HomeComponent,
+    pathMatch: 'full'
+  },
+  {
+    path : 'forgot-password/send-otp',
+    component: UserEmailComponent,
+    pathMatch: 'full'
+  },
+  {
+    path : 'forgot-password/send-otp/user-otp',
+    component: UserOtpComponent,
+    pathMatch: 'full'
+  },
+  {
+    path : 'forgot-password/send-otp/user-otp/change-password',
+    component: UserVerifyPasswordComponent,
     pathMatch: 'full'
   },
   {
