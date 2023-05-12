@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fcfc6f0d-54f7-4fab-b473-1a4fb061b542" name="Default Changelist" comment="">
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/entities/ChangePassword.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/entities/UserOtp.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/exceptions/GlobalExceptions.java" afterDir="false" />
@@ -17,17 +18,26 @@
       <change afterPath="$PROJECT_DIR$/src/main/resources/static/file/Template_1682590264961.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/static/file/change_password.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/static/file/demo.html" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/exceptions/GlobalExceptions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/file/Template_1682590264961.html" afterDir="false" />
+>>>>>>> 72b8fa0a0f1bdbda5e0a7e524b62ba09b8ca264b
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/config/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/config/JwtAuthenticationFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/config/MySecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/config/MySecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/controller/AuthenticateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/controller/AuthenticateController.java" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/controller/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/entities/JwtResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/entities/JwtResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/entities/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/entities/UserTemplates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/entities/UserTemplates.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/helper/FileUploadHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/helper/FileUploadHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/repository/UserRepository.java" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/entities/JwtResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/entities/JwtResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/helper/FileUploadHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/java/centralizedNotificationBackend/helper/FileUploadHelper.java" afterDir="false" />
+>>>>>>> 72b8fa0a0f1bdbda5e0a7e524b62ba09b8ca264b
       <change beforePath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/CentralizedNotificationBackendApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/CentralizedNotificationBackendApplication.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/config/JwtAuthenticationFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/config/JwtAuthenticationFilter.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/config/JwtUnauthorizedHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/java/centralizedNotificationBackend/config/JwtUnauthorizedHandler.class" afterDir="false" />
@@ -83,7 +93,11 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+<<<<<<< HEAD
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+=======
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../CentralizedNotificationEngineTracked/CentralizedNotificationEngineBackend" />
+>>>>>>> 72b8fa0a0f1bdbda5e0a7e524b62ba09b8ca264b
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />

@@ -35,11 +35,15 @@
 			<artifactId>gson</artifactId>
 			<version>2.10.1</version>
 		</dependency>
+<<<<<<< HEAD
 		<dependency>
 			<groupId>com.sun.mail</groupId>
 			<artifactId>javax.mail</artifactId>
 			<version>1.6.2</version>
 		</dependency>
+=======
+
+>>>>>>> 72b8fa0a0f1bdbda5e0a7e524b62ba09b8ca264b
 
 		<dependency>
 			<groupId>io.springfox</groupId>
