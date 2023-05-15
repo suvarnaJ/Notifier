@@ -51,7 +51,6 @@ export class AppComponent implements OnInit {
 
     idle.onIdleStart.subscribe(() => {
       this.idleState = 'You have gone Idle';
-      console.log(this.idleState);
       this.childModal.show();
     }); // this is place to do somthing when user goes Idle.
 
@@ -65,7 +64,7 @@ export class AppComponent implements OnInit {
       this.lastPing = new Date();
     });
 
-    this.loginService.getUserLoggedIn().subscribe(userLoggedIn=>{
+    this.loginService.getUserLoggedIn().subscribe((userLoggedIn:any)=>{
       if(userLoggedIn){
         this.idle.watch();
         this.timedOut = false;
