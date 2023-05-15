@@ -51,6 +51,7 @@ export class AppComponent implements OnInit {
 
     idle.onIdleStart.subscribe(() => {
       this.idleState = 'You have gone Idle';
+      console.log(this.idleState);
       this.childModal.show();
     }); // this is place to do somthing when user goes Idle.
 
