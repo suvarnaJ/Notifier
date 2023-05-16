@@ -28,7 +28,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input [ngStyle]="{'border-bottom':f['password'].invalid && (f['password'].dirty || f['password'].touched) ? '2px solid red' : ''}" formControlName="password" type="password" formControlName="password" id="password" name="password" [ngClass]="{ 'is-invalid':  submitted || (f['password'].touched || f['password'].dirty) && f['password'].errors}" required>
+                                <input  [type]="showPassword ? 'text' : 'password'" [ngStyle]="{'border-bottom':f['password'].invalid && (f['password'].dirty || f['password'].touched) ? '2px solid red' : ''}" formControlName="password" type="password" formControlName="password" id="password" name="password" [ngClass]="{ 'is-invalid':  submitted || (f['password'].touched || f['password'].dirty) && f['password'].errors}" required>
                                 <label [ngStyle]="{'opacity':f['password'].invalid && f['password'].value && (f['password'].dirty || f['password'].touched) ? '0' : ''}">password</label>
                                 <div *ngIf=" submitted || f['password'].invalid && (f['password'].dirty || f['password'].touched)" class="invalid-feedback">
                                     <div *ngIf="f['password'].errors?.['required']">
@@ -38,6 +38,10 @@
                                       Password must be a valid
                                     </div>
                                 </div>
+                            </div>
+                            <br>
+                            <div style="padding-left: 0px;margin-bottom: -10px" class="form-group form-check">
+                                <input (click)="doAction($event)" style="width: 15px;height: 15px;" type="checkbox" name="showPassword" id="showPassword"><a style="color: black"> Show Password</a>
                             </div>
                             <div class="myform-button">
                                 <button [ngStyle]="!userForm.valid ? {background: 'lightgrey', cursor: 'no-drop'} : {}" [disabled]="!userForm.valid" type="submit" class="myform-btn">Login</button>

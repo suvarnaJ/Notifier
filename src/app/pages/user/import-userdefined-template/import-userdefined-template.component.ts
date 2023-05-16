@@ -98,7 +98,7 @@ formSubmit(){
             }
           }, 4000);
     },
-    (error)=>{
+    (error:any)=>{
       this.progress.loaded = 75;
       this.progress.total = 100;
       Swal.fire({

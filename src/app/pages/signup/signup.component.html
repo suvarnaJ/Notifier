@@ -85,7 +85,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input [ngStyle]="{'border-bottom':f['password'].invalid && (f['password'].dirty || f['password'].touched) ? '2px solid red' : ''}" type="password" formControlName="password" id="password" name="password" required [ngClass]="{ 'is-invalid':  submitted || (f['password'].touched || f['password'].dirty) && f['password'].errors}">
+                                <input [type]="showPassword ? 'text' : 'password'" [ngStyle]="{'border-bottom':f['password'].invalid && (f['password'].dirty || f['password'].touched) ? '2px solid red' : ''}" type="password" formControlName="password" id="password" name="password" required [ngClass]="{ 'is-invalid':  submitted || (f['password'].touched || f['password'].dirty) && f['password'].errors}">
                                 <label [ngStyle]="{'opacity':f['password'].invalid && f['password'].value && (f['password'].dirty || f['password'].touched) ? '0' : ''}">Password</label>
                                 <div *ngIf=" submitted || f['password'].invalid && (f['password'].dirty || f['password'].touched)" class="invalid-feedback">
                                     <div *ngIf="f['password'].errors?.['required']">
@@ -99,7 +99,10 @@
 
                             <br>
                             <br>
-
+                            <div style="padding-left: 0px" class="form-group form-check">
+                                <input (click)="doAction($event)" style="width: 15px;height: 15px;" type="checkbox" name="showPassword" id="showPassword"><a style="color: black"> Show Password</a>
+                            </div>
+                            <br>
                             <div style="padding-left: 0px;" class="form-group form-check">
                                 <input formControlName="termsAndConditions" required style="width: 15px;height: 15px;" [ngClass]="{ 'is-invalid':  submitted || (f['termsAndConditions'].touched || f['termsAndConditions'].dirty) && f['termsAndConditions'].errors}"  type="checkbox" checked="checked" name="termsAndConditions" id="termsAndConditions"> I agree to the <a style="color: rgba(103,58,183);" routerLink="login">Terms & Conditions</a>
                                 <div *ngIf="submitted || f['termsAndConditions'].invalid && (f['termsAndConditions'].dirty || f['termsAndConditions'].touched)" class="invalid-feedback">

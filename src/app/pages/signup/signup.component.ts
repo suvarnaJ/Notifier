@@ -25,6 +25,7 @@ export class SignupComponent {
   userForm!: FormGroup;
   user: IUser;
   submitted = false;
+  showPassword: boolean=false;
 
   constructor(private userService:UserService,private router: Router) {
     this.user = {} as IUser;
@@ -73,7 +74,7 @@ export class SignupComponent {
       return;
   }
     this.userService.addUser(user).subscribe(
-      (data) => {
+      (data:any) => {
        Swal.fire({
         icon: 'success',
         title: 'Successfully done !!',
@@ -81,7 +82,7 @@ export class SignupComponent {
       });
       this.reset();
       },
-      (error) =>{
+      (error:any) =>{
         console.log(error);
         Swal.fire({
          icon: 'error',
@@ -90,6 +91,10 @@ export class SignupComponent {
        });
       }
     )
+  }
+
+  doAction(event:any){
+    this.showPassword=event.target.checked;
   }
 
   get f() { return this.userForm.controls; }

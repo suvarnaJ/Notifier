@@ -54,15 +54,15 @@ export class UserOtpComponent {
         })
         Toast.fire({
           icon: 'success',
-          title: response?.message,
+          title: response.message,
         })
       },
-      (error) => {
+      (error:any) => {
         console.log(error);
         Swal.fire({
           icon: 'error',
           title: 'Something went wrong',
-          text: error?.error?.message,
+          text: error.error.message,
         });
       }
     );

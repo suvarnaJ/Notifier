@@ -24,6 +24,7 @@ export class UserVerifyPasswordComponent {
   newPassword = '';
   confirmNewPassword = '';
   flag: boolean = false;
+  showPassword: boolean=false;
 
   constructor(private router: Router, private fb: FormBuilder, private userService: UserService) {
     this.user = {} as IUser;
@@ -77,21 +78,25 @@ export class UserVerifyPasswordComponent {
         })
         Toast.fire({
           icon: 'success',
-          title: response?.message,
+          title: response.message,
         })
       },
-      (error) => {
+      (error:any) => {
         console.log(error);
         Swal.fire({
           icon: 'error',
           title: 'Something went wrong',
-          text: error?.error?.message,
+          text: error.error.message,
         });
       }
     );
   }
 
   get f() { return this.userForm.controls; }
+
+  doAction(event:any){
+    this.showPassword=event.target.checked;
+  }
 
 }
 

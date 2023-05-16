@@ -20,6 +20,7 @@ export class LoginComponent {
   userForm!: FormGroup;
   user: IUser;
   submitted = false;
+  showPassword: boolean=false;
 
   constructor(private loginService: LoginService, private router: Router) {
     this.user = {} as IUser;
@@ -78,7 +79,7 @@ export class LoginComponent {
             }
           )
         },
-        (error) => {
+        (error:any) => {
           console.log("Error !");
           console.log(error);
           Swal.fire({
@@ -88,6 +89,10 @@ export class LoginComponent {
           });
         }
       );
+  }
+
+  doAction(event:any){
+    this.showPassword=event.target.checked;
   }
 
   get f() { return this.userForm.controls; }

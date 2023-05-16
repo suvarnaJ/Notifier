@@ -40,7 +40,7 @@ export class UserEmailComponent {
     this.userService.sendOtp(user.username).subscribe(
       (response: any) => {
         this.router.navigate(['forgot-password/send-otp/user-otp']);
-        localStorage.setItem("resetPasswordToken",response?.data?.resetPasswordToken);
+        localStorage.setItem("resetPasswordToken",response.data.resetPasswordToken);
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
@@ -54,15 +54,15 @@ export class UserEmailComponent {
         })
         Toast.fire({
           icon: 'success',
-          title: response?.message,
+          title: response.message,
         })
       },
-      (error) => {
+      (error:any) => {
         console.log(error);
         Swal.fire({
           icon: 'error',
           title: 'Something went wrong',
-          text: error?.error?.message,
+          text: error.error.message,
         });
       }
     );

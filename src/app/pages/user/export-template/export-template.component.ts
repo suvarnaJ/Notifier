@@ -44,13 +44,13 @@ export class ExportTemplateComponent implements OnInit {
   fetchAllTemplate(){
     this.userService.getAllTemplates(this.user.id,this.currentPage,this.itemsPerPage).subscribe((payload:any)=>{
       this.templatesData = payload.data;
-      if(this.templatesData?.content?.length==0){
+      if(this.templatesData.content.length==0){
         this.deleted=true;
       }else{
         this.deleted=false;
       }
       this.pagingConfig.totalItems = this.templatesData.totalElements;
-    },error=>{
+    },(error:any)=>{
       console.log(error);
       Swal.fire({
         icon: 'error',
@@ -78,7 +78,7 @@ export class ExportTemplateComponent implements OnInit {
         });
         this.fetchAllTemplate();
         this.onTableDataChange(1);
-      },error=>{
+      },(error:any)=>{
         console.log(error);
         Swal.fire({
           icon: 'error',
@@ -114,7 +114,7 @@ export class ExportTemplateComponent implements OnInit {
         });
         this.onTableDataChange(1);
         this.fetchAllTemplate();
-      },error=>{
+      },(error:any)=>{
         console.log(error);
         Swal.fire({
           icon: 'error',
@@ -136,7 +136,7 @@ viewFile(userTemplate:any){
   this.userService.exportTemplate(this.user.id,userTemplate).subscribe((data:any)=>{
     this.templateData = data.data;
     this.openWindow();
-  },(error=>{
+  },((error:any)=>{
     console.log(error);
   }));
 }
