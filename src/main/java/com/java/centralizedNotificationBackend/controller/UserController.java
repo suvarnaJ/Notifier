@@ -296,6 +296,7 @@ public class UserController {
     @PostMapping("/change-password")
     public ResponseEntity<?> changePassword(@RequestBody ChangePassword changePassword,@RequestParam("token") String token) {
         try{
+            System.out.println(changePassword);
             if(changePassword.getNewPassword()=="" || changePassword.getConfirmNewPassword()=="" || changePassword.getOldPassword()=="" || token==""){
                 return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Field can't be empty");
             }else if(this.userRepository.findByResetPasswordToken(token)==null){
