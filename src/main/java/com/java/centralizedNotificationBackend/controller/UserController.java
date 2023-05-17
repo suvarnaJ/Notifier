@@ -2,6 +2,7 @@ package com.java.centralizedNotificationBackend.controller;
 
 import com.java.centralizedNotificationBackend.config.JwtUtils;
 import com.java.centralizedNotificationBackend.entities.*;
+import com.java.centralizedNotificationBackend.exceptions.UserNotFoundException;
 import com.java.centralizedNotificationBackend.helper.FileUploadHelper;
 import com.java.centralizedNotificationBackend.payload.ErrorResponse;
 import com.java.centralizedNotificationBackend.payload.SuccessResponse;
@@ -66,6 +67,7 @@ public class UserController {
     Random random=new Random();
 
     private static final long OTP_VALID_DURATION = 5 * 60 * 1000;   // 5 minutes
+
 
     //creating user
     @PostMapping("/")
@@ -133,7 +135,7 @@ public class UserController {
             Pageable pageable = PageRequest.of(page,size);
             Page<UserTemplates> userTemplatesList = this.userTemplateRepository.findUserTemplatesByUser(userId,pageable);
             return SuccessResponse.successHandler(HttpStatus.OK,false,"Templates fetched successfully",userTemplatesList);
-        }catch (Exception ex){
+        }catch (UserNotFoundException ex){
             return ErrorResponse.errorHandler(HttpStatus.INTERNAL_SERVER_ERROR,true,ex.getMessage());
         }
     }

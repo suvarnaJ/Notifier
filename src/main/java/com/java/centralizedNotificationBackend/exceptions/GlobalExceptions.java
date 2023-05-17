@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptions {
 
-    @ExceptionHandler(ExpiredJwtException.class)
-    public ResponseEntity<?> ExpiredJwtException(ExpiredJwtException ex){
+    @ExceptionHandler(JwtExpiredException.class)
+    public ResponseEntity<?> JwtExpiredException(JwtExpiredException ex){
         return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,ex.getMessage());
     }
 

@@ -1,15 +1,18 @@
 package com.java.centralizedNotificationBackend.config;
 
 import com.google.gson.Gson;
+import com.java.centralizedNotificationBackend.exceptions.JwtExpiredException;
 import com.java.centralizedNotificationBackend.services.Impl.UserDetailsServiceImpl;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -22,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
+@CrossOrigin("*")
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
@@ -49,9 +53,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 System.out.println(username);
 
-            }catch (ExpiredJwtException e){
-                httpServletResponse.setStatus(401);
-                map.put("status", HttpStatus.UNAUTHORIZED.value());
+            }
+            catch (ExpiredJwtException e){
+                httpServletResponse.setStatus(400);
+                map.put("status", HttpStatus.BAD_REQUEST.value());
                 map.put("message","jwt token has expired");
                 map.put("error",true);
                 String jsonString  = getJson.toJson(map);
@@ -61,7 +66,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 out.print(jsonString);
                 out.flush();
                 return;
-            } catch (Exception e){
+            }
+            catch (Exception e){
                 httpServletResponse.setStatus(400);
                 map.put("status", HttpStatus.BAD_REQUEST.value());
                 map.put("message",e.getMessage());
