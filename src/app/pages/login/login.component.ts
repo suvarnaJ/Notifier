@@ -80,12 +80,10 @@ export class LoginComponent {
           )
         },
         (error:any) => {
-          console.log("Error !");
-          console.log(error);
           Swal.fire({
             icon: 'error',
             title: 'Something went wrong',
-            text: 'Invalid Details !! Try Again'
+            text: error.error.message
           });
         }
       );

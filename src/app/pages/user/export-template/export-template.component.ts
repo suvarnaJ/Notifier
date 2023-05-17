@@ -51,12 +51,29 @@ export class ExportTemplateComponent implements OnInit {
       }
       this.pagingConfig.totalItems = this.templatesData.totalElements;
     },(error:any)=>{
-      console.log(error);
-      Swal.fire({
-        icon: 'error',
-        title: 'Something went wrong',
-        text: error.error.message,
-      });
+      if(error.status==0){
+        Swal.fire({
+          icon: 'error',
+          title: 'Something went wrong',
+          timer: 3000,
+          timerProgressBar: true,
+          allowOutsideClick: false,
+          showConfirmButton:false,
+        }).then((result) => {
+          if (result.dismiss === Swal.DismissReason.timer) {
+            this.loginService.setUserLoggedIn(false);
+            this.loginService.logout();
+            this.router.navigate(['/']);
+            window.location.reload();
+          }
+        })
+      }else{
+        Swal.fire({
+          icon: 'error',
+          title: 'Something went wrong',
+          text: error.error.message,
+        });
+      }
     });
   }
 
@@ -79,7 +96,6 @@ export class ExportTemplateComponent implements OnInit {
         this.fetchAllTemplate();
         this.onTableDataChange(1);
       },(error:any)=>{
-        console.log(error);
         Swal.fire({
           icon: 'error',
           title: 'Something went wrong',
