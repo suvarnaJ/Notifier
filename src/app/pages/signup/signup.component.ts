@@ -83,7 +83,6 @@ export class SignupComponent {
       this.reset();
       },
       (error:any) =>{
-        console.log(error);
         Swal.fire({
          icon: 'error',
          title: 'Something went wrong',

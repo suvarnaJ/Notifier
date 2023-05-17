@@ -82,7 +82,6 @@ export class UserVerifyPasswordComponent {
         })
       },
       (error:any) => {
-        console.log(error);
         Swal.fire({
           icon: 'error',
           title: 'Something went wrong',

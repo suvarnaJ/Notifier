@@ -131,7 +131,6 @@ export class ExportTemplateComponent implements OnInit {
         this.onTableDataChange(1);
         this.fetchAllTemplate();
       },(error:any)=>{
-        console.log(error);
         Swal.fire({
           icon: 'error',
           title: 'Something went wrong',
@@ -153,7 +152,11 @@ viewFile(userTemplate:any){
     this.templateData = data.data;
     this.openWindow();
   },((error:any)=>{
-    console.log(error);
+    Swal.fire({
+      icon: 'error',
+      title: 'Something went wrong',
+      text: error,
+    });
   }));
 }
 
