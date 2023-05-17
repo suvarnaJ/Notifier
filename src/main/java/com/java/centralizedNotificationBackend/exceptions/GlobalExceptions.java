@@ -36,7 +36,6 @@ public class GlobalExceptions {
     public ResponseEntity<?> MissingServletRequestParameterException(MissingServletRequestParameterException ex){
         ResponseEntity<?> response;
         if(ex.getMessage().startsWith("Required request parameter")) {
-            System.out.println(ex.getMessage());
             response = ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Please enter a valid parameter");
             return response;
         }else{

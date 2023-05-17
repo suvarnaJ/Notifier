@@ -50,9 +50,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 jwtToken=requestTokenHeader.substring(7);
                 username=this.jwtUtil.extractUsername(jwtToken);
-
-                System.out.println(username);
-
             }
             catch (ExpiredJwtException e){
                 httpServletResponse.setStatus(400);

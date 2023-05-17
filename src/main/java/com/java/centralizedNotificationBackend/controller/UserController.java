@@ -286,7 +286,6 @@ public class UserController {
                         return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Invalid user");
                     }
                 } else {
-                    System.out.println("helooo");
                     return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "OTP Validation failed");
                 }
             }
