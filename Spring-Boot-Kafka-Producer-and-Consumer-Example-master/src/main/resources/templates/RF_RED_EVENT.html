@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Spring boot eamil teplate with Thymeleaf</title>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+	<link href='http://fonts.googleapis.com/css?family=verdana' rel='stylesheet' type='text/css'/>
+
+	<!-- use the font -->
+	<style>
+        body {
+            font-family: 'verdana', sans-serif;
+            font-size: 12px;
+        }
+        th {
+  			text-align: center;
+  			font-color: #FFFFFF ;
+		}
+		tr {
+			text-align: center;
+		}
+    </style>
+</head>
+<body>
+<table cellspacing="0" border="2" style="width:100%">
+	<tbody>
+	<tr>
+		<th colspan="3" bgcolor="#CC1919"><font color="#FFFFFF">NETWORK INCIDENT - WIRELESS NETWORK</font></th>
+	</tr>  <!-- green - 2FF507  red - FB1426  blue - 1389DB -->
+	<tr >
+		<td  bgcolor="#CC1919" align="center"><font color="#FFFFFF">Ticket Ref</font></td>
+		<td  colspan="2" bgcolor="#CC1919" align="center"><font color="#FFFFFF"><p th:text="${ticketRef}"></p></font></td>
+	</tr>
+	<tr >
+		<td  bgcolor="#1389DB" ><font color="#FFFFFF">Event Description</font></td>
+		<td  colspan="2" bgcolor="#1389DB" ><font color="#FFFFFF"><p th:text="${eventDescription}"></p></font></td>
+	</tr>
+	<tr>
+		<td >Site Details</td>
+		<td >BS Name</td>
+		<td ><p th:text="${bsName}"></td>
+	</tr>
+	<tr>
+		<td ></td>
+		<td >Circle</td>
+		<td ><p th:text="${circle}"></td>
+	</tr>
+	<tr>
+		<td ></td>
+		<td >City</td>
+		<td ><p th:text="${city}"></td>
+	</tr>
+	<tr>
+		<td ></td>
+		<td >BS Type</td>
+		<td ><p th:text="${bsType}"></td>
+	</tr>
+	<tr>
+		<td ></td>
+		<td >IP</td>
+		<td ><p th:text="${ip}"></td>
+	</tr>
+	<tr>
+		<td ></td>
+		<td >Site ID</td>
+		<td ><p th:text="${siteID}"></td>
+	</tr>
+	<tr>
+		<td ></td>
+		<td >Infra Provider</td>
+		<td ><p th:text="${infraProvider}"></td>
+	</tr>
+	<tr>
+		<td ></td>
+		<td >IOR ID</td>
+		<td ><p th:text="${iorID}"></td>
+	</tr>
+	<tr>
+		<td ></td>
+		<td >BSO CktID</td>
+		<td ><p th:text="${bsoCktID}"></td>
+	</tr>
+	<tr>
+		<td >Outage Details</td>
+		<td >Outage Start Time</td>
+		<td ><p th:text="${outageStartTime}"></td>
+	</tr>
+	<tr>
+		<td ></td>
+		<td >Impacted Customer</td>
+		<td ><p th:text="${impactedCustomer}"></td>
+	</tr>
+	<tr>
+		<td ></td>
+		<td >SIA</td>
+		<td ><p th:text="${sia}"></td>
+	</tr>
+	</tbody>
+</table>
+
+</body>
+</html>
+</body>
+</html>
