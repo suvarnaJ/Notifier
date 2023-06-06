@@ -300,6 +300,7 @@ public class KafkaConsumer {
 
 		message.toRecipients = toList;
 		message.ccRecipients = ccRecipientsList;
+
 		/*LinkedList<Recipient> ccRecipientsList = new LinkedList<Recipient>();
 		Recipient ccRecipients = new Recipient();
 		EmailAddress emailAddress1 = new EmailAddress();
@@ -307,6 +308,8 @@ public class KafkaConsumer {
 		ccRecipients.emailAddress = emailAddress1;
 		ccRecipientsList.add(ccRecipients);
 		message.ccRecipients = ccRecipientsList;*/
+
+		System.out.println("22222222222222");
 
 		boolean saveToSentItems = true;
 		graphClient.users("service.supportuat@tatacommunications.com").
