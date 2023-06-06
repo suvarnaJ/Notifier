@@ -318,6 +318,8 @@ public class KafkaConsumer {
 				buildRequest().
 				post();
 
+		System.out.println("333333333333333333333");
+
 		return "";
 	}
 
