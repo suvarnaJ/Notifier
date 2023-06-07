@@ -25,7 +25,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
-
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.InetSocketAddress;
@@ -50,7 +49,7 @@ public class sample {
     }
 
     public static String sendMailHTTP() throws UnsupportedEncodingException {
-        String PROXY_SERVER_HOST ="10.133.12.181" ;
+        String PROXY_SERVER_HOST = "10.133.12.181" ;
         String PROXY_SERVER_PORT = "80";
         Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(PROXY_SERVER_HOST, Integer.parseInt(PROXY_SERVER_PORT)));
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
@@ -103,7 +102,7 @@ public class sample {
 
             if (statusCode == 201) {
                  res = EntityUtils.toString(response.getEntity());
-            }else {
+            } else {
                 res = EntityUtils.toString(response.getEntity());
                 System.out.println("Response ---------->"+res.toString());
             }
@@ -185,7 +184,7 @@ public class sample {
 
     public static String getAuth() {
 
-        String PROXY_SERVER_HOST ="10.133.12.181" ;
+        String PROXY_SERVER_HOST = "10.133.12.181" ;
         String PROXY_SERVER_PORT = "80";
         Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(PROXY_SERVER_HOST, Integer.parseInt(PROXY_SERVER_PORT)));
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
@@ -193,8 +192,8 @@ public class sample {
 
         ConfidentialClientApplication app = null;
         String appSecret = "320j1.n-tD.aa114YHC0z-42beLV45tGcc",
-                microformatAppId="64d33c44-2d40-4d0f-a73a-dd0ed9950e1f",
-                tenantId="20210462-2c5e-4ec8-b3e2-0be950f292ca";
+                microformatAppId = "64d33c44-2d40-4d0f-a73a-dd0ed9950e1f",
+                tenantId = "20210462-2c5e-4ec8-b3e2-0be950f292ca";
 
         IClientCredential credential = ClientCredentialFactory.createFromSecret(appSecret);
         try {
@@ -241,7 +240,7 @@ public class sample {
     }
 */
     public static String requestFactory(){
-        String PROXY_SERVER_HOST ="10.133.12.181" ;
+        String PROXY_SERVER_HOST = "10.133.12.181" ;
         String PROXY_SERVER_PORT = "80";
         Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(PROXY_SERVER_HOST, Integer.parseInt(PROXY_SERVER_PORT)));
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
@@ -257,7 +256,7 @@ public class sample {
     }
 
     public static String sendMail(){
-        String PROXY_SERVER_HOST ="10.133.12.181" ;
+        String PROXY_SERVER_HOST = "10.133.12.181" ;
         String PROXY_SERVER_PORT = "80";
         Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(PROXY_SERVER_HOST, Integer.parseInt(PROXY_SERVER_PORT)));
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
@@ -265,8 +264,8 @@ public class sample {
 
         String clientId = "64d33c44-2d40-4d0f-a73a-dd0ed9950e1f";
         String clientSecret = "320j1.n-tD.aa114YHC0z-42beLV45tGcc";
-        String tenantId ="20210462-2c5e-4ec8-b3e2-0be950f292ca";
-        String redirect_url ="https://graph.microsoft.com/";
+        String tenantId = "20210462-2c5e-4ec8-b3e2-0be950f292ca";
+        String redirect_url = "https://graph.microsoft.com/";
         final String GRAPH_DEFAULT_SCOPE = "https://graph.microsoft.com/.default";
 
 
@@ -347,8 +346,6 @@ public class sample {
         System.out.println("Set: " + set);
         System.out.println("Set to array: " +  Arrays.toString(set.toArray()));
 
-
-
         return null;
     }
 
@@ -359,9 +356,6 @@ public class sample {
         return Arrays.stream(array).collect(
                 Collectors.toSet());
     }
-
-
-
 
 }
 

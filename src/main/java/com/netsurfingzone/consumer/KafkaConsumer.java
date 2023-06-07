@@ -33,12 +33,10 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.netsurfingzone.constant.ApplicationConstant;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
-
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -66,7 +64,6 @@ public class KafkaConsumer {
 	@Autowired
 	private SpringTemplateEngine templateEngine;
 
-
 	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY)
 	public void receivedMessage(Notify message) throws IOException, MessagingException {
 		ObjectMapper mapper = new ObjectMapper();
@@ -79,13 +76,13 @@ public class KafkaConsumer {
 		LinkedList<Recipient> toRecipientsList = new LinkedList<Recipient>();
 		Recipient toRecipients = new Recipient();
 		EmailAddress emailAddress = new EmailAddress();
-		emailAddress.address = toList;//"suvarna.jagadale@tatacommunications.com";
+		emailAddress.address = toList; //"suvarna.jagadale@tatacommunications.com";
 		toRecipients.emailAddress = emailAddress;
 		toRecipientsList.add(toRecipients);
 
 		LinkedList<Recipient> ccRecipientsList = new LinkedList<Recipient>();
 		Recipient ccRecipients = new Recipient();
-		EmailAddress  ccEmailAddress = new EmailAddress();
+		EmailAddress ccEmailAddress = new EmailAddress();
 		ccEmailAddress.address = ccList;//"suvarna.jagadale@tatacommunications.com";
 		ccRecipients.emailAddress = ccEmailAddress;
 		ccRecipientsList.add(ccRecipients);
@@ -117,7 +114,7 @@ public class KafkaConsumer {
 		context.setVariables(mail.getModel());
 		helper.setTo(toList);
 		//String html = templateEngine.process("newsletter-template", context);
-		String html ="";
+		String html = "";
 		System.out.println("template name ==="+message.getEventName().getEventName());
 		if(message.getEventName().getEventName().equalsIgnoreCase("RF_RED_EVENT")) {
 			html = templateEngine.process("RF_RED_EVENT", context);
@@ -252,7 +249,7 @@ public class KafkaConsumer {
 
 	//public  String sendMail(){
 	public  String sendMail(LinkedList<Recipient> toList,LinkedList<Recipient> ccRecipientsList,String content,String subject,String html){
-		String PROXY_SERVER_HOST ="10.133.12.181";//UAT Proxy - 10.133.12.181   PROD Proxy -121.244.254.154 ;
+		String PROXY_SERVER_HOST = "10.133.12.181"; //UAT Proxy - 10.133.12.181   PROD Proxy -121.244.254.154 ;
 		int PROXY_SERVER_PORT = 80;
 		Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(PROXY_SERVER_HOST, PROXY_SERVER_PORT));
 		SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
@@ -260,10 +257,9 @@ public class KafkaConsumer {
 
 		String clientId = "64d33c44-2d40-4d0f-a73a-dd0ed9950e1f";
 		String clientSecret = "320j1.n-tD.aa114YHC0z-42beLV45tGcc";
-		String tenantId ="20210462-2c5e-4ec8-b3e2-0be950f292ca";
-		String redirect_url ="https://graph.microsoft.com/";
+		String tenantId = "20210462-2c5e-4ec8-b3e2-0be950f292ca";
+		String redirect_url = "https://graph.microsoft.com/";
 		final String GRAPH_DEFAULT_SCOPE = "https://graph.microsoft.com/.default";
-
 
 		ClientSecretCredential clientSecretCredential = new ClientSecretCredentialBuilder()
 				.clientId(clientId)
@@ -329,7 +325,7 @@ public class KafkaConsumer {
 	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME_SUMMARY, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY)
 	public void recSummaryNotification(SummaryPayload summaryPayload) throws IOException, MessagingException {
 
-		int i =0;
+		int i = 0;
 		String ccList = "",toList="",content="",subject="",htmlContent = "";
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonString = mapper.writeValueAsString(summaryPayload);
@@ -341,13 +337,12 @@ public class KafkaConsumer {
 		LinkedList<Recipient> toRecipientsList = new LinkedList<Recipient>();
 		LinkedList<Recipient> ccRecipientsList = new LinkedList<Recipient>();
 
-		for(i=0;i<summaryPayload.getAccDetailsList().size();i++){
+		for(i = 0; i < summaryPayload.getAccDetailsList().size(); i++) {
 			SummaryTable summaryTable = new SummaryTable();
-
 			Recipient toRecipients = null;//= new Recipient();
 			Recipient ccRecipients = null;//= new Recipient();
 			EmailAddress emailAddress ;//= new EmailAddress();
-			if(i==0) {
+			if(i == 0) {
 				toList = summaryPayload.getAccDetailsList().get(i).getToEmail();
 				String[] strArray = toList.split(";");
 				for (int j = 0; j < strArray.length; j++) {
@@ -359,7 +354,7 @@ public class KafkaConsumer {
 				}
 			}
 
-			if(i==0) {
+			if(i == 0) {
 				ccList = summaryPayload.getAccDetailsList().get(i).getCcEmail();
 				String[] strCcArray = ccList.split(";");
 				for (int k = 0; k < strCcArray.length; k++) {
@@ -398,7 +393,7 @@ public class KafkaConsumer {
 		context.setVariables(model);
 		//helper.setTo(toList);
 
-		String html ="";
+		String html = "";
 		html = templateEngine.process("summary_notification_template.html", context);
 
 		logger.info("Json message received using Kafka listener " + html);

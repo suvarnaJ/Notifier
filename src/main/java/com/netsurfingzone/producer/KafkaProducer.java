@@ -9,17 +9,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
-
 import com.netsurfingzone.constant.ApplicationConstant;
 import org.springframework.web.cors.CorsConfiguration;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/produce")
 public class KafkaProducer {
+
 	private static final Logger logger = LoggerFactory.getLogger(KafkaProducer.class);
+
 	@Autowired
 	private KafkaTemplate<String, Object> kafkaTemplate;
 
@@ -62,7 +62,6 @@ public class KafkaProducer {
 	@PostMapping("/email/casen")
 	public String sortData(@RequestBody List<Example> example) throws JsonProcessingException {
 		logger.info("Result = " + example.toString());
-
 		Map<String,List<Example>> map = new HashMap<>();
 		final String prefix = "AccDetails";
 		map = example.stream().collect(Collectors.groupingBy(Example::getAccountName));
@@ -76,14 +75,14 @@ public class KafkaProducer {
 		return map.toString();
 	}
 
-	public void convertObjectIntoAccDetails(Map<String,List<Example>> originalMap){
+	public void convertObjectIntoAccDetails(Map<String,List<Example>> originalMap) {
 
 		originalMap.forEach((k, v) -> {
 			k = "AccDetails";
 			SummaryPayload summaryPayload = new SummaryPayload();
 			List<AccDetails> accDetailsList  = new ArrayList<>();
 			AccDetails accDetails ;
-			for(int i=0;i<v.size();i++) {
+			for(int i = 0; i < v.size(); i++) {
 				accDetails = new AccDetails();
 				accDetails.setAccountname(v.get(i).getAccountName());
 				accDetails.setBandwidth(v.get(i).getBandwidth());
