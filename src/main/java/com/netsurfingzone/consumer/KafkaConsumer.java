@@ -326,7 +326,7 @@ public class KafkaConsumer {
 	public void recSummaryNotification(SummaryPayload summaryPayload) throws IOException, MessagingException {
 
 		int i = 0;
-		String ccList = "",toList="",content="",subject="",htmlContent = "";
+		String ccList = "",toList = "",content = "",subject = "",htmlContent = "";
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonString = mapper.writeValueAsString(summaryPayload);
 		System.out.println("jsonString..............."+jsonString);
