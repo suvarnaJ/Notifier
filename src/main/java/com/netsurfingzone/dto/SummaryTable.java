@@ -25,7 +25,6 @@ public class SummaryTable {
         this.model = model;
     }
 
-
     public String getTicketNumber() {
         return ticketNumber;
     }

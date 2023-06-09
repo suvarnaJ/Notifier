@@ -47,14 +47,12 @@ import java.net.Proxy;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class KafkaConsumer {
 
 	private static final Logger logger = LoggerFactory.getLogger(KafkaConsumer.class);
 
-	Configuration configuration ;
 	@Resource(name = "refreshToken")
 	private Map<String, String> tokenValueMap;
 
@@ -66,8 +64,6 @@ public class KafkaConsumer {
 
 	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY)
 	public void receivedMessage(Notify message) throws IOException, MessagingException {
-		ObjectMapper mapper = new ObjectMapper();
-		String jsonString = mapper.writeValueAsString(message);
 		String toList = message.getContact().getTo();
 		String ccList = message.getContact().getCc();
 		String content = message.getEventName().getEventName();
@@ -133,7 +129,6 @@ public class KafkaConsumer {
 
 
 	public String sendMailHTTP() throws UnsupportedEncodingException {
-		//sk.george@tatacommunications.com,piyush.shah2@tatacommunications.com
 		String token = tokenValueMap.get("tokenValue");
 		System.out.println("Refreshed token value  ----------"+token);
 		String jsonRequest = "{\n" +

@@ -20,7 +20,6 @@ com\netsurfingzone\exception\ErrorDetails.class
 com\netsurfingzone\exception\GlobalExceptionHandler.class
 com\netsurfingzone\entity\templateData.class
 main\java\com\netsurfingzone\dto\AdditionalInfo.class
-com\netsurfingzone\config\MyAuthenticationProvider.class
 com\netsurfingzone\dto\EmailAddress.class
 main\java\com\netsurfingzone\dto\EventName.class
 com\netsurfingzone\deserializer\KafkaNotifyDeserializer.class
