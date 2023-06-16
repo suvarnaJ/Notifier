@@ -11,6 +11,7 @@ import com.microsoft.graph.models.*;
 import com.microsoft.graph.models.EmailAddress;
 import com.microsoft.graph.models.Message;
 import com.microsoft.graph.requests.GraphServiceClient;
+import com.netsurfingzone.config.RegexConfig;
 import com.netsurfingzone.dto.*;
 import net.bytebuddy.build.Plugin;
 import org.apache.http.HttpEntity;
@@ -28,6 +29,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -61,6 +64,8 @@ public class KafkaConsumer {
 
 	@Autowired
 	private SpringTemplateEngine templateEngine;
+
+	RegexConfig regexConfig = new RegexConfig();
 
 	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY)
 	public void receivedMessage(Notify message) throws IOException, MessagingException {
@@ -251,7 +256,7 @@ public class KafkaConsumer {
 		requestFactory.setProxy(proxy);
 
 		String clientId = "64d33c44-2d40-4d0f-a73a-dd0ed9950e1f";
-		String clientSecret = "320j1.n-tD.aa114YHC0z-42beLV45tGcc";
+		String clientSecret = "cOd01o649ogXPxvRHHnMvnW3LGi7ZSfrqUsa+HWlYGE=";
 		String tenantId = "20210462-2c5e-4ec8-b3e2-0be950f292ca";
 		String redirect_url = "https://graph.microsoft.com/";
 		final String GRAPH_DEFAULT_SCOPE = "https://graph.microsoft.com/.default";
@@ -300,8 +305,6 @@ public class KafkaConsumer {
 		ccRecipientsList.add(ccRecipients);
 		message.ccRecipients = ccRecipientsList;*/
 
-		System.out.println("22222222222222");
-
 		boolean saveToSentItems = true;
 		graphClient.users("service.supportuat@tatacommunications.com").
 				sendMail(UserSendMailParameterSet.
@@ -312,13 +315,13 @@ public class KafkaConsumer {
 				buildRequest().
 				post();
 
-		System.out.println("333333333333333333333");
+		System.out.println("+++++++++++Successfully send email+++++++++++++");
 
 		return "";
 	}
 
 	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME_SUMMARY, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY)
-	public void recSummaryNotification(SummaryPayload summaryPayload) throws IOException, MessagingException {
+	public ResponseEntity<?> recSummaryNotification(SummaryPayload summaryPayload) throws IOException, MessagingException {
 
 		int i = 0;
 		String ccList = "",toList = "",content = "",subject = "",htmlContent = "";
@@ -333,46 +336,82 @@ public class KafkaConsumer {
 		LinkedList<Recipient> ccRecipientsList = new LinkedList<Recipient>();
 
 		for(i = 0; i < summaryPayload.getAccDetailsList().size(); i++) {
-			SummaryTable summaryTable = new SummaryTable();
-			Recipient toRecipients = null;//= new Recipient();
-			Recipient ccRecipients = null;//= new Recipient();
-			EmailAddress emailAddress ;//= new EmailAddress();
-			if(i == 0) {
-				toList = summaryPayload.getAccDetailsList().get(i).getToEmail();
-				String[] strArray = toList.split(";");
-				for (int j = 0; j < strArray.length; j++) {
-					toRecipients = new Recipient();
-					emailAddress = new EmailAddress();
-					emailAddress.address = strArray[j];
-					toRecipients.emailAddress = emailAddress;
-					toRecipientsList.add(toRecipients);
+
+			//Validation's of accountNumber
+			if(summaryPayload.getAccDetailsList().get(i).getAccountname().equals("")){
+				logger.info("accountNumber can't be null");
+				return new ResponseEntity<>("accountNumber can't be null",HttpStatus.NOT_FOUND);
+			}
+
+			//Validation's of email format
+			if(summaryPayload.getAccDetailsList().get(i).getCcEmail().contains(",") || summaryPayload.getAccDetailsList().get(i).getToEmail().contains(",")){
+				logger.info("Invalid email format");
+				return new ResponseEntity<>("Invalid email format",HttpStatus.BAD_REQUEST);
+			}else if(summaryPayload.getAccDetailsList().get(i).getCcEmail().equals("") || summaryPayload.getAccDetailsList().get(i).getToEmail().equals("")){
+				logger.info("Email can't be null");
+				return new ResponseEntity<>("Email can't be null",HttpStatus.NOT_FOUND);
+			}
+
+			//Validation's of toEmail
+			String toEmail = summaryPayload.getAccDetailsList().get(i).getToEmail();
+			String[] toEmailSplit = toEmail.split(";");
+			for(int t = 0; t < toEmailSplit.length; t++){
+				if(!(regexConfig.validateEmail(toEmailSplit[t]))){
+					logger.info("Invalid to_email");
+					return new ResponseEntity<>("Invalid to_email",HttpStatus.BAD_REQUEST);
 				}
 			}
 
-			if(i == 0) {
-				ccList = summaryPayload.getAccDetailsList().get(i).getCcEmail();
-				String[] strCcArray = ccList.split(";");
-				for (int k = 0; k < strCcArray.length; k++) {
-					ccRecipients = new Recipient();
-					emailAddress = new EmailAddress();
-					emailAddress.address = strCcArray[k];
-					ccRecipients.emailAddress = emailAddress;
-					ccRecipientsList.add(ccRecipients);
+			//Validation's of ccEmail
+			String ccEmail = summaryPayload.getAccDetailsList().get(i).getCcEmail();
+			String[] ccEmailSplit = ccEmail.split(";");
+			for(int c = 0; c < ccEmailSplit.length; c++){
+				if(!(regexConfig.validateEmail(ccEmailSplit[c]))){
+					logger.info("Invalid cc_email");
+					return new ResponseEntity<>("Invalid cc_email",HttpStatus.BAD_REQUEST);
 				}
 			}
+
+			SummaryTable summaryTable = new SummaryTable();
+				Recipient toRecipients = null;//= new Recipient();
+				Recipient ccRecipients = null;//= new Recipient();
+				EmailAddress emailAddress ;//= new EmailAddress();
+				if(i == 0) {
+					toList = summaryPayload.getAccDetailsList().get(i).getToEmail();
+					String[] strArray = toList.split(";");
+					for (int j = 0; j < strArray.length; j++) {
+						toRecipients = new Recipient();
+						emailAddress = new EmailAddress();
+						emailAddress.address = strArray[j];
+						toRecipients.emailAddress = emailAddress;
+						toRecipientsList.add(toRecipients);
+					}
+				}
+
+				if(i == 0) {
+					ccList = summaryPayload.getAccDetailsList().get(i).getCcEmail();
+					String[] strCcArray = ccList.split(";");
+					for (int k = 0; k < strCcArray.length; k++) {
+						ccRecipients = new Recipient();
+						emailAddress = new EmailAddress();
+						emailAddress.address = strCcArray[k];
+						ccRecipients.emailAddress = emailAddress;
+						ccRecipientsList.add(ccRecipients);
+					}
+				}
 
 			/*ccList = summaryPayload.getAccDetailsList().get(i).getCcEmail().toString();
 			content = summaryPayload.getAccDetailsList().get(i).getAccountname().toString();
 			subject = summaryPayload.getAccDetailsList().get(i).getAccountname().toString();*/
 
-			summaryTable.setTicketNumber(summaryPayload.getAccDetailsList().get(i).getTicketNumber());
-			summaryTable.setServiceID(summaryPayload.getAccDetailsList().get(i).getServiceID());
-			summaryTable.setAccountName(summaryPayload.getAccDetailsList().get(i).getAccountname());
-			summaryTable.setBandwidth(summaryPayload.getAccDetailsList().get(i).getBandwidth());
-			summaryTable.setImpact(summaryPayload.getAccDetailsList().get(i).getImpact());
-			summaryTable.setState(summaryPayload.getAccDetailsList().get(i).getState());
-			summaryTable.setStatusReason(summaryPayload.getAccDetailsList().get(i).getStatusReason());
-			summaryTableList.add(summaryTable);
+				summaryTable.setTicketNumber(summaryPayload.getAccDetailsList().get(i).getTicketNumber());
+				summaryTable.setServiceID(summaryPayload.getAccDetailsList().get(i).getServiceID());
+				summaryTable.setAccountName(summaryPayload.getAccDetailsList().get(i).getAccountname());
+				summaryTable.setBandwidth(summaryPayload.getAccDetailsList().get(i).getBandwidth());
+				summaryTable.setImpact(summaryPayload.getAccDetailsList().get(i).getImpact());
+				summaryTable.setState(summaryPayload.getAccDetailsList().get(i).getState());
+				summaryTable.setStatusReason(summaryPayload.getAccDetailsList().get(i).getStatusReason());
+				summaryTableList.add(summaryTable);
 		}
 		model.put("list", summaryTableList);
 		ccList = summaryPayload.getAccDetailsList().get(0).getCcEmail();
@@ -397,5 +436,6 @@ public class KafkaConsumer {
 		//sendMailHTTP();
 
 		logger.info("Result = " + result.toString());
+		return new ResponseEntity<>(result.toString(),HttpStatus.ACCEPTED);
 	}
 }

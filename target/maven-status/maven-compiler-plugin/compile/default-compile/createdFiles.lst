@@ -6,6 +6,7 @@ main\java\com\netsurfingzone\dto\TicketInfo.class
 main\java\com\netsurfingzone\dto\Sample.class
 main\java\com\netsurfingzone\dto\Contact.class
 com\netsurfingzone\config\ThymeleafTemplateConfig.class
+com\netsurfingzone\config\RegexConfig.class
 com\netsurfingzone\dto\Student.class
 com\netsurfingzone\config\ConnectingToDB.class
 com\netsurfingzone\dto\Root.class
