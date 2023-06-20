@@ -31,5 +31,7 @@ C:\Users\SHARMAMU\Desktop\Spring-Boot-Kafka-Producer-and-Consumer-Example-master
 C:\Users\SHARMAMU\Desktop\Spring-Boot-Kafka-Producer-and-Consumer-Example-master\src\main\java\com\netsurfingzone\dto\EmailAddress.java
 C:\Users\SHARMAMU\Desktop\Spring-Boot-Kafka-Producer-and-Consumer-Example-master\src\main\java\com\netsurfingzone\main\SpringMain.java
 C:\Users\SHARMAMU\Desktop\Spring-Boot-Kafka-Producer-and-Consumer-Example-master\src\main\java\com\netsurfingzone\dto\Message.java
+C:\Users\SHARMAMU\Desktop\Spring-Boot-Kafka-Producer-and-Consumer-Example-master\src\main\java\com\netsurfingzone\payload\ErrorResponse.java
+C:\Users\SHARMAMU\Desktop\Spring-Boot-Kafka-Producer-and-Consumer-Example-master\src\main\java\com\netsurfingzone\payload\SuccessResponse.java
 C:\Users\SHARMAMU\Desktop\Spring-Boot-Kafka-Producer-and-Consumer-Example-master\src\main\java\com\netsurfingzone\exception\ErrorDetails.java
 C:\Users\SHARMAMU\Desktop\Spring-Boot-Kafka-Producer-and-Consumer-Example-master\src\main\java\com\netsurfingzone\exception\GlobalExceptionHandler.java

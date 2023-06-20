@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.netsurfingzone.config.RegexConfig;
 import com.netsurfingzone.dto.*;
+import com.netsurfingzone.payload.ErrorResponse;
+import com.netsurfingzone.payload.SuccessResponse;
 import org.apache.kafka.common.metrics.stats.Sum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,17 +64,17 @@ public class KafkaProducer {
 
 				//Validation's of accountNumber
 				if(summaryPayload.getAccDetailsList().get(i).getAccountname().equals("")){
-					logger.info("accountNumber can't be null");
-					return new ResponseEntity<>("accountNumber can't be null",HttpStatus.NOT_FOUND);
+					logger.info("Account Number is mandatory");
+					return ErrorResponse.errorHandler(HttpStatus.NOT_FOUND,true,"Account Number is mandatory");
 				}
 
 				//Validation's of email format
 				if(summaryPayload.getAccDetailsList().get(i).getCcEmail().contains(",") || summaryPayload.getAccDetailsList().get(i).getToEmail().contains(",")){
 					logger.info("Invalid email format");
-					return new ResponseEntity<>("Invalid email format",HttpStatus.BAD_REQUEST);
-				}else if(summaryPayload.getAccDetailsList().get(i).getCcEmail().equals("") || summaryPayload.getAccDetailsList().get(i).getToEmail().equals("")){
-					logger.info("Email can't be null");
-					return new ResponseEntity<>("Email can't be null",HttpStatus.NOT_FOUND);
+					return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Invalid email format");
+				}else if(summaryPayload.getAccDetailsList().get(i).getToEmail().equals("")){
+					logger.info("Email is mandatory");
+					return ErrorResponse.errorHandler(HttpStatus.NOT_FOUND,true,"Email is mandatory");
 				}
 
 				//Validation's of toEmail
@@ -80,28 +82,28 @@ public class KafkaProducer {
 				String[] toEmailSplit = toEmail.split(";");
 				for(int t = 0; t < toEmailSplit.length; t++){
 					if(!(regexConfig.validateEmail(toEmailSplit[t]))){
-						logger.info("Invalid to_email");
-						return new ResponseEntity<>("Invalid to_email",HttpStatus.BAD_REQUEST);
+						logger.info("To List is invalid");
+						return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"To List is invalid");
 					}
 				}
 
 				//Validation's of ccEmail
-				String ccEmail = summaryPayload.getAccDetailsList().get(i).getCcEmail();
-				String[] ccEmailSplit = ccEmail.split(";");
-				for(int c = 0; c < ccEmailSplit.length; c++){
-					if(!(regexConfig.validateEmail(ccEmailSplit[c]))){
-						logger.info("Invalid cc_email");
-						return new ResponseEntity<>("Invalid cc_email",HttpStatus.BAD_REQUEST);
-					}
-				}
+//				String ccEmail = summaryPayload.getAccDetailsList().get(i).getCcEmail();
+//				String[] ccEmailSplit = ccEmail.split(";");
+//				for(int c = 0; c < ccEmailSplit.length; c++){
+//					if(!(regexConfig.validateEmail(ccEmailSplit[c]))){
+//						logger.info("Cc List is invalid");
+//						return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Cc List is invalid");
+//					}
+//				}
 			}
 
 			kafkaTemplate.send(ApplicationConstant.TOPIC_NAME_SUMMARY, summaryPayload);
 			logger.info("json message sent successfully." + summaryPayload.toString().length());
-			return new ResponseEntity<>("Data extracted", HttpStatus.ACCEPTED);
+			return SuccessResponse.successHandler(HttpStatus.OK,false,"Data is extracted",summaryPayload.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+			return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,e.getMessage());
 		}
 	}
 

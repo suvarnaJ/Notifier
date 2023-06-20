@@ -13,6 +13,8 @@ import com.microsoft.graph.models.Message;
 import com.microsoft.graph.requests.GraphServiceClient;
 import com.netsurfingzone.config.RegexConfig;
 import com.netsurfingzone.dto.*;
+import com.netsurfingzone.payload.ErrorResponse;
+import com.netsurfingzone.payload.SuccessResponse;
 import net.bytebuddy.build.Plugin;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
@@ -295,6 +297,8 @@ public class KafkaConsumer {
 		toRecipientsList.add(toRecipients);*/
 
 		message.toRecipients = toList;
+
+		// Comment these snippet if production is readiness
 		message.ccRecipients = ccRecipientsList;
 
 		/*LinkedList<Recipient> ccRecipientsList = new LinkedList<Recipient>();
@@ -339,17 +343,17 @@ public class KafkaConsumer {
 
 			//Validation's of accountNumber
 			if(summaryPayload.getAccDetailsList().get(i).getAccountname().equals("")){
-				logger.info("accountNumber can't be null");
-				return new ResponseEntity<>("accountNumber can't be null",HttpStatus.NOT_FOUND);
+				logger.info("Account Number is mandatory");
+				return ErrorResponse.errorHandler(HttpStatus.NOT_FOUND,true,"Account Number is mandatory");
 			}
 
 			//Validation's of email format
 			if(summaryPayload.getAccDetailsList().get(i).getCcEmail().contains(",") || summaryPayload.getAccDetailsList().get(i).getToEmail().contains(",")){
 				logger.info("Invalid email format");
-				return new ResponseEntity<>("Invalid email format",HttpStatus.BAD_REQUEST);
-			}else if(summaryPayload.getAccDetailsList().get(i).getCcEmail().equals("") || summaryPayload.getAccDetailsList().get(i).getToEmail().equals("")){
-				logger.info("Email can't be null");
-				return new ResponseEntity<>("Email can't be null",HttpStatus.NOT_FOUND);
+				return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Invalid email format");
+			}else if(summaryPayload.getAccDetailsList().get(i).getToEmail().equals("")){
+				logger.info("Email is mandatory");
+				return ErrorResponse.errorHandler(HttpStatus.NOT_FOUND,true,"Email is mandatory");
 			}
 
 			//Validation's of toEmail
@@ -357,20 +361,20 @@ public class KafkaConsumer {
 			String[] toEmailSplit = toEmail.split(";");
 			for(int t = 0; t < toEmailSplit.length; t++){
 				if(!(regexConfig.validateEmail(toEmailSplit[t]))){
-					logger.info("Invalid to_email");
-					return new ResponseEntity<>("Invalid to_email",HttpStatus.BAD_REQUEST);
+					logger.info("To List is invalid");
+					return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"To List is invalid");
 				}
 			}
 
 			//Validation's of ccEmail
-			String ccEmail = summaryPayload.getAccDetailsList().get(i).getCcEmail();
-			String[] ccEmailSplit = ccEmail.split(";");
-			for(int c = 0; c < ccEmailSplit.length; c++){
-				if(!(regexConfig.validateEmail(ccEmailSplit[c]))){
-					logger.info("Invalid cc_email");
-					return new ResponseEntity<>("Invalid cc_email",HttpStatus.BAD_REQUEST);
-				}
-			}
+//			String ccEmail = summaryPayload.getAccDetailsList().get(i).getCcEmail();
+//			String[] ccEmailSplit = ccEmail.split(";");
+//			for(int c = 0; c < ccEmailSplit.length; c++){
+//				if(!(regexConfig.validateEmail(ccEmailSplit[c]))){
+//					logger.info("Cc List is invalid");
+//					return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Cc List is invalid");
+//				}
+//			}
 
 			SummaryTable summaryTable = new SummaryTable();
 				Recipient toRecipients = null;//= new Recipient();
@@ -436,6 +440,6 @@ public class KafkaConsumer {
 		//sendMailHTTP();
 
 		logger.info("Result = " + result.toString());
-		return new ResponseEntity<>(result.toString(),HttpStatus.ACCEPTED);
+		return SuccessResponse.successHandler(HttpStatus.OK,false,"Succesfully consumed data",result.toString());
 	}
 }
