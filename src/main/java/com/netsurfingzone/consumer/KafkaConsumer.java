@@ -34,6 +34,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -69,6 +70,9 @@ public class KafkaConsumer {
 
 	RegexConfig regexConfig = new RegexConfig();
 
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+
 	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY)
 	public ResponseEntity<?> receivedMessage(Notify message) throws IOException, MessagingException {
 		ObjectMapper mapper = new ObjectMapper();
@@ -81,15 +85,18 @@ public class KafkaConsumer {
 		//Validation's of eventName
 		if(content.equals("")){
 			logger.info("Event Name is mandatory");
+			jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message) values ('null', 404, 'Event Name is mandatory')");
 			return ErrorResponse.errorHandler(HttpStatus.NOT_FOUND,true,"Event Name is mandatory");
 		}
 
 		//Validation's of email format
 		if(ccList.contains(",") || toList.contains(",")){
 			logger.info("Invalid email format");
+			jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message) values ('null', 400, 'Invalid email format')");
 			return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Invalid email format");
 		}else if(toList.equals("") || ccList.equals("")){
 			logger.info("Email is mandatory");
+			jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message) values ('null', 404, 'Email is mandatory')");
 			return ErrorResponse.errorHandler(HttpStatus.NOT_FOUND,true,"Email is mandatory");
 		}
 
@@ -98,6 +105,7 @@ public class KafkaConsumer {
 		for(int t = 0; t < toEmailSplit.length; t++){
 			if(!(regexConfig.validateEmail(toEmailSplit[t]))){
 				logger.info("To List is invalid");
+				jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message) values ('null', 400, 'To List is invalid')");
 				return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"To List is invalid");
 			}
 		}
@@ -107,6 +115,7 @@ public class KafkaConsumer {
 			for(int c = 0; c < ccEmailSplit.length; c++){
 				if(!(regexConfig.validateEmail(ccEmailSplit[c]))){
 					logger.info("Cc List is invalid");
+					jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message) values ('null', 400, 'Cc List is invalid')");
 					return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Cc List is invalid");
 				}
 			}
@@ -390,15 +399,18 @@ public class KafkaConsumer {
 			//Validation's of accountNumber
 			if(summaryPayload.getAccDetailsList().get(i).getAccountname().equals("")){
 				logger.info("Account Number is mandatory");
+				jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message) values ('null', 404, 'Account Number is mandatory')");
 				return ErrorResponse.errorHandler(HttpStatus.NOT_FOUND,true,"Account Number is mandatory");
 			}
 
 			//Validation's of email format
 			if(summaryPayload.getAccDetailsList().get(i).getCcEmail().contains(",") || summaryPayload.getAccDetailsList().get(i).getToEmail().contains(",")){
 				logger.info("Invalid email format");
+				jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message) values ('null', 400, 'Invalid email format')");
 				return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Invalid email format");
 			}else if(summaryPayload.getAccDetailsList().get(i).getToEmail().equals("")){
 				logger.info("Email is mandatory");
+				jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message) values ('null', 404, 'Email is mandatory')");
 				return ErrorResponse.errorHandler(HttpStatus.NOT_FOUND,true,"Email is mandatory");
 			}
 
@@ -408,6 +420,7 @@ public class KafkaConsumer {
 			for(int t = 0; t < toEmailSplit.length; t++){
 				if(!(regexConfig.validateEmail(toEmailSplit[t]))){
 					logger.info("To List is invalid");
+					jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message) values ('null', 400, 'To List is invalid')");
 					return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"To List is invalid");
 				}
 			}
@@ -418,6 +431,7 @@ public class KafkaConsumer {
 //			for(int c = 0; c < ccEmailSplit.length; c++){
 //				if(!(regexConfig.validateEmail(ccEmailSplit[c]))){
 //					logger.info("Cc List is invalid");
+//			        jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message) values ('null', 400, 'Cc List is invalid')");
 //					return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Cc List is invalid");
 //				}
 //			}
