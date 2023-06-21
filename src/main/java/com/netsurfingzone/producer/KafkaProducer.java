@@ -39,15 +39,49 @@ public class KafkaProducer {
 			allowedHeaders = CorsConfiguration.ALL,   // Allowed Headers
 			exposedHeaders = {})
 	@PostMapping("/email/sendnotification")
-	public String sendMessage(@RequestBody Notify message) {
+	public ResponseEntity<?> sendMessage(@RequestBody Notify message) {
 		logger.info("Result = " + message.toString());
 		try {
+
+			//Validation's of eventName
+			if(message.getEventName().getEventName().equals("")){
+				logger.info("Event Name is mandatory");
+				return ErrorResponse.errorHandler(HttpStatus.NOT_FOUND,true,"Event Name is mandatory");
+			}
+
+			//Validation's of email format
+			if(message.getContact().getCc().contains(",") || message.getContact().getTo().contains(",")){
+				logger.info("Invalid email format");
+				return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Invalid email format");
+			}else if(message.getContact().getTo().equals("") || message.getContact().getCc().equals("")){
+				logger.info("Email is mandatory");
+				return ErrorResponse.errorHandler(HttpStatus.NOT_FOUND,true,"Email is mandatory");
+			}
+
+			//Validation's of toEmail
+			String[] toEmailSplit = message.getContact().getTo().split(";");
+			for(int t = 0; t < toEmailSplit.length; t++){
+				if(!(regexConfig.validateEmail(toEmailSplit[t]))){
+					logger.info("To List is invalid");
+					return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"To List is invalid");
+				}
+			}
+
+			//Validation's of ccEmail
+			String[] ccEmailSplit = message.getContact().getCc().split(";");
+			for(int c = 0; c < ccEmailSplit.length; c++){
+				if(!(regexConfig.validateEmail(ccEmailSplit[c]))){
+					logger.info("Cc List is invalid");
+					return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Cc List is invalid");
+				}
+			}
 			kafkaTemplate.send(ApplicationConstant.TOPIC_NAME, message);
-			logger.info("json message sent successfully." + message.toString());
+			logger.info("Data sent successfully." + message.toString());
+			return SuccessResponse.successHandler(HttpStatus.OK,false,"Data sent successfully",null);
 		} catch (Exception e) {
 			e.printStackTrace();
+			return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,e.getMessage());
 		}
-		return "json message sent successfully.";
 	}
 
 	@CrossOrigin(
@@ -99,8 +133,8 @@ public class KafkaProducer {
 			}
 
 			kafkaTemplate.send(ApplicationConstant.TOPIC_NAME_SUMMARY, summaryPayload);
-			logger.info("json message sent successfully." + summaryPayload.toString().length());
-			return SuccessResponse.successHandler(HttpStatus.OK,false,"Data is extracted",summaryPayload.toString());
+			logger.info("Notification sent successfully" + summaryPayload.toString().length());
+			return SuccessResponse.successHandler(HttpStatus.OK,false,"Notification sent successfully",null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,e.getMessage());

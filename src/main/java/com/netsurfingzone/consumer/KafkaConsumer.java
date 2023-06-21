@@ -70,25 +70,70 @@ public class KafkaConsumer {
 	RegexConfig regexConfig = new RegexConfig();
 
 	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY)
-	public void receivedMessage(Notify message) throws IOException, MessagingException {
+	public ResponseEntity<?> receivedMessage(Notify message) throws IOException, MessagingException {
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonString = mapper.writeValueAsString(message);
 		String toList = message.getContact().getTo();
 		String ccList = message.getContact().getCc();
 		String content = message.getEventName().getEventName();
 		String subject = message.getNotification().getType();
 
+		//Validation's of eventName
+		if(content.equals("")){
+			logger.info("Event Name is mandatory");
+			return ErrorResponse.errorHandler(HttpStatus.NOT_FOUND,true,"Event Name is mandatory");
+		}
+
+		//Validation's of email format
+		if(ccList.contains(",") || toList.contains(",")){
+			logger.info("Invalid email format");
+			return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Invalid email format");
+		}else if(toList.equals("") || ccList.equals("")){
+			logger.info("Email is mandatory");
+			return ErrorResponse.errorHandler(HttpStatus.NOT_FOUND,true,"Email is mandatory");
+		}
+
+		//Validation's of toEmail
+		String[] toEmailSplit = toList.split(";");
+		for(int t = 0; t < toEmailSplit.length; t++){
+			if(!(regexConfig.validateEmail(toEmailSplit[t]))){
+				logger.info("To List is invalid");
+				return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"To List is invalid");
+			}
+		}
+
+		//Validation's of ccEmail
+			String[] ccEmailSplit = ccList.split(";");
+			for(int c = 0; c < ccEmailSplit.length; c++){
+				if(!(regexConfig.validateEmail(ccEmailSplit[c]))){
+					logger.info("Cc List is invalid");
+					return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Cc List is invalid");
+				}
+			}
+
 		LinkedList<Recipient> toRecipientsList = new LinkedList<Recipient>();
-		Recipient toRecipients = new Recipient();
-		EmailAddress emailAddress = new EmailAddress();
-		emailAddress.address = toList; //"suvarna.jagadale@tatacommunications.com";
-		toRecipients.emailAddress = emailAddress;
-		toRecipientsList.add(toRecipients);
+		Recipient toRecipients = null;
+		EmailAddress emailAddress = null;
+		String[] strArray = toList.split(";");
+		for (int j = 0; j < strArray.length; j++) {
+			toRecipients = new Recipient();
+			emailAddress = new EmailAddress();
+			emailAddress.address = strArray[j];
+			toRecipients.emailAddress = emailAddress;
+			toRecipientsList.add(toRecipients);
+		}
 
 		LinkedList<Recipient> ccRecipientsList = new LinkedList<Recipient>();
-		Recipient ccRecipients = new Recipient();
-		EmailAddress ccEmailAddress = new EmailAddress();
-		ccEmailAddress.address = ccList;//"suvarna.jagadale@tatacommunications.com";
-		ccRecipients.emailAddress = ccEmailAddress;
-		ccRecipientsList.add(ccRecipients);
+		Recipient ccRecipients = null;
+		EmailAddress  ccEmailAddress = null;
+		String[] strCCArray = ccList.split(";");
+		for (int k = 0; k < strCCArray.length; k++) {
+			ccRecipients = new Recipient();
+			ccEmailAddress = new EmailAddress();
+			ccEmailAddress.address = strCCArray[k];
+			ccRecipients.emailAddress = ccEmailAddress;
+			ccRecipientsList.add(ccRecipients);
+		}
 
 		Mail mail = new Mail();
 		Map model = new HashMap();
@@ -115,22 +160,23 @@ public class KafkaConsumer {
 
 		Context context = new Context();
 		context.setVariables(mail.getModel());
-		helper.setTo(toList);
-		//String html = templateEngine.process("newsletter-template", context);
-		String html = "";
+		//helper.setTo(toList);
+
+		String html ="";
 		System.out.println("template name ==="+message.getEventName().getEventName());
 		if(message.getEventName().getEventName().equalsIgnoreCase("RF_RED_EVENT")) {
 			html = templateEngine.process("RF_RED_EVENT", context);
 		}else{
-			 html = templateEngine.process("RF_GREEN_EVENT", context);
+			html = templateEngine.process("RF_GREEN_EVENT", context);
 		}
 
 		logger.info("Json message received using Kafka listener " + html);
 		String result = //sendMail();
 				sendMail(toRecipientsList,ccRecipientsList,content,subject,html);
-				//sendMailHTTP();
+		//sendMailHTTP();
 
 		logger.info("Result = " + result.toString());
+		return SuccessResponse.successHandler(HttpStatus.OK,false,"Succesfully consumed data",result.toString());
 
 	}
 
@@ -299,7 +345,7 @@ public class KafkaConsumer {
 		message.toRecipients = toList;
 
 		// Comment these snippet if production is readiness
-		message.ccRecipients = ccRecipientsList;
+		//message.ccRecipients = ccRecipientsList;
 
 		/*LinkedList<Recipient> ccRecipientsList = new LinkedList<Recipient>();
 		Recipient ccRecipients = new Recipient();
