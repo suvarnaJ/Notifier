@@ -33,5 +33,7 @@ com\netsurfingzone\payload\ErrorResponse.class
 com\netsurfingzone\dto\SummaryTable.class
 main\java\com\netsurfingzone\dto\Notification.class
 com\netsurfingzone\dto\ToRecipient.class
+com\netsurfingzone\config\Constant$API_Name.class
+com\netsurfingzone\config\Constant.class
 com\netsurfingzone\dto\Example.class
 com\netsurfingzone\dto\Mail.class
