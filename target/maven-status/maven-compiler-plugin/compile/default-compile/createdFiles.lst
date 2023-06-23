@@ -20,6 +20,7 @@ com\netsurfingzone\config\sample.class
 com\netsurfingzone\dto\SummaryTableList.class
 com\netsurfingzone\exception\ErrorDetails.class
 com\netsurfingzone\exception\GlobalExceptionHandler.class
+com\netsurfingzone\config\EncryptionConfig.class
 com\netsurfingzone\entity\templateData.class
 main\java\com\netsurfingzone\dto\AdditionalInfo.class
 com\netsurfingzone\dto\EmailAddress.class

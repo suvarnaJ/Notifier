@@ -495,7 +495,6 @@ public class KafkaConsumer {
 		String html = "";
 		html = templateEngine.process("summary_notification_template.html", context);
 
-		logger.info("Json message received using Kafka listener " + html);
 		String result = //sendMail();
 				sendMail(toRecipientsList,ccRecipientsList,content,subject,html);
 		//sendMailHTTP();
