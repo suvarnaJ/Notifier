@@ -163,7 +163,7 @@ public class KafkaProducer {
 				}
 				kafkaTemplate.send(ApplicationConstant.TOPIC_NAME, message);
 				logger.info("Data sent successfully." + message.toString());
-				alreadyExecuted = true;
+				alreadyExecuted = false;
 				response = SuccessResponse.successHandler(HttpStatus.OK, false, "Notification sent successfully", null);
 				return response;
 			} catch (Exception e) {
