@@ -57,6 +57,13 @@ public class KafkaProducer {
 				String to_Email  = message.getContact().getTo();
 				String cc_Email  = message.getContact().getCc();
 
+				if(to_Email==null || cc_Email==null || message.getEventName().getEventName()==null ){
+					logger.info("Invalid payload");
+					jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'Invalid payload', '" + Constant.API_Name.RF_TEMPLATE + "')");
+					response = ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Invalid payload");
+					return response;
+				}
+
 				//Validation's of eventName
 				if (message.getEventName().getEventName().equals("")) {
 					logger.info("Event Name is mandatory");
@@ -183,6 +190,22 @@ public class KafkaProducer {
 			for(int i = 0; i < summaryPayload.getAccDetailsList().size(); i++) {
 
 				String to_Email  = summaryPayload.getAccDetailsList().get(i).getToEmail();
+				String ticketNumber  = summaryPayload.getAccDetailsList().get(i).getTicketNumber();
+				String cc_Email  = summaryPayload.getAccDetailsList().get(i).getCcEmail();
+				String serviceID  = summaryPayload.getAccDetailsList().get(i).getServiceID();
+				String accountName  = summaryPayload.getAccDetailsList().get(i).getAccountname();
+				String bandwidth  = summaryPayload.getAccDetailsList().get(i).getBandwidth();
+				String impact  = summaryPayload.getAccDetailsList().get(i).getImpact();
+				String state  = summaryPayload.getAccDetailsList().get(i).getState();
+				String statusReason  = summaryPayload.getAccDetailsList().get(i).getStatusReason();
+				String openedAt  = summaryPayload.getAccDetailsList().get(i).getOpenedAt();
+
+
+				if(to_Email==null || ticketNumber==null || serviceID==null || accountName==null || bandwidth==null || impact==null || state==null || statusReason==null || openedAt==null ){
+					logger.info("Invalid payload");
+					jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'Invalid payload', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"')");
+					return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Invalid payload");
+				}
 
 				//Validation's of email format
 				if(summaryPayload.getAccDetailsList().get(i).getCcEmail().contains(",") || summaryPayload.getAccDetailsList().get(i).getToEmail().contains(",")){
