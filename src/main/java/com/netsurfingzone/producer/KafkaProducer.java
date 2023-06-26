@@ -55,36 +55,7 @@ public class KafkaProducer {
 			try {
 
 				String to_Email  = message.getContact().getTo();
-				String[] to_Email_Split = to_Email.split(";");
-				if(to_Email_Split.length==1) {
-					String encryptToEmail = encryptionConfig.decrypt(to_Email);
-					message.getContact().setTo(encryptToEmail);
-				}else{
-					String s1="";
-					for(int t = 0; t < to_Email_Split.length; t++){
-						String encryptToEmail = encryptionConfig.decrypt(to_Email_Split[t]);
-						s1+=encryptToEmail+";";
-					}
-					StringBuffer sb= new StringBuffer(s1);
-					sb.deleteCharAt(sb.length()-1);
-					message.getContact().setTo(sb.toString());
-				}
-
 				String cc_Email  = message.getContact().getCc();
-				String[] cc_Email_Split = cc_Email.split(";");
-				if(cc_Email_Split.length==1) {
-					String encryptCcEmail = encryptionConfig.decrypt(cc_Email);
-					message.getContact().setCc(encryptCcEmail);
-				}else{
-					String s1="";
-					for(int t = 0; t < cc_Email_Split.length; t++){
-						String encryptCcEmail = encryptionConfig.decrypt(cc_Email_Split[t]);
-						s1+=encryptCcEmail+";";
-					}
-					StringBuffer sb= new StringBuffer(s1);
-					sb.deleteCharAt(sb.length()-1);
-					message.getContact().setCc(sb.toString());
-				}
 
 				//Validation's of eventName
 				if (message.getEventName().getEventName().equals("")) {
@@ -106,6 +77,61 @@ public class KafkaProducer {
 					response = ErrorResponse.errorHandler(HttpStatus.NOT_FOUND, true, "Email is mandatory");
 					return response;
 				}
+
+					String[] to_Email_Split = to_Email.split(";");
+					if(to_Email_Split.length==1) {
+						if(!(regexConfig.isBase64(to_Email))) {
+							logger.info("One of the email address is not encrypted");
+							jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'One of the email address is not encrypted', '" + Constant.API_Name.RF_TEMPLATE + "')");
+							return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "One of the email address is not encrypted");
+						}else {
+							String encryptToEmail = encryptionConfig.decrypt(to_Email);
+							message.getContact().setTo(encryptToEmail);
+						}
+					}else{
+						String s1="";
+						for(int t = 0; t < to_Email_Split.length; t++){
+							if(!(regexConfig.isBase64(to_Email_Split[t]))) {
+								logger.info("One of the email address is not encrypted");
+								jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'One of the email address is not encrypted', '" + Constant.API_Name.RF_TEMPLATE + "')");
+								return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "One of the email address is not encrypted");
+							}else{
+								String encryptToEmail = encryptionConfig.decrypt(to_Email_Split[t]);
+								s1+=encryptToEmail+";";
+							}
+						}
+						StringBuffer sb= new StringBuffer(s1);
+						sb.deleteCharAt(sb.length()-1);
+						message.getContact().setTo(sb.toString());
+					}
+
+
+					String[] cc_Email_Split = cc_Email.split(";");
+					if(cc_Email_Split.length==1) {
+						if(!(regexConfig.isBase64(cc_Email))) {
+							logger.info("One of the email address is not encrypted");
+							jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'One of the email address is not encrypted', '" + Constant.API_Name.RF_TEMPLATE + "')");
+							return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "One of the email address is not encrypted");
+						}else{
+							String encryptCcEmail = encryptionConfig.decrypt(cc_Email);
+							message.getContact().setCc(encryptCcEmail);
+						}
+					}else{
+						String s1="";
+						for(int t = 0; t < cc_Email_Split.length; t++){
+							if(!(regexConfig.isBase64(cc_Email_Split[t]))) {
+								logger.info("One of the email address is not encrypted");
+								jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'One of the email address is not encrypted', '" + Constant.API_Name.RF_TEMPLATE + "')");
+								return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "One of the email address is not encrypted");
+							}else{
+								String encryptCcEmail = encryptionConfig.decrypt(cc_Email_Split[t]);
+								s1+=encryptCcEmail+";";
+							}
+						}
+						StringBuffer sb= new StringBuffer(s1);
+						sb.deleteCharAt(sb.length()-1);
+						message.getContact().setCc(sb.toString());
+					}
 
 				//Validation's of toEmail
 				String[] toEmailSplit = message.getContact().getTo().split(";");
@@ -130,7 +156,7 @@ public class KafkaProducer {
 				}
 				kafkaTemplate.send(ApplicationConstant.TOPIC_NAME, message);
 				logger.info("Data sent successfully." + message.toString());
-				alreadyExecuted = true;
+				alreadyExecuted = false;
 				response = SuccessResponse.successHandler(HttpStatus.OK, false, "Data sent successfully", null);
 				return response;
 			} catch (Exception e) {
@@ -157,20 +183,6 @@ public class KafkaProducer {
 			for(int i = 0; i < summaryPayload.getAccDetailsList().size(); i++) {
 
 				String to_Email  = summaryPayload.getAccDetailsList().get(i).getToEmail();
-				String[] to_Email_Split = to_Email.split(";");
-				if(to_Email_Split.length==1) {
-					String encryptToEmail = encryptionConfig.decrypt(summaryPayload.getAccDetailsList().get(i).getToEmail());
-					summaryPayload.getAccDetailsList().get(i).setToEmail(encryptToEmail);
-				}else{
-					String s1="";
-					for(int t = 0; t < to_Email_Split.length; t++){
-						String encryptToEmail = encryptionConfig.decrypt(to_Email_Split[t]);
-						s1+=encryptToEmail+";";
-					}
-					StringBuffer sb= new StringBuffer(s1);
-					sb.deleteCharAt(sb.length()-1);
-					summaryPayload.getAccDetailsList().get(i).setToEmail(sb.toString());
-				}
 
 				//Validation's of email format
 				if(summaryPayload.getAccDetailsList().get(i).getCcEmail().contains(",") || summaryPayload.getAccDetailsList().get(i).getToEmail().contains(",")){
@@ -189,6 +201,33 @@ public class KafkaProducer {
 					jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 404, 'Account Name is mandatory', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"')");
 					return ErrorResponse.errorHandler(HttpStatus.NOT_FOUND,true,"Account Name is mandatory");
 				}
+
+					String[] to_Email_Split = to_Email.split(";");
+					if(to_Email_Split.length==1) {
+						if(!(regexConfig.isBase64(to_Email))){
+							logger.info("One of the email address is not encrypted");
+							jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'One of the email address is not encrypted', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"')");
+							return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"One of the email address is not encrypted");
+						}else{
+							String encryptToEmail = encryptionConfig.decrypt(summaryPayload.getAccDetailsList().get(i).getToEmail());
+							summaryPayload.getAccDetailsList().get(i).setToEmail(encryptToEmail);
+						}
+					}else{
+						String s1="";
+						for(int t = 0; t < to_Email_Split.length; t++){
+							if(!(regexConfig.isBase64(to_Email_Split[t]))){
+								logger.info("One of the email address is not encrypted");
+								jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'One of the email address is not encrypted', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"')");
+								return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"One of the email address is not encrypted");
+							}else{
+								String encryptToEmail = encryptionConfig.decrypt(to_Email_Split[t]);
+								s1+=encryptToEmail+";";
+							}
+						}
+						StringBuffer sb= new StringBuffer(s1);
+						sb.deleteCharAt(sb.length()-1);
+						summaryPayload.getAccDetailsList().get(i).setToEmail(sb.toString());
+					}
 
 				//Validation's of toEmail
 				String toEmail = summaryPayload.getAccDetailsList().get(i).getToEmail();

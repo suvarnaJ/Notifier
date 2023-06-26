@@ -1,5 +1,6 @@
 package com.netsurfingzone.config;
 
+import java.util.Base64;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -7,6 +8,7 @@ public class RegexConfig {
 
     String emailRegex = "^(.+)@(.+)$";
     String accountNameRegex = "^[a-zA-Z\\s]*$";
+    String AESRegex = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$";
 
     public Boolean validateEmail(String email){
         Pattern pattern = Pattern.compile(emailRegex);
@@ -19,5 +21,12 @@ public class RegexConfig {
         Matcher matcher = pattern.matcher(accountName);
         return matcher.matches();
     }
+
+    public boolean isBase64(String input){
+        Pattern pattern = Pattern.compile(AESRegex);
+        Matcher matcher = pattern.matcher(input);
+        return matcher.matches();
+    }
+
 
 }

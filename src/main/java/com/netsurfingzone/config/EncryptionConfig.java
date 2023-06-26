@@ -11,7 +11,7 @@ public class EncryptionConfig {
 
     public String encrypt(String plainText)
             throws Exception {
-        Key aesKey = new SecretKeySpec(Constant.SECRET_KEY.getBytes(), "AES");
+        Key aesKey = new SecretKeySpec(Constant.SYMMETRIC_SECRET_KEY.getBytes(), "AES");
         Cipher cipher = Cipher.getInstance("AES");
         byte[] plainTextByte = plainText.getBytes();
         cipher.init(Cipher.ENCRYPT_MODE, aesKey);
@@ -23,7 +23,7 @@ public class EncryptionConfig {
 
     public String decrypt(String encryptedText)
             throws Exception {
-        Key aesKey = new SecretKeySpec(Constant.SECRET_KEY.getBytes(), "AES");
+        Key aesKey = new SecretKeySpec(Constant.SYMMETRIC_SECRET_KEY.getBytes(), "AES");
         Cipher cipher = Cipher.getInstance("AES");
         Base64.Decoder decoder = Base64.getDecoder();
         byte[] encryptedTextByte = decoder.decode(encryptedText);
