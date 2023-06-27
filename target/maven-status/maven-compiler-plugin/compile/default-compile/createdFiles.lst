@@ -19,6 +19,7 @@ com\netsurfingzone\dto\CcRecipient.class
 com\netsurfingzone\config\sample.class
 com\netsurfingzone\dto\SummaryTableList.class
 com\netsurfingzone\exception\ErrorDetails.class
+com\netsurfingzone\config\SwaggerConfig.class
 com\netsurfingzone\exception\GlobalExceptionHandler.class
 com\netsurfingzone\config\EncryptionConfig.class
 com\netsurfingzone\entity\templateData.class
