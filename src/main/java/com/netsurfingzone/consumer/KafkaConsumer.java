@@ -86,8 +86,8 @@ public class KafkaConsumer {
 		//Validation's of eventName
 		if(content.equals("")){
 			logger.info("Event Name is mandatory");
-			jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 404, 'Event Name is mandatory', '"+Constant.API_Name.RF_TEMPLATE+"')");
-			return ErrorResponse.errorHandler(HttpStatus.NOT_FOUND,true,"Event Name is mandatory");
+			jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'Event Name is mandatory', '"+Constant.API_Name.RF_TEMPLATE+"')");
+			return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Event Name is mandatory");
 		}
 
 		//Validation's of email format
@@ -97,8 +97,8 @@ public class KafkaConsumer {
 			return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Invalid email format");
 		}else if(toList.equals("") || ccList.equals("")){
 			logger.info("Email is mandatory");
-			jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 404, 'Email is mandatory', '"+Constant.API_Name.RF_TEMPLATE+"')");
-			return ErrorResponse.errorHandler(HttpStatus.NOT_FOUND,true,"Email is mandatory");
+			jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'Email is mandatory', '"+Constant.API_Name.RF_TEMPLATE+"')");
+			return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Email is mandatory");
 		}
 
 		//Validation's of toEmail
@@ -400,8 +400,8 @@ public class KafkaConsumer {
 			//Validation's of accountName
 			if(summaryPayload.getAccDetailsList().get(i).getAccountname().equals("")){
 				logger.info("Account Name is mandatory");
-				jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 404, 'Account Name is mandatory', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"')");
-				return ErrorResponse.errorHandler(HttpStatus.NOT_FOUND,true,"Account Name is mandatory");
+				jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'Account Name is mandatory', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"')");
+				return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Account Name is mandatory");
 			}
 
 			//Validation's of email format
@@ -411,8 +411,8 @@ public class KafkaConsumer {
 				return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Invalid email format");
 			}else if(summaryPayload.getAccDetailsList().get(i).getToEmail().equals("")){
 				logger.info("Email is mandatory");
-				jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 404, 'Email is mandatory', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"')");
-				return ErrorResponse.errorHandler(HttpStatus.NOT_FOUND,true,"Email is mandatory");
+				jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'Email is mandatory', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"')");
+				return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Email is mandatory");
 			}
 
 			//Validation's of toEmail
