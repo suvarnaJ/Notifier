@@ -88,6 +88,10 @@ public class KafkaConsumer {
 			logger.info("Event Name is mandatory");
 			jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'Event Name is mandatory', '"+Constant.API_Name.RF_TEMPLATE+"')");
 			return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Event Name is mandatory");
+		}else if(!(regexConfig.validateEventName(message.getEventName().getEventName()))){
+			logger.info("Invalid event name format");
+			jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'Invalid event name format', '" + Constant.API_Name.RF_TEMPLATE + "')");
+			return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Invalid event name format");
 		}
 
 		//Validation's of email format

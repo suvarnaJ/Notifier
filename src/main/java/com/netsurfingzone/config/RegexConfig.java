@@ -8,6 +8,7 @@ public class RegexConfig {
 
     String emailRegex = "^(.+)@(.+)$";
     String accountNameRegex = "^[a-zA-Z\\s]*$";
+    String eventNameRegex = "^[a-zA-Z_\\s]*$";
     String AESRegex = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$";
 
     public Boolean validateEmail(String email){
@@ -25,6 +26,12 @@ public class RegexConfig {
     public boolean isBase64(String input){
         Pattern pattern = Pattern.compile(AESRegex);
         Matcher matcher = pattern.matcher(input);
+        return matcher.matches();
+    }
+
+    public Boolean validateEventName(String eventName){
+        Pattern pattern = Pattern.compile(eventNameRegex);
+        Matcher matcher = pattern.matcher(eventName);
         return matcher.matches();
     }
 
