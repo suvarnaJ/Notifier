@@ -1,7 +1,5 @@
 package com.netsurfingzone.config;
 
-import org.springframework.beans.factory.annotation.Value;
-
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
