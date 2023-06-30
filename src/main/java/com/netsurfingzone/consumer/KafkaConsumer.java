@@ -311,7 +311,8 @@ public class KafkaConsumer {
 
 	//public  String sendMail(){
 	public  String sendMail(LinkedList<Recipient> toList,LinkedList<Recipient> ccRecipientsList,String content,String subject,String html){
-		String PROXY_SERVER_HOST = "121.244.254.154"; //UAT Proxy - 10.133.12.181   PROD Proxy -121.244.254.154 ;
+		String PROXY_SERVER_HOST = "10.133.12.181"; //UAT Proxy - 10.133.12.181   PROD Proxy -121.244.254.154 ;
+		java.security.Security.setProperty("jdk.tls.disabledAlgorithms", "SSLv2Hello, SSLv3, TLSv1, TLSv1.1");
 		int PROXY_SERVER_PORT = 80;
 		Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(PROXY_SERVER_HOST, PROXY_SERVER_PORT));
 		SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
