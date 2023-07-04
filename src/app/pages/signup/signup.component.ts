@@ -83,11 +83,19 @@ export class SignupComponent {
       this.reset();
       },
       (error:any) =>{
-        Swal.fire({
-         icon: 'error',
-         title: 'Something went wrong',
-         text: error.error 
-       });
+        if(error.status==0){
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Oops, something went wrong. Please try again later.' 
+          });
+        }else{
+          Swal.fire({
+            icon: 'error',
+            title: 'Something went wrong',
+            text: error.error 
+          });
+        }
       }
     )
   }

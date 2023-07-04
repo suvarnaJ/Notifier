@@ -29,9 +29,9 @@ export class ExportTemplateComponent implements OnInit {
     this.user = this.loginService.getUser();
     this.fetchAllTemplate();
     this.pagingConfig = {
-      itemsPerPage: this.itemsPerPage,
-      currentPage: this.currentPage,
-      totalItems: this.totalItems
+      itemsPerPage: this.itemsPerPage, //5
+      currentPage: this.currentPage, //0
+      totalItems: this.totalItems //0
     }
   }
 

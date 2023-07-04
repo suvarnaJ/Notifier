@@ -36,6 +36,7 @@ import {
 import { UserEmailComponent } from './pages/forgotPassword/user-email/user-email.component';
 import { UserOtpComponent } from './pages/forgotPassword/user-otp/user-otp.component';
 import { UserVerifyPasswordComponent } from './pages/forgotPassword/user-verify-password/user-verify-password.component';
+import { ChatbotComponent } from './pages/user/chatbot/chatbot.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { UserVerifyPasswordComponent } from './pages/forgotPassword/user-verify-
     UserEmailComponent,
     UserOtpComponent,
     UserVerifyPasswordComponent,
+    ChatbotComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -80,6 +82,7 @@ import { UserVerifyPasswordComponent } from './pages/forgotPassword/user-verify-
     }),
     NgxUiLoaderHttpModule.forRoot({
       showForeground:true,
+      excludeRegexp: ['message']
     }),
   ],
   providers: [authInterceptorProviders],

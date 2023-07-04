@@ -1,0 +1,288 @@
+#textmsg{
+    border-width:0px;
+    border:none;
+    box-shadow:none;
+}
+#chat_header{
+    margin-bottom: 0%;
+    padding: 0%;
+    display: table;
+    background-color: rgb(0, 164, 189);;
+}
+#chatlogs{
+    display: block; 
+    height:425px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: #d6f4fa;
+    /* flex-direction: column-reverse; */
+}
+#chatbot{
+    position:fixed;
+    bottom:0;
+    right: 0;
+    margin-bottom:20px;
+    margin-right:20px;
+}
+#botname,#bot_image,#close{
+    display:table-cell;
+    vertical-align:middle;
+}
+#botname{
+    color: white;
+    padding-top: 12%;
+    font-size: 16px;
+}
+.modalheader {
+    display: flex;
+    justify-content: flex-start;
+    width:100%;
+}
+
+.modalheader .postavatar img{
+    width: 90px;
+}
+
+.modalheader .imageinfo {
+    margin-top: 10px;
+}
+
+.modalheader .imageinfo{
+    color: #b3b3b3;
+}
+
+.modalheader .closetime {
+    color: #b3b3b3;
+    flex-grow:1;
+    text-align:right;
+}
+#close{
+    color:white;
+    float:right;
+    cursor: pointer;
+    margin-top:22px;
+    margin-right: 10px;
+    font-size: 18px;
+}
+.modal-content1 { 
+    background-color:rgb(0, 164, 189);
+    border-radius: 6px;
+    border-bottom-left-radius: 0%;
+    border-bottom-right-radius: 0%;
+ }
+ .card-body{
+    padding: 20px;
+ }
+#bot_image{
+    position: relative;
+    width: 60px;
+    height:50px;
+    border: none;
+    box-shadow: 0 0 0 0 rgba(52,216,249, 0.7);
+    border-radius: 100%;
+    background-image: url(../../../../assets/img/ironman.png);
+    background-size:100% 100%;
+    background-repeat: no-repeat;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.Chat-icon {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border: none;
+    box-shadow: 0 0 0 0 rgba(52,216,249, 0.7);
+    border-radius: 50%;
+    background-color: #0D9EBB;
+    background-image: url(../../../../assets/img/Chat.png);
+    background-size:cover;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    -webkit-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+    -moz-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+    -ms-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+    animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+.Chat-icon:hover  {
+    -webkit-animation: none;-moz-animation: none;-ms-animation: none;animation: none;
+    cursor: pointer;
+}
+  
+@-webkit-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
+@-moz-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
+@-ms-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
+@keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
+  
+
+#chatlogs::-webkit-scrollbar-track {
+    border: 1px solid rgb(241, 235, 235);
+    padding: 2px 0;
+    background-color: #d6f4fa;
+}
+  
+#chatlogs::-webkit-scrollbar {
+    width: 6px;
+}
+  
+#chatlogs::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgb(0, 164, 189);;
+    background-color: rgb(0, 164, 189);;
+    border: 1px solid rgb(241, 235, 235);
+}
+.UserMsg,.botMsg{
+    background-color:#dfe3ee;
+    text-align: center;
+    float:right !important;
+    display: block;
+    border-radius: 5%;
+    padding: 2.4%;
+    margin-top: 20px;
+    overflow: auto;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 10px;
+    
+    /* width: 100%; */
+
+}
+.UsertimeMsg{
+    text-align: center;
+    float: right !important;
+    display: block;
+    border-radius: 5%;
+    overflow: auto;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 8px;
+}
+.botMsg{
+    margin-top: 20px;
+    background-color:rgb(0, 164, 189);;
+    color: #fff;
+    font-family: cursive;
+    font-weight: bold;
+
+}
+.BottimeMsg{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 8px;
+
+}
+.chatdelete{
+    margin: 2%;
+}
+
+.botimg{
+    position: relative;
+    width:30px;
+    height:20px;
+    border: none;
+    box-shadow: 0 0 0 0 rgba(52,216,249, 0.7);
+    border-radius: 100%;
+    background-image: url(../../../../assets/img/ironman.png);
+    background-size:100% 100%;
+    background-repeat: no-repeat;
+    float: left;
+}
+.defaultbotimg{
+    position: relative;
+    width:27px;
+    height:21px;
+    border: none;
+    box-shadow: 0 0 0 0 rgba(52,216,249, 0.7);
+    border-radius: 100%;
+    background-image: url(../../../../assets/img/ironman.png);
+    background-size:100% 100%;
+    background-repeat: no-repeat;
+    float: left;
+}
+.userimg{
+    position: relative;
+    width:20px;
+    height:20px;
+    border: none;
+    box-shadow: 0 0 0 0 rgba(52,216,249, 0.7);
+    border-radius: 100%;
+    background-image: url(../../../../assets/img/users-icon.avif);
+    background-size:100% 100%;
+    background-repeat: no-repeat;
+    float: right;
+    margin-left: 8px;
+}
+
+@media only screen and (min-width: 150px) and (max-width: 600px){
+      .Chat-icon {
+            position: relative;
+            width: 50px;
+            height: 50px;
+          }
+  
+}
+.modal.fade .modal-dialog {
+    width:350px;
+    position:fixed;
+    bottom:0;
+    right:0;
+    margin-right: 15px;
+    margin-bottom: 20px;
+}
+input,
+input::placeholder {
+    font: sans-serif;
+    font-size: 12px;
+}
+
+.chat-bubble {
+    background-color:#0D9EBB;
+    padding:10px 22px;
+    -webkit-border-radius: 20px;
+    -webkit-border-bottom-left-radius: 2px;
+    -moz-border-radius: 20px;
+    -moz-border-radius-bottomleft: 2px;
+    border-radius: 20px;
+    border-bottom-left-radius: 2px;
+    display:inline-block;
+    margin-top: 20px;
+  }
+  .typing {
+    align-items: center;
+    display: flex;
+    height: 17px;
+  }
+  .typing .dot {
+    animation: mercuryTypingAnimation 1.8s infinite ease-in-out;
+    background-color: #6CAD96 ;
+    border-radius: 50%;
+    height: 7px;
+    margin-right: 4px;
+    vertical-align: middle;
+    width: 7px;
+    display: inline-block;
+  }
+  .typing .dot:nth-child(1) {
+    animation-delay: 200ms;
+  }
+  .typing .dot:nth-child(2) {
+    animation-delay: 300ms;
+  }
+  .typing .dot:nth-child(3) {
+    animation-delay: 400ms;
+  }
+  .typing .dot:last-child {
+    margin-right: 0;
+  }
+  
+  @keyframes mercuryTypingAnimation {
+    0% {
+      transform: translateY(0px);
+      background-color:#6CAD96; 
+    }
+    28% {
+      transform: translateY(-7px);
+      background-color:#9ECAB9; 
+    }
+    44% {
+      transform: translateY(0px);
+      background-color: #B5D9CB;
+    }
+  }
+  

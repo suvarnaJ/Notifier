@@ -72,4 +72,9 @@ export class UserService {
     return this.http.post(`${baseUrl}/user/change-password` + queryParams,changePassword);
   }
 
+    //Send a chatBotMessage
+    public sendMessage(userId: any,message: any) {
+      return this.http.get(`http://localhost:9091/user/${userId}/send/message/${message}`);
+    }
+
 }
