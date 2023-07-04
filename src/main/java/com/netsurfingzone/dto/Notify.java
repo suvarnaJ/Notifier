@@ -63,4 +63,16 @@ public class Notify {
     public void setNotes(ArrayList<Object> notes) {
         this.notes = notes;
     }
+
+    @Override
+    public String toString() {
+        return "Notify{" +
+                "ContactObject=" + ContactObject +
+                ", NotificationObject=" + NotificationObject +
+                ", EventNameObject=" + EventNameObject +
+                ", TicketInfoObject=" + TicketInfoObject +
+                ", AdditionalInfoObject=" + AdditionalInfoObject +
+                ", notes=" + notes +
+                '}';
+    }
 }

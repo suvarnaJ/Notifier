@@ -1,6 +1,10 @@
 package main.java.com.netsurfingzone.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.netsurfingzone.dto.AccDetails;
+
+import java.util.List;
 
 @JsonSerialize
 public class AdditionalInfo {
@@ -36,6 +40,9 @@ public class AdditionalInfo {
     private String impactedCustomer;
 
     private String sia;
+
+    @JsonProperty("AccDetails")
+    private List<AccDetails> accDetails;
 
     public void setTicketRef(String ticketRef){
         this.ticketRef = ticketRef;
@@ -128,5 +135,11 @@ public class AdditionalInfo {
         return this.sia;
     }
 
+    public List<AccDetails> getAccDetails() {
+        return accDetails;
+    }
 
+    public void setAccDetails(List<AccDetails> accDetails) {
+        this.accDetails = accDetails;
+    }
 }

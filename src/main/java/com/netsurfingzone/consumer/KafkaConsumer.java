@@ -35,7 +35,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
-//import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -71,8 +71,8 @@ public class KafkaConsumer {
 
 	RegexConfig regexConfig = new RegexConfig();
 
-//	@Autowired
-//	private JdbcTemplate jdbcTemplate;
+    @Autowired
+	private JdbcTemplate jdbcTemplate;
 
 	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY)
 	public ResponseEntity<?> receivedMessage(Notify message) throws IOException, MessagingException {
@@ -86,22 +86,22 @@ public class KafkaConsumer {
 		//Validation's of eventName
 		if(content.equals("")){
 			logger.info("Event Name is mandatory");
-			//jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'Event Name is mandatory', '"+Constant.API_Name.RF_TEMPLATE+"')");
+			jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'Event Name is mandatory', '"+Constant.API_Name.RF_TEMPLATE+"')");
 			return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Event Name is mandatory");
 		}else if(!(regexConfig.validateEventName(message.getEventName().getEventName()))){
 			logger.info("Invalid event name format");
-			//jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'Invalid event name format', '" + Constant.API_Name.RF_TEMPLATE + "')");
+			jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'Invalid event name format', '" + Constant.API_Name.RF_TEMPLATE + "')");
 			return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Invalid event name format");
 		}
 
 		//Validation's of email format
 		if(ccList.contains(",") || toList.contains(",")){
 			logger.info("Invalid email format");
-			//jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'Invalid email format', '"+Constant.API_Name.RF_TEMPLATE+"')");
+			jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'Invalid email format', '"+Constant.API_Name.RF_TEMPLATE+"')");
 			return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Invalid email format");
-		}else if(toList.equals("") || ccList.equals("")){
+		}else if(toList.equals("")){
 			logger.info("Email is mandatory");
-			//jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'Email is mandatory', '"+Constant.API_Name.RF_TEMPLATE+"')");
+			jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'Email is mandatory', '"+Constant.API_Name.RF_TEMPLATE+"')");
 			return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Email is mandatory");
 		}
 
@@ -110,20 +110,20 @@ public class KafkaConsumer {
 		for(int t = 0; t < toEmailSplit.length; t++){
 			if(!(regexConfig.validateEmail(toEmailSplit[t]))){
 				logger.info("To List is invalid");
-				//jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'To List is invalid', '"+Constant.API_Name.RF_TEMPLATE+"')");
+				jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'To List is invalid', '"+Constant.API_Name.RF_TEMPLATE+"')");
 				return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"To List is invalid");
 			}
 		}
 
 		//Validation's of ccEmail
-			String[] ccEmailSplit = ccList.split(";");
-			for(int c = 0; c < ccEmailSplit.length; c++){
-				if(!(regexConfig.validateEmail(ccEmailSplit[c]))){
-					logger.info("Cc List is invalid");
-					//jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'Cc List is invalid', '"+Constant.API_Name.RF_TEMPLATE+"')");
-					return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Cc List is invalid");
-				}
-			}
+//			String[] ccEmailSplit = ccList.split(";");
+//			for(int c = 0; c < ccEmailSplit.length; c++){
+//				if(!(regexConfig.validateEmail(ccEmailSplit[c]))){
+//					logger.info("Cc List is invalid");
+//					jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'Cc List is invalid', '"+Constant.API_Name.RF_TEMPLATE+"')");
+//					return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Cc List is invalid");
+//				}
+//			}
 
 		LinkedList<Recipient> toRecipientsList = new LinkedList<Recipient>();
 		Recipient toRecipients = null;
@@ -184,6 +184,120 @@ public class KafkaConsumer {
 			html = templateEngine.process("RF_GREEN_EVENT", context);
 		}
 
+		logger.info("Json message received using Kafka listener " + html);
+		String result = //sendMail();
+				sendMail(toRecipientsList,ccRecipientsList,content,subject,html);
+		//sendMailHTTP();
+
+		logger.info("Result = " + result.toString());
+		return SuccessResponse.successHandler(HttpStatus.OK,false,"Succesfully consumed data",result.toString());
+
+	}
+
+	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME_RF_TEMPLATE, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY)
+	public ResponseEntity<?> receivedRfTemplateMessage(Notify message) throws IOException, MessagingException {
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonString = mapper.writeValueAsString(message);
+		String toList = message.getContact().getTo();
+		String ccList = message.getContact().getCc();
+		String content = message.getEventName().getEventName();
+		String subject = message.getAdditionalInfo().getAccDetails().get(0).getAccountname();
+		List<SummaryTable> summaryTableList = new ArrayList<SummaryTable>();
+
+		//Validation's of eventName
+		if(content.equals("")){
+			logger.info("Event Name is mandatory");
+			jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'Event Name is mandatory', '"+Constant.API_Name.RF_TEMPLATE+"')");
+			return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Event Name is mandatory");
+		}else if(!(regexConfig.validateEventName(message.getEventName().getEventName()))){
+			logger.info("Invalid event name format");
+			jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'Invalid event name format', '" + Constant.API_Name.RF_TEMPLATE + "')");
+			return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Invalid event name format");
+		}
+
+		//Validation's of email format
+		if(ccList.contains(",") || toList.contains(",")){
+			logger.info("Invalid email format");
+			jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'Invalid email format', '"+Constant.API_Name.RF_TEMPLATE+"')");
+			return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Invalid email format");
+		}else if(toList.equals("")){
+			logger.info("Email is mandatory");
+			jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'Email is mandatory', '"+Constant.API_Name.RF_TEMPLATE+"')");
+			return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Email is mandatory");
+		}
+
+		//Validation's of toEmail
+		String[] toEmailSplit = toList.split(";");
+		for(int t = 0; t < toEmailSplit.length; t++){
+			if(!(regexConfig.validateEmail(toEmailSplit[t]))){
+				logger.info("To List is invalid");
+				jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'To List is invalid', '"+Constant.API_Name.RF_TEMPLATE+"')");
+				return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"To List is invalid");
+			}
+		}
+
+		//Validation's of ccEmail
+//			String[] ccEmailSplit = ccList.split(";");
+//			for(int c = 0; c < ccEmailSplit.length; c++){
+//				if(!(regexConfig.validateEmail(ccEmailSplit[c]))){
+//					logger.info("Cc List is invalid");
+//					jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'Cc List is invalid', '"+Constant.API_Name.RF_TEMPLATE+"')");
+//					return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Cc List is invalid");
+//				}
+//			}
+
+		LinkedList<Recipient> toRecipientsList = new LinkedList<Recipient>();
+		Recipient toRecipients = null;
+		EmailAddress emailAddress = null;
+		String[] strArray = toList.split(";");
+		for (int j = 0; j < strArray.length; j++) {
+			toRecipients = new Recipient();
+			emailAddress = new EmailAddress();
+			emailAddress.address = strArray[j];
+			toRecipients.emailAddress = emailAddress;
+			toRecipientsList.add(toRecipients);
+		}
+
+		LinkedList<Recipient> ccRecipientsList = new LinkedList<Recipient>();
+		Recipient ccRecipients = null;
+		EmailAddress  ccEmailAddress = null;
+		String[] strCCArray = ccList.split(";");
+		for (int k = 0; k < strCCArray.length; k++) {
+			ccRecipients = new Recipient();
+			ccEmailAddress = new EmailAddress();
+			ccEmailAddress.address = strCCArray[k];
+			ccRecipients.emailAddress = ccEmailAddress;
+			ccRecipientsList.add(ccRecipients);
+		}
+
+		for(int i =0;i<message.getAdditionalInfo().getAccDetails().size();i++){
+			SummaryTable summaryTable = new SummaryTable();
+			summaryTable.setTicketNumber(message.getAdditionalInfo().getAccDetails().get(i).getTicketNumber());
+			summaryTable.setServiceID(message.getAdditionalInfo().getAccDetails().get(i).getServiceID());
+			summaryTable.setAccountName(message.getAdditionalInfo().getAccDetails().get(i).getAccountname());
+			summaryTable.setBandwidth(message.getAdditionalInfo().getAccDetails().get(i).getBandwidth());
+			summaryTable.setImpact(message.getAdditionalInfo().getAccDetails().get(i).getImpact());
+			summaryTable.setState(message.getAdditionalInfo().getAccDetails().get(i).getState());
+			summaryTable.setStatusReason(message.getAdditionalInfo().getAccDetails().get(i).getStatusReason());
+			summaryTableList.add(summaryTable);
+		}
+
+		Mail mail = new Mail();
+		Map model = new HashMap();
+		model.put("list", summaryTableList);
+		mail.setModel(model);
+
+		MimeMessage msg = emailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(msg,
+				MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+				StandardCharsets.UTF_8.name());
+
+		Context context = new Context();
+		context.setVariables(mail.getModel());
+		//helper.setTo(toList);
+
+		String html ="";
+		html = templateEngine.process("summary_notification_template.html", context);
 		logger.info("Json message received using Kafka listener " + html);
 		String result = //sendMail();
 				sendMail(toRecipientsList,ccRecipientsList,content,subject,html);
@@ -405,18 +519,18 @@ public class KafkaConsumer {
 			//Validation's of accountName
 			if(summaryPayload.getAccDetailsList().get(i).getAccountname().equals("")){
 				logger.info("Account Name is mandatory");
-				//jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'Account Name is mandatory', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"')");
+				jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('null', 400, 'Account Name is mandatory', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"')");
 				return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Account Name is mandatory");
 			}
 
 			//Validation's of email format
 			if(summaryPayload.getAccDetailsList().get(i).getCcEmail().contains(",") || summaryPayload.getAccDetailsList().get(i).getToEmail().contains(",")){
 				logger.info("Invalid email format");
-				//jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'Invalid email format', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"')");
+				jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'Invalid email format', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"')");
 				return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Invalid email format");
 			}else if(summaryPayload.getAccDetailsList().get(i).getToEmail().equals("")){
 				logger.info("Email is mandatory");
-				//jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'Email is mandatory', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"')");
+				jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'Email is mandatory', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"')");
 				return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Email is mandatory");
 			}
 
@@ -426,7 +540,7 @@ public class KafkaConsumer {
 			for(int t = 0; t < toEmailSplit.length; t++){
 				if(!(regexConfig.validateEmail(toEmailSplit[t]))){
 					logger.info("To List is invalid");
-					//jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'To List is invalid', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"')");
+					jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'To List is invalid', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"')");
 					return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"To List is invalid");
 				}
 			}
