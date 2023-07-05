@@ -9,6 +9,7 @@ com\netsurfingzone\config\ThymeleafTemplateConfig.class
 com\netsurfingzone\config\RegexConfig.class
 com\netsurfingzone\dto\Student.class
 com\netsurfingzone\payload\SuccessResponse.class
+com\netsurfingzone\controller\MainController.class
 com\netsurfingzone\config\ConnectingToDB.class
 com\netsurfingzone\dto\Root.class
 com\netsurfingzone\main\SpringMain.class
@@ -18,6 +19,7 @@ com\netsurfingzone\dto\Message.class
 com\netsurfingzone\dto\CcRecipient.class
 com\netsurfingzone\config\sample.class
 com\netsurfingzone\dto\SummaryTableList.class
+com\netsurfingzone\dto\ErrorLogs.class
 com\netsurfingzone\exception\ErrorDetails.class
 com\netsurfingzone\config\SwaggerConfig.class
 com\netsurfingzone\exception\GlobalExceptionHandler.class

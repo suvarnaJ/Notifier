@@ -135,11 +135,34 @@ public class AdditionalInfo {
         return this.sia;
     }
 
+    @JsonProperty("AccDetails")
     public List<AccDetails> getAccDetails() {
         return accDetails;
     }
 
     public void setAccDetails(List<AccDetails> accDetails) {
         this.accDetails = accDetails;
+    }
+
+    @Override
+    public String toString() {
+        return "AdditionalInfo{" +
+                "ticketRef='" + ticketRef + '\'' +
+                ", eventDescription='" + eventDescription + '\'' +
+                ", bsName='" + bsName + '\'' +
+                ", circle='" + circle + '\'' +
+                ", city='" + city + '\'' +
+                ", bsType='" + bsType + '\'' +
+                ", ip='" + ip + '\'' +
+                ", siteID='" + siteID + '\'' +
+                ", infraProvider='" + infraProvider + '\'' +
+                ", iorID='" + iorID + '\'' +
+                ", bsoCktID='" + bsoCktID + '\'' +
+                ", outageStartTime='" + outageStartTime + '\'' +
+                ", outageResolvedTime='" + outageResolvedTime + '\'' +
+                ", impactedCustomer='" + impactedCustomer + '\'' +
+                ", sia='" + sia + '\'' +
+                ", accDetails=" + accDetails +
+                '}';
     }
 }
