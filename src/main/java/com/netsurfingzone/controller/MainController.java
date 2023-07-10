@@ -20,14 +20,14 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/data")
+@RequestMapping("/v1.0")
 @CrossOrigin("*")
 public class MainController {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @GetMapping("fetchData/errorLogs")
+    @GetMapping("/data/fetchData/errorLogs")
     public ResponseEntity<?> findErrorLogs(@RequestParam(required = true) String to,@RequestParam(required = true) String from){
         ResponseEntity<?> response;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
