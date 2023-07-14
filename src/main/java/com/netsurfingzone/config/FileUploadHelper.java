@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -14,9 +15,9 @@ import java.nio.file.Files;
 @Component
 public class FileUploadHelper {
 
-    public final String UPLOAD_DIR="src/main/resources/static/files";
+    public final String UPLOAD_DIR="src"+File.separator+"main"+File.separator+"resources"+File.separator+"static"+File.separator+"files";
 
-    public boolean uploadFile(MultipartFile multipartFile){
+    public boolean uploadFile(MultipartFile multipartFile, HttpServletRequest request){
         boolean f = false;
         try{
             //read

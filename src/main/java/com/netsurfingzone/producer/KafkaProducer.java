@@ -617,7 +617,7 @@ public class KafkaProducer {
 			allowedHeaders = CorsConfiguration.ALL,   // Allowed Headers
 			exposedHeaders = {})
 	@PostMapping(value = "/email1.1/notifySummaryWithAttachment",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-	public ResponseEntity<?> sendSummaryNotificationV2(@RequestPart("AccDetails") SummaryPayload summaryPayload, @RequestPart("file") MultipartFile file) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException {
+	public ResponseEntity<?> sendSummaryNotificationV2(@RequestPart("AccDetails") SummaryPayload summaryPayload, @RequestPart("file") MultipartFile file,HttpServletRequest request) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException {
 		logger.info("Message received in producer = " + summaryPayload.toString());
 		System.out.println(file.getOriginalFilename());
 		try {
@@ -635,7 +635,7 @@ public class KafkaProducer {
 			//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Only TEXT content are allowed', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
 				return ErrorResponse.errorHandler(HttpStatus.INTERNAL_SERVER_ERROR,true,"Only TEXT content are allowed");
 			}else{
-				boolean f = fileUploadHelper.uploadFile(file);
+				boolean f = fileUploadHelper.uploadFile(file,request);
 				if(f){
 					summaryPayload.setFileName(file.getOriginalFilename());
 					for(int i = 0; i < summaryPayload.getAccDetailsList().size(); i++) {
