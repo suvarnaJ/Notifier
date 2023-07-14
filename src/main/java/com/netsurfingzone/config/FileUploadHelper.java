@@ -14,7 +14,7 @@ import java.nio.file.Files;
 @Component
 public class FileUploadHelper {
 
-    public final String UPLOAD_DIR="src/main/resources/static/files/";
+    public final String UPLOAD_DIR="src/main/resources/files/";
 
     public boolean uploadFile(MultipartFile multipartFile){
         boolean f = false;
