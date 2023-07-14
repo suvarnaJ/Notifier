@@ -616,7 +616,7 @@ public class KafkaProducer {
 			allowCredentials = "true",
 			allowedHeaders = CorsConfiguration.ALL,   // Allowed Headers
 			exposedHeaders = {})
-	@PostMapping(value = "/email/notifySummaryWithAttachment",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE,MediaType.TEXT_PLAIN_VALUE})
+	@PostMapping(value = "/email1.1/notifySummaryWithAttachment",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE,MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<?> sendSummaryNotificationV2(@RequestPart("AccDetails") SummaryPayload summaryPayload, @RequestPart("file") MultipartFile file) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException {
 		logger.info("Message received in producer = " + summaryPayload.toString());
 		try {
