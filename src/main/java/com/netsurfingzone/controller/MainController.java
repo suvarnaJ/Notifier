@@ -61,7 +61,7 @@ public class MainController {
                 }
                 ArrayList<?> filterDate = (ArrayList<?>) dates.stream().filter(date -> date.after(fromDate) && date.before(toDate) || date.equals(fromDate) || date.equals(toDate)).collect(Collectors.toList());
                 if(filterDate.size()==0){
-                    response = SuccessResponse.successHandler(HttpStatus.OK,false,"Successfully operation performed",null);
+                    response = SuccessResponse.successHandler(HttpStatus.OK,false,"Successfully data fetched",filterDate);
                     return response;
                 }else {
                     for(int i=0;i<filterDate.size();i++){
@@ -76,7 +76,7 @@ public class MainController {
                         }
                         return false;
                     }).collect(Collectors.toList());
-                    response = SuccessResponse.successHandler(HttpStatus.OK, false, "Successfully operation performed",newErrorLogs);
+                    response = SuccessResponse.successHandler(HttpStatus.OK, false, "Successfully data fetched",newErrorLogs);
                 }
                 return response;
             }

@@ -14,6 +14,9 @@ public class SummaryPayload {
     @JsonProperty("AccDetails")
     private List<AccDetails> accDetailsList;
 
+    @JsonProperty("fileName")
+    private String fileName;
+
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
@@ -35,5 +38,22 @@ public class SummaryPayload {
     @JsonAnySetter
     public void setAdditionalProperties(Map<String, Object> additionalProperties) {
         this.additionalProperties = additionalProperties;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    @Override
+    public String toString() {
+        return "SummaryPayload{" +
+                "accDetailsList=" + accDetailsList +
+                ", fileName='" + fileName + '\'' +
+                ", additionalProperties=" + additionalProperties +
+                '}';
     }
 }
