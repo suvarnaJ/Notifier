@@ -15,7 +15,8 @@ import java.nio.file.Files;
 @Component
 public class FileUploadHelper {
 
-    public final String UPLOAD_DIR="static"+File.separator+"files";
+    public final String UPLOAD_DIR="/TCLNotifier/repo/Notifier/src/main/resources/static/files";
+
 
     public boolean uploadFile(MultipartFile multipartFile, HttpServletRequest request){
         boolean f = false;
