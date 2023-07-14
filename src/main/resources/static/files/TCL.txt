@@ -1,0 +1,46 @@
+MUKUL.SHARMA1@contractor.tatacommunications.com
+x6EO4d$d17AH,Tata$123$123
+SHARMAMU
+
+* "0 0 * * * *" = the top of every hour of every day.
+* "*/10 * * * * *" = every ten seconds.
+* "0 0 8-10 * * *" = 8, 9 and 10 o'clock of every day.
+* "0 0 8,10 * * *" = 8 and 10 o'clock of every day.
+* "0 0/30 8-10 * * *" = 8:00, 8:30, 9:00, 9:30 and 10 o'clock every day.
+* "0 0 9-17 * * MON-FRI" = on the hour nine-to-five weekdays
+* "0 0 0 25 12 ?" = every Christmas Day at midnight
+
+rundll32.exe sysdm.cpl,EditEnvironmentVariables
+
+netstat -ano | findstr 8080
+taskkill /F /pid 1088
+
+lsof -i :8080 
+kill -SIGKILL 5296  
+
+
+https://medium.com/@kumar.barmanand/setup-apache-kafka-on-windows-4ac63f404106
+zkserver
+.\bin\windows\kafka-server-start.bat .\config\server.properties
+systemctl status kafka
+sudo systemctl start kafka
+sudo systemctl start zookeeper
+
+1295130
+
+$ vi <filename> — Open or edit a file.
+i — Switch to Insert mode.
+Esc — Switch to Command mode.
+:w — Save and continue editing.
+:wq or ZZ — Save and quit/exit vi.
+:q! — Quit vi and do not save changes.s
+
+export https_proxy=https://10.133.12.181:80       10.133.209.166
+export http_proxy=http://10.133.12.181:80
+export https_proxy=https://121.244.254.154:80     115.110.93.22
+export http_proxy=http://121.244.254.154:80
+nohup java -Djava.net.useSystemProxies=true  -jar  spring-boot-kafka-json-message-example-0.0.1-SNAPSHOT-exec.jar &
+
+ 
+
+
