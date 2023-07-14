@@ -13,6 +13,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -35,6 +36,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public ResponseEntity<?> MissingServletRequestParameterException(MissingServletRequestParameterException ex, WebRequest request) {
+        return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, ex.getMessage());
+    }
+
+    @ExceptionHandler(MissingServletRequestPartException.class)
+    public ResponseEntity<?> MissingServletRequestParameterException(MissingServletRequestPartException ex, WebRequest request) {
         return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, ex.getMessage());
     }
 }
