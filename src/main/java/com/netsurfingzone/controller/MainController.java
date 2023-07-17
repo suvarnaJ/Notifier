@@ -87,7 +87,7 @@ public class MainController {
         return response;
     }
 
-    @GetMapping("fetchData/errorLogs")
+    @GetMapping("fetchData/errorLogs1")
     public ResponseEntity<?> findErrorLogs(){
         try{
             jdbcTemplate.execute("CREATE TABLE CN_LOG_ERROR(" + "AccountName VARCHAR(255), Status NUMERIC(3), Message VARCHAR(255), API_Name VARCHAR(255), Created_At VARCHAR(255))");
