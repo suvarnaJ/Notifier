@@ -36,8 +36,8 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> HttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException ex, WebRequest request) {
         Date date = new Date();
         String strDate = formatter.format(date);
-        logger.info(ex.getMessage());
-        jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, '" + ex.getMessage() + "', '" + Constant.API_Name.GLOBAL_ERROR + "', '"+strDate+"')");
+        logger.info("Request method not supported");
+        jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Request method not supported', '" + Constant.API_Name.GLOBAL_ERROR + "', '"+strDate+"')");
         return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Invalid method");
     }
 
@@ -45,8 +45,8 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> JsonParseException(JsonParseException ex, WebRequest request) {
         Date date = new Date();
         String strDate = formatter.format(date);
-        logger.info(ex.getMessage());
-        jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, '" + ex.getMessage() + "', '" + Constant.API_Name.GLOBAL_ERROR + "', '"+strDate+"')");
+        logger.info("Invalid payload");
+        jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Invalid payload', '" + Constant.API_Name.GLOBAL_ERROR + "', '"+strDate+"')");
         return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Invalid payload");
     }
 
@@ -54,17 +54,17 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> MissingServletRequestParameterException(MissingServletRequestParameterException ex, WebRequest request) {
         Date date = new Date();
         String strDate = formatter.format(date);
-        logger.info(ex.getMessage());
-        jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, '" + ex.getMessage() + "', '" + Constant.API_Name.GLOBAL_ERROR + "', '"+strDate+"')");
+        logger.info("Required request parameter is not present");
+        jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Required request parameter is not present', '" + Constant.API_Name.GLOBAL_ERROR + "', '"+strDate+"')");
         return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, ex.getMessage());
     }
 
     @ExceptionHandler(MissingServletRequestPartException.class)
-    public ResponseEntity<?> MissingServletRequestParameterException(MissingServletRequestPartException ex, WebRequest request) {
+    public ResponseEntity<?> MissingServletRequestPartException(MissingServletRequestPartException ex, WebRequest request) {
         Date date = new Date();
         String strDate = formatter.format(date);
-        logger.info(ex.getMessage());
-        jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, '" + ex.getMessage() + "', '" + Constant.API_Name.GLOBAL_ERROR + "', '"+strDate+"')");
+        logger.info("Required request part is not present");
+        jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Required request part is not present', '" + Constant.API_Name.GLOBAL_ERROR + "', '"+strDate+"')");
         return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, ex.getMessage());
     }
 }
