@@ -87,17 +87,4 @@ public class MainController {
         return response;
     }
 
-    @GetMapping("fetchData/errorLogs1")
-    public ResponseEntity<?> findErrorLogs(){
-        try{
-            jdbcTemplate.execute("CREATE TABLE CN_LOG_ERROR(" + "AccountName VARCHAR(255), Status NUMERIC(3), Message VARCHAR(255), API_Name VARCHAR(255), Created_At VARCHAR(255))");
-            //connectingToDB.Execute("DROP TABLE CN_LOG_ERROR");
-            //connectingToDB.Execute("DELETE FROM CN_LOG_ERROR");
-            List<Map<String,Object>> data = jdbcTemplate.queryForList("select * from CN_LOG_ERROR");
-            return SuccessResponse.successHandler(HttpStatus.OK, false, "Successfully operation performed", data);
-        }catch (Exception ex){
-            return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,ex.getMessage());
-        }
-    }
-
 }
