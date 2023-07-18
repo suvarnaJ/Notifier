@@ -153,7 +153,7 @@ public class KafkaConsumer {
 
 	}
 
-	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME_RF_TEMPLATE, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY)
+	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME_RF_TEMPLATE, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY1)
 	public ResponseEntity<?> receivedRfTemplateMessageV2(Notify message) throws IOException, MessagingException {
 		logger.info("Message received in consumer = " + message.toString());
 		ObjectMapper mapper = new ObjectMapper();
@@ -488,7 +488,7 @@ public class KafkaConsumer {
 	}
 
 
-	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME_SUMMARY_ATTACHMENTS, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY)
+	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME_SUMMARY_ATTACHMENTS, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY1)
 	public ResponseEntity<?> receivedSummaryNotificationMessageWithAttachment(SummaryPayload summaryPayload) throws IOException, MessagingException {
 		logger.info("Message received in consumer = " + summaryPayload.toString());
 		int i = 0;
