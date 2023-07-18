@@ -76,7 +76,7 @@ public class KafkaConsumer {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME, containerFactory = "KAFKA_LISTENER_CONTAINER_FACTORY2")
+	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY)
 	public ResponseEntity<?> receivedRfTemplateMessageV1(Notify message) throws IOException, MessagingException {
 		logger.info("Message received in consumer = " + message.toString());
 		ObjectMapper mapper = new ObjectMapper();
@@ -153,7 +153,7 @@ public class KafkaConsumer {
 
 	}
 
-	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME_RF_TEMPLATE, containerFactory = "KAFKA_LISTENER_CONTAINER_FACTORY3")
+	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME_RF_TEMPLATE, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY)
 	public ResponseEntity<?> receivedRfTemplateMessageV2(Notify message) throws IOException, MessagingException {
 		logger.info("Message received in consumer = " + message.toString());
 		ObjectMapper mapper = new ObjectMapper();
@@ -405,7 +405,7 @@ public class KafkaConsumer {
 		return "";
 	}
 
-	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME_SUMMARY, containerFactory = "KAFKA_LISTENER_CONTAINER_FACTORY4")
+	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME_SUMMARY, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY)
 	public ResponseEntity<?> receivedSummaryNotificationMessage(SummaryPayload summaryPayload) throws IOException, MessagingException {
 		logger.info("Message received in consumer = " + summaryPayload.toString());
 		int i = 0;
@@ -488,7 +488,7 @@ public class KafkaConsumer {
 	}
 
 
-	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME_SUMMARY_ATTACHMENTS, containerFactory = "KAFKA_LISTENER_CONTAINER_FACTORY5")
+	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME_SUMMARY_ATTACHMENTS, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY)
 	public ResponseEntity<?> receivedSummaryNotificationMessageWithAttachment(SummaryPayload summaryPayload) throws IOException, MessagingException {
 		logger.info("Message received in consumer = " + summaryPayload.toString());
 		int i = 0;
