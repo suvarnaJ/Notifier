@@ -22,6 +22,9 @@ public class SummaryPayload {
         return accDetailsList;
     }
 
+    @JsonProperty("fileName")
+    private String fileName;
+
     @JsonProperty("AccDetails")
     public void setAccDetailsList(List<AccDetails> accDetailsList) {
         this.accDetailsList = accDetailsList;
@@ -35,5 +38,22 @@ public class SummaryPayload {
     @JsonAnySetter
     public void setAdditionalProperties(Map<String, Object> additionalProperties) {
         this.additionalProperties = additionalProperties;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    @Override
+    public String toString() {
+        return "SummaryPayload{" +
+                "accDetailsList=" + accDetailsList +
+                ", fileName='" + fileName + '\'' +
+                ", additionalProperties=" + additionalProperties +
+                '}';
     }
 }
