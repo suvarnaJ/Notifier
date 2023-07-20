@@ -33,9 +33,8 @@ public class SpringKafkaConfig {
 		configMap.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "com.netsurfingzone.dto");
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES,"com.netsurfingzone.dto.Notify");
+		configMap.put(JsonDeserializer.TRUSTED_PACKAGES,"com.netsurfingzone.dto.SummaryPayload");
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES,"*");
-		configMap.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG,"1");
-		System.out.println("configMap in producer+++++++"+configMap);
 		return new DefaultKafkaProducerFactory<String, Object>(configMap);
 	}
 
@@ -54,8 +53,20 @@ public class SpringKafkaConfig {
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "com.netsurfingzone.dto");
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "com.netsurfingzone.dto.Notify");
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
-		configMap.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG,"1");
-		System.out.println("configMap in consumer+++++++"+configMap);
+		//configMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaNotifyDeserializer.class);
+		return new DefaultKafkaConsumerFactory<>(configMap);
+	}
+
+	@Bean
+	public ConsumerFactory<String, SummaryPayload> consumerFactory1() {
+		Map<String, Object> configMap = new HashMap<>();
+		configMap.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, ApplicationConstant.KAFKA_LOCAL_SERVER_CONFIG);//mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+		configMap.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+		configMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+		configMap.put(ConsumerConfig.GROUP_ID_CONFIG, ApplicationConstant.GROUP_ID_JSON);
+		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "com.netsurfingzone.dto");
+		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "com.netsurfingzone.dto.SummaryPayload");
+		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
 		//configMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaNotifyDeserializer.class);
 		return new DefaultKafkaConsumerFactory<>(configMap);
 	}
@@ -64,6 +75,13 @@ public class SpringKafkaConfig {
 	public ConcurrentKafkaListenerContainerFactory<String, Notify> kafkaListenerContainerFactory() {
 		ConcurrentKafkaListenerContainerFactory<String, Notify> factory = new ConcurrentKafkaListenerContainerFactory<String, Notify>();
 		factory.setConsumerFactory(consumerFactory());
+		return factory;
+	}
+
+	@Bean
+	public ConcurrentKafkaListenerContainerFactory<String, SummaryPayload> kafkaListenerContainerFactory1() {
+		ConcurrentKafkaListenerContainerFactory<String, SummaryPayload> factory = new ConcurrentKafkaListenerContainerFactory<String, SummaryPayload>();
+		factory.setConsumerFactory(consumerFactory1());
 		return factory;
 	}
 }
