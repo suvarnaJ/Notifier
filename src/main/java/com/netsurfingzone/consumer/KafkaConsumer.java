@@ -76,152 +76,154 @@ public class KafkaConsumer {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-//	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY)
-//	public void receivedRfTemplateMessageV1(Notify message) throws IOException, MessagingException {
-//		logger.info("Message received in consumer = " + message.toString());
-//		ObjectMapper mapper = new ObjectMapper();
-//		String jsonString = mapper.writeValueAsString(message);
-//		String toList = message.getContact().getTo();
-//		String ccList = message.getContact().getCc();
-//		String content = message.getEventName().getEventName();
-//		String subject = message.getNotification().getType();
-//
-//		LinkedList<Recipient> toRecipientsList = new LinkedList<Recipient>();
-//		Recipient toRecipients = null;
-//		EmailAddress emailAddress = null;
-//		String[] strArray = toList.split(";");
-//		for (int j = 0; j < strArray.length; j++) {
-//			toRecipients = new Recipient();
-//			emailAddress = new EmailAddress();
-//			emailAddress.address = strArray[j];
-//			toRecipients.emailAddress = emailAddress;
-//			toRecipientsList.add(toRecipients);
-//		}
-//
-//		LinkedList<Recipient> ccRecipientsList = new LinkedList<Recipient>();
-//		Recipient ccRecipients = null;
-//		EmailAddress  ccEmailAddress = null;
-//		String[] strCCArray = ccList.split(";");
-//		for (int k = 0; k < strCCArray.length; k++) {
-//			ccRecipients = new Recipient();
-//			ccEmailAddress = new EmailAddress();
-//			ccEmailAddress.address = strCCArray[k];
-//			ccRecipients.emailAddress = ccEmailAddress;
-//			ccRecipientsList.add(ccRecipients);
-//		}
-//
-//		Mail mail = new Mail();
-//		Map model = new HashMap();
-//		model.put("ticketRef", message.getAdditionalInfo().getTicketRef());
-//		model.put("eventDescription", message.getAdditionalInfo().getEventDescription());
-//		model.put("bsName",  message.getAdditionalInfo().getBsName());
-//		model.put("circle", message.getAdditionalInfo().getCircle());
-//		model.put("city", message.getAdditionalInfo().getCity());
-//		model.put("bsType", message.getAdditionalInfo().getBsType());
-//		model.put("ip", message.getAdditionalInfo().getIp());
-//		model.put("siteID", message.getAdditionalInfo().getSiteID());
-//		model.put("infraProvider", message.getAdditionalInfo().getInfraProvider());
-//		model.put("iorID", message.getAdditionalInfo().getIorID());
-//		model.put("bsoCktID", message.getAdditionalInfo().getBsoCktID());
-//		model.put("outageStartTime", message.getAdditionalInfo().getOutageStartTime());
-//		model.put("impactedCustomer", message.getAdditionalInfo().getImpactedCustomer());
-//		model.put("sia", message.getAdditionalInfo().getSia());
-//		mail.setModel(model);
-//
-//		MimeMessage msg = emailSender.createMimeMessage();
-//		MimeMessageHelper helper = new MimeMessageHelper(msg,
-//				MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
-//				StandardCharsets.UTF_8.name());
-//
-//		Context context = new Context();
-//		context.setVariables(mail.getModel());
-//		//helper.setTo(toList);
-//
-//		String html ="";
-//		if(message.getEventName().getEventName().equalsIgnoreCase("RF_RED_EVENT")) {
-//			html = templateEngine.process("RF_RED_EVENT", context);
-//		}else{
-//			html = templateEngine.process("RF_GREEN_EVENT", context);
-//		}
-//
-//		String result = //sendMail();
-//				sendMail(toRecipientsList,ccRecipientsList,content,subject,html);
-//		//sendMailHTTP();
-//
-//		logger.info("Notification sent successfully in mail = " + result.toString());
-//	}
+	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY)
+	public ResponseEntity<?> receivedRfTemplateMessageV1(Notify message) throws IOException, MessagingException {
+		logger.info("Message received in consumer = " + message.toString());
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonString = mapper.writeValueAsString(message);
+		String toList = message.getContact().getTo();
+		String ccList = message.getContact().getCc();
+		String content = message.getEventName().getEventName();
+		String subject = message.getNotification().getType();
 
-//	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME_RF_TEMPLATE, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY_RF_V2)
-//	public ResponseEntity<?> receivedRfTemplateMessageV2(Notify message) throws IOException, MessagingException {
-//		logger.info("Message received in consumer = " + message.toString());
-//		ObjectMapper mapper = new ObjectMapper();
-//		String jsonString = mapper.writeValueAsString(message);
-//		String toList = message.getContact().getTo();
-//		String ccList = message.getContact().getCc();
-//		String content = message.getEventName().getEventName();
-//		String subject = message.getAdditionalInfo().getAccDetails().get(0).getAccountname();
-//		List<SummaryTable> summaryTableList = new ArrayList<SummaryTable>();
-//
-//		LinkedList<Recipient> toRecipientsList = new LinkedList<Recipient>();
-//		Recipient toRecipients = null;
-//		EmailAddress emailAddress = null;
-//		String[] strArray = toList.split(";");
-//		for (int j = 0; j < strArray.length; j++) {
-//			toRecipients = new Recipient();
-//			emailAddress = new EmailAddress();
-//			emailAddress.address = strArray[j];
-//			toRecipients.emailAddress = emailAddress;
-//			toRecipientsList.add(toRecipients);
-//		}
-//
-//		LinkedList<Recipient> ccRecipientsList = new LinkedList<Recipient>();
-//		Recipient ccRecipients = null;
-//		EmailAddress  ccEmailAddress = null;
-//		String[] strCCArray = ccList.split(";");
-//		for (int k = 0; k < strCCArray.length; k++) {
-//			ccRecipients = new Recipient();
-//			ccEmailAddress = new EmailAddress();
-//			ccEmailAddress.address = strCCArray[k];
-//			ccRecipients.emailAddress = ccEmailAddress;
-//			ccRecipientsList.add(ccRecipients);
-//		}
-//
-//		for(int i =0;i<message.getAdditionalInfo().getAccDetails().size();i++){
-//			SummaryTable summaryTable = new SummaryTable();
-//			summaryTable.setTicketNumber(message.getAdditionalInfo().getAccDetails().get(i).getTicketNumber());
-//			summaryTable.setServiceID(message.getAdditionalInfo().getAccDetails().get(i).getServiceID());
-//			summaryTable.setAccountName(message.getAdditionalInfo().getAccDetails().get(i).getAccountname());
-//			summaryTable.setBandwidth(message.getAdditionalInfo().getAccDetails().get(i).getBandwidth());
-//			summaryTable.setImpact(message.getAdditionalInfo().getAccDetails().get(i).getImpact());
-//			summaryTable.setState(message.getAdditionalInfo().getAccDetails().get(i).getState());
-//			summaryTable.setStatusReason(message.getAdditionalInfo().getAccDetails().get(i).getStatusReason());
-//			summaryTableList.add(summaryTable);
-//		}
-//
-//		Mail mail = new Mail();
-//		Map model = new HashMap();
-//		model.put("list", summaryTableList);
-//		mail.setModel(model);
-//
-//		MimeMessage msg = emailSender.createMimeMessage();
-//		MimeMessageHelper helper = new MimeMessageHelper(msg,
-//				MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
-//				StandardCharsets.UTF_8.name());
-//
-//		Context context = new Context();
-//		context.setVariables(mail.getModel());
-//		//helper.setTo(toList);
-//
-//		String html ="";
-//		html = templateEngine.process("summary_notification_template.html", context);
-//		String result = //sendMail();
-//				sendMail(toRecipientsList,ccRecipientsList,content,subject,html);
-//		//sendMailHTTP();
-//
-//		logger.info("Notification sent successfully in mail = " + result.toString());
-//		return SuccessResponse.successHandler(HttpStatus.OK,false,"Succesfully consumed data",result.toString());
-//
-//	}
+		LinkedList<Recipient> toRecipientsList = new LinkedList<Recipient>();
+		Recipient toRecipients = null;
+		EmailAddress emailAddress = null;
+		String[] strArray = toList.split(";");
+		for (int j = 0; j < strArray.length; j++) {
+			toRecipients = new Recipient();
+			emailAddress = new EmailAddress();
+			emailAddress.address = strArray[j];
+			toRecipients.emailAddress = emailAddress;
+			toRecipientsList.add(toRecipients);
+		}
+
+		LinkedList<Recipient> ccRecipientsList = new LinkedList<Recipient>();
+		Recipient ccRecipients = null;
+		EmailAddress  ccEmailAddress = null;
+		String[] strCCArray = ccList.split(";");
+		for (int k = 0; k < strCCArray.length; k++) {
+			ccRecipients = new Recipient();
+			ccEmailAddress = new EmailAddress();
+			ccEmailAddress.address = strCCArray[k];
+			ccRecipients.emailAddress = ccEmailAddress;
+			ccRecipientsList.add(ccRecipients);
+		}
+
+		Mail mail = new Mail();
+		Map model = new HashMap();
+		model.put("ticketRef", message.getAdditionalInfo().getTicketRef());
+		model.put("eventDescription", message.getAdditionalInfo().getEventDescription());
+		model.put("bsName",  message.getAdditionalInfo().getBsName());
+		model.put("circle", message.getAdditionalInfo().getCircle());
+		model.put("city", message.getAdditionalInfo().getCity());
+		model.put("bsType", message.getAdditionalInfo().getBsType());
+		model.put("ip", message.getAdditionalInfo().getIp());
+		model.put("siteID", message.getAdditionalInfo().getSiteID());
+		model.put("infraProvider", message.getAdditionalInfo().getInfraProvider());
+		model.put("iorID", message.getAdditionalInfo().getIorID());
+		model.put("bsoCktID", message.getAdditionalInfo().getBsoCktID());
+		model.put("outageStartTime", message.getAdditionalInfo().getOutageStartTime());
+		model.put("impactedCustomer", message.getAdditionalInfo().getImpactedCustomer());
+		model.put("sia", message.getAdditionalInfo().getSia());
+		mail.setModel(model);
+
+		MimeMessage msg = emailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(msg,
+				MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+				StandardCharsets.UTF_8.name());
+
+		Context context = new Context();
+		context.setVariables(mail.getModel());
+		//helper.setTo(toList);
+
+		String html ="";
+		if(message.getEventName().getEventName().equalsIgnoreCase("RF_RED_EVENT")) {
+			html = templateEngine.process("RF_RED_EVENT", context);
+		}else{
+			html = templateEngine.process("RF_GREEN_EVENT", context);
+		}
+
+		String result = //sendMail();
+				sendMail(toRecipientsList,ccRecipientsList,content,subject,html);
+		//sendMailHTTP();
+
+		logger.info("Notification sent successfully in mail = " + result.toString());
+		return SuccessResponse.successHandler(HttpStatus.OK,false,"Succesfully consumed data",result.toString());
+
+	}
+
+	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME_RF_TEMPLATE, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY_RF_V2)
+	public ResponseEntity<?> receivedRfTemplateMessageV2(Notify message) throws IOException, MessagingException {
+		logger.info("Message received in consumer = " + message.toString());
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonString = mapper.writeValueAsString(message);
+		String toList = message.getContact().getTo();
+		String ccList = message.getContact().getCc();
+		String content = message.getEventName().getEventName();
+		String subject = message.getAdditionalInfo().getAccDetails().get(0).getAccountname();
+		List<SummaryTable> summaryTableList = new ArrayList<SummaryTable>();
+
+		LinkedList<Recipient> toRecipientsList = new LinkedList<Recipient>();
+		Recipient toRecipients = null;
+		EmailAddress emailAddress = null;
+		String[] strArray = toList.split(";");
+		for (int j = 0; j < strArray.length; j++) {
+			toRecipients = new Recipient();
+			emailAddress = new EmailAddress();
+			emailAddress.address = strArray[j];
+			toRecipients.emailAddress = emailAddress;
+			toRecipientsList.add(toRecipients);
+		}
+
+		LinkedList<Recipient> ccRecipientsList = new LinkedList<Recipient>();
+		Recipient ccRecipients = null;
+		EmailAddress  ccEmailAddress = null;
+		String[] strCCArray = ccList.split(";");
+		for (int k = 0; k < strCCArray.length; k++) {
+			ccRecipients = new Recipient();
+			ccEmailAddress = new EmailAddress();
+			ccEmailAddress.address = strCCArray[k];
+			ccRecipients.emailAddress = ccEmailAddress;
+			ccRecipientsList.add(ccRecipients);
+		}
+
+		for(int i =0;i<message.getAdditionalInfo().getAccDetails().size();i++){
+			SummaryTable summaryTable = new SummaryTable();
+			summaryTable.setTicketNumber(message.getAdditionalInfo().getAccDetails().get(i).getTicketNumber());
+			summaryTable.setServiceID(message.getAdditionalInfo().getAccDetails().get(i).getServiceID());
+			summaryTable.setAccountName(message.getAdditionalInfo().getAccDetails().get(i).getAccountname());
+			summaryTable.setBandwidth(message.getAdditionalInfo().getAccDetails().get(i).getBandwidth());
+			summaryTable.setImpact(message.getAdditionalInfo().getAccDetails().get(i).getImpact());
+			summaryTable.setState(message.getAdditionalInfo().getAccDetails().get(i).getState());
+			summaryTable.setStatusReason(message.getAdditionalInfo().getAccDetails().get(i).getStatusReason());
+			summaryTableList.add(summaryTable);
+		}
+
+		Mail mail = new Mail();
+		Map model = new HashMap();
+		model.put("list", summaryTableList);
+		mail.setModel(model);
+
+		MimeMessage msg = emailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(msg,
+				MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+				StandardCharsets.UTF_8.name());
+
+		Context context = new Context();
+		context.setVariables(mail.getModel());
+		//helper.setTo(toList);
+
+		String html ="";
+		html = templateEngine.process("summary_notification_template.html", context);
+		String result = //sendMail();
+				sendMail(toRecipientsList,ccRecipientsList,content,subject,html);
+		//sendMailHTTP();
+
+		logger.info("Notification sent successfully in mail = " + result.toString());
+		return SuccessResponse.successHandler(HttpStatus.OK,false,"Succesfully consumed data",result.toString());
+
+	}
 
 
 	public String sendMailHTTP() throws UnsupportedEncodingException {
@@ -290,7 +292,7 @@ public class KafkaConsumer {
 
 		List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
 		urlParameters.add(new BasicNameValuePair("client_id","64d33c44-2d40-4d0f-a73a-dd0ed9950e1f"));
-		urlParameters.add(new BasicNameValuePair("client_secret","cOd01o649ogXPxvRHHnMvnW3LGi7ZSfrqUsa+HWlYGE="));
+		urlParameters.add(new BasicNameValuePair("client_secret","320j1.n-tD.aa114YHC0z-42beLV45tGcc"));
 		urlParameters.add(new BasicNameValuePair("grant_type","client_credentials"));
 		urlParameters.add(new BasicNameValuePair("redirect_uri","https://graph.microsoft.com/"));
 		urlParameters.add(new BasicNameValuePair("refresh_token","24"));
@@ -363,7 +365,7 @@ public class KafkaConsumer {
 				.buildClient();
 
 		Message message = new Message();
-		message.subject = "Incident Summary Notification Mukul // "+subject;
+		message.subject = "Incident Summary Notification // "+subject;
 		ItemBody body = new ItemBody();
 		body.contentType = BodyType.HTML;
 		body.content = html.toString();
@@ -388,8 +390,6 @@ public class KafkaConsumer {
 		ccRecipientsList.add(ccRecipients);
 		message.ccRecipients = ccRecipientsList;*/
 
-		System.out.println("+++++++++++Successfully send email before+++++++++++++");
-
 		boolean saveToSentItems = true;
 		graphClient.users("service.supportuat@tatacommunications.com").
 				sendMail(UserSendMailParameterSet.
@@ -406,7 +406,7 @@ public class KafkaConsumer {
 	}
 
 	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME_SUMMARY, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY_SUMMARY_V1)
-	public void receivedSummaryNotificationMessage(SummaryPayload summaryPayload) throws IOException, MessagingException {
+	public ResponseEntity<?> receivedSummaryNotificationMessage(SummaryPayload summaryPayload) throws IOException, MessagingException {
 		logger.info("Message received in consumer = " + summaryPayload.toString());
 		int i = 0;
 		String ccList = "",toList = "",content = "",subject = "",htmlContent = "";
@@ -484,177 +484,178 @@ public class KafkaConsumer {
 		//sendMailHTTP();
 
 		logger.info("Notification sent successfully in mail = " + result.toString());
+		return SuccessResponse.successHandler(HttpStatus.OK,false,"Succesfully consumed data",result.toString());
 	}
 
 
-//	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME_SUMMARY_ATTACHMENTS, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY_SUMMARY_V2)
-//	public ResponseEntity<?> receivedSummaryNotificationMessageWithAttachment(SummaryPayload summaryPayload) throws IOException, MessagingException {
-//		logger.info("Message received in consumer = " + summaryPayload.toString());
-//		int i = 0;
-//		String ccList = "",toList = "",content = "",subject = "",htmlContent = "";
-//		ObjectMapper mapper = new ObjectMapper();
-//		String jsonString = mapper.writeValueAsString(summaryPayload);
-//
-//		List<SummaryTable> summaryTableList = new ArrayList<SummaryTable>();
-//		Map model = new HashMap();
-//
-//		LinkedList<Recipient> toRecipientsList = new LinkedList<Recipient>();
-//		LinkedList<Recipient> ccRecipientsList = new LinkedList<Recipient>();
-//
-//		for(i = 0; i < summaryPayload.getAccDetailsList().size(); i++) {
-//
-//			SummaryTable summaryTable = new SummaryTable();
-//			Recipient toRecipients = null;//= new Recipient();
-//			Recipient ccRecipients = null;//= new Recipient();
-//			EmailAddress emailAddress ;//= new EmailAddress();
-//			if(i == 0) {
-//				toList = summaryPayload.getAccDetailsList().get(i).getToEmail();
-//				String[] strArray = toList.split(";");
-//				for (int j = 0; j < strArray.length; j++) {
-//					toRecipients = new Recipient();
-//					emailAddress = new EmailAddress();
-//					emailAddress.address = strArray[j];
-//					toRecipients.emailAddress = emailAddress;
-//					toRecipientsList.add(toRecipients);
-//				}
-//			}
-//
-//			if(i == 0) {
-//				ccList = summaryPayload.getAccDetailsList().get(i).getCcEmail();
-//				String[] strCcArray = ccList.split(";");
-//				for (int k = 0; k < strCcArray.length; k++) {
-//					ccRecipients = new Recipient();
-//					emailAddress = new EmailAddress();
-//					emailAddress.address = strCcArray[k];
-//					ccRecipients.emailAddress = emailAddress;
-//					ccRecipientsList.add(ccRecipients);
-//				}
-//			}
-//
-//			/*ccList = summaryPayload.getAccDetailsList().get(i).getCcEmail().toString();
-//			content = summaryPayload.getAccDetailsList().get(i).getAccountname().toString();
-//			subject = summaryPayload.getAccDetailsList().get(i).getAccountname().toString();*/
-//
-//			summaryTable.setTicketNumber(summaryPayload.getAccDetailsList().get(i).getTicketNumber());
-//			summaryTable.setServiceID(summaryPayload.getAccDetailsList().get(i).getServiceID());
-//			summaryTable.setAccountName(summaryPayload.getAccDetailsList().get(i).getAccountname());
-//			summaryTable.setBandwidth(summaryPayload.getAccDetailsList().get(i).getBandwidth());
-//			summaryTable.setImpact(summaryPayload.getAccDetailsList().get(i).getImpact());
-//			summaryTable.setState(summaryPayload.getAccDetailsList().get(i).getState());
-//			summaryTable.setStatusReason(summaryPayload.getAccDetailsList().get(i).getStatusReason());
-//			summaryTableList.add(summaryTable);
-//		}
-//		model.put("list", summaryTableList);
-//		ccList = summaryPayload.getAccDetailsList().get(0).getCcEmail();
-//		content = summaryPayload.getAccDetailsList().get(0).getAccountname();
-//		subject = summaryPayload.getAccDetailsList().get(0).getAccountname();
-//
-//		MimeMessage msg = emailSender.createMimeMessage();
-//		MimeMessageHelper helper = new MimeMessageHelper(msg,
-//				MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
-//				StandardCharsets.UTF_8.name());
-//
-//		Context context = new Context();
-//		context.setVariables(model);
-//		//helper.setTo(toList);
-//
-//		String html = "";
-//		html = templateEngine.process("summary_notification_template.html", context);
-//
-//		String result = //sendMail();
-//				sendMailWithAttachment(toRecipientsList,ccRecipientsList,content,subject,html,summaryPayload.getFileName());
-//		//sendMailHTTP();
-//
-//		logger.info("Notification sent successfully in mail = " + result.toString());
-//		return SuccessResponse.successHandler(HttpStatus.OK,false,"Succesfully consumed data",result.toString());
-//	}
+	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME_SUMMARY_ATTACHMENTS, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY_SUMMARY_V2)
+	public ResponseEntity<?> receivedSummaryNotificationMessageWithAttachment(SummaryPayload summaryPayload) throws IOException, MessagingException {
+		logger.info("Message received in consumer = " + summaryPayload.toString());
+		int i = 0;
+		String ccList = "",toList = "",content = "",subject = "",htmlContent = "";
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonString = mapper.writeValueAsString(summaryPayload);
+
+		List<SummaryTable> summaryTableList = new ArrayList<SummaryTable>();
+		Map model = new HashMap();
+
+		LinkedList<Recipient> toRecipientsList = new LinkedList<Recipient>();
+		LinkedList<Recipient> ccRecipientsList = new LinkedList<Recipient>();
+
+		for(i = 0; i < summaryPayload.getAccDetailsList().size(); i++) {
+
+			SummaryTable summaryTable = new SummaryTable();
+			Recipient toRecipients = null;//= new Recipient();
+			Recipient ccRecipients = null;//= new Recipient();
+			EmailAddress emailAddress ;//= new EmailAddress();
+			if(i == 0) {
+				toList = summaryPayload.getAccDetailsList().get(i).getToEmail();
+				String[] strArray = toList.split(";");
+				for (int j = 0; j < strArray.length; j++) {
+					toRecipients = new Recipient();
+					emailAddress = new EmailAddress();
+					emailAddress.address = strArray[j];
+					toRecipients.emailAddress = emailAddress;
+					toRecipientsList.add(toRecipients);
+				}
+			}
+
+			if(i == 0) {
+				ccList = summaryPayload.getAccDetailsList().get(i).getCcEmail();
+				String[] strCcArray = ccList.split(";");
+				for (int k = 0; k < strCcArray.length; k++) {
+					ccRecipients = new Recipient();
+					emailAddress = new EmailAddress();
+					emailAddress.address = strCcArray[k];
+					ccRecipients.emailAddress = emailAddress;
+					ccRecipientsList.add(ccRecipients);
+				}
+			}
+
+			/*ccList = summaryPayload.getAccDetailsList().get(i).getCcEmail().toString();
+			content = summaryPayload.getAccDetailsList().get(i).getAccountname().toString();
+			subject = summaryPayload.getAccDetailsList().get(i).getAccountname().toString();*/
+
+			summaryTable.setTicketNumber(summaryPayload.getAccDetailsList().get(i).getTicketNumber());
+			summaryTable.setServiceID(summaryPayload.getAccDetailsList().get(i).getServiceID());
+			summaryTable.setAccountName(summaryPayload.getAccDetailsList().get(i).getAccountname());
+			summaryTable.setBandwidth(summaryPayload.getAccDetailsList().get(i).getBandwidth());
+			summaryTable.setImpact(summaryPayload.getAccDetailsList().get(i).getImpact());
+			summaryTable.setState(summaryPayload.getAccDetailsList().get(i).getState());
+			summaryTable.setStatusReason(summaryPayload.getAccDetailsList().get(i).getStatusReason());
+			summaryTableList.add(summaryTable);
+		}
+		model.put("list", summaryTableList);
+		ccList = summaryPayload.getAccDetailsList().get(0).getCcEmail();
+		content = summaryPayload.getAccDetailsList().get(0).getAccountname();
+		subject = summaryPayload.getAccDetailsList().get(0).getAccountname();
+
+		MimeMessage msg = emailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(msg,
+				MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+				StandardCharsets.UTF_8.name());
+
+		Context context = new Context();
+		context.setVariables(model);
+		//helper.setTo(toList);
+
+		String html = "";
+		html = templateEngine.process("summary_notification_template.html", context);
+
+		String result = //sendMail();
+				sendMailWithAttachment(toRecipientsList,ccRecipientsList,content,subject,html,summaryPayload.getFileName());
+		//sendMailHTTP();
+
+		logger.info("Notification sent successfully in mail = " + result.toString());
+		return SuccessResponse.successHandler(HttpStatus.OK,false,"Succesfully consumed data",result.toString());
+	}
 
 
 	//public  String sendMail(){
-//	public  String sendMailWithAttachment(LinkedList<Recipient> toList,LinkedList<Recipient> ccRecipientsList,String content,String subject,String html,String file) throws IOException {
-//		String PROXY_SERVER_HOST = "10.133.12.181"; //UAT Proxy - 10.133.12.181   PROD Proxy -121.244.254.154 ;
-//		java.security.Security.setProperty("jdk.tls.disabledAlgorithms", "SSLv2Hello, SSLv3, TLSv1, TLSv1.1");
-//		int PROXY_SERVER_PORT = 80;
-//		Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(PROXY_SERVER_HOST, PROXY_SERVER_PORT));
-//		SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
-//		requestFactory.setProxy(proxy);
-//
-//		String clientId = "64d33c44-2d40-4d0f-a73a-dd0ed9950e1f";
-//		String clientSecret = "cOd01o649ogXPxvRHHnMvnW3LGi7ZSfrqUsa+HWlYGE=";
-//		String tenantId = "20210462-2c5e-4ec8-b3e2-0be950f292ca";
-//		String redirect_url = "https://graph.microsoft.com/";
-//		final String GRAPH_DEFAULT_SCOPE = "https://graph.microsoft.com/.default";
-//
-//		ClientSecretCredential clientSecretCredential = new ClientSecretCredentialBuilder()
-//				.clientId(clientId)
-//				.clientSecret(clientSecret)
-//				.tenantId(tenantId)
-//				.proxyOptions(new ProxyOptions(ProxyOptions.Type.HTTP, new InetSocketAddress(PROXY_SERVER_HOST, PROXY_SERVER_PORT)))
-//				.build();
-//
-//		List<String> scopes = new ArrayList<>();
-//		scopes.add(GRAPH_DEFAULT_SCOPE);
-//
-//		TokenCredentialAuthProvider tokenCredAuthProvider =
-//				new TokenCredentialAuthProvider(scopes, clientSecretCredential);
-//
-//		GraphServiceClient graphClient = GraphServiceClient
-//				.builder()
-//				.authenticationProvider(tokenCredAuthProvider)
-//				.buildClient();
-//
-//		Message message = new Message();
-//		message.subject = "Incident Summary Notification // "+subject;
-//		ItemBody body = new ItemBody();
-//		body.contentType = BodyType.HTML;
-//		body.content = html.toString();
-//		message.body = body;
-//		/*LinkedList<Recipient> toRecipientsList = new LinkedList<Recipient>();
-//		Recipient toRecipients = new Recipient();
-//		EmailAddress emailAddress = new EmailAddress();
-//		emailAddress.address = toList;//"suvarna.jagadale@tatacommunications.com";
-//		toRecipients.emailAddress = emailAddress;
-//		toRecipientsList.add(toRecipients);*/
-//
-//		message.toRecipients = toList;
-//
-//		String encodeFileContent = fileUploadHelper.load(file);
-//		String encode = Base64.getEncoder().encodeToString(encodeFileContent.getBytes());
-//		LinkedList<Attachment> attachmentsList = new LinkedList<Attachment>();
-//		FileAttachment attachments = new FileAttachment();
-//		attachments.name = file;
-//		attachments.contentType = "text/plain";
-//		attachments.contentBytes = Base64.getDecoder().decode(encode);
-//		attachments.oDataType = "#microsoft.graph.fileAttachment";
-//		attachmentsList.add(attachments);
-//		AttachmentCollectionResponse attachmentCollectionResponse = new AttachmentCollectionResponse();
-//		attachmentCollectionResponse.value = attachmentsList;
-//		AttachmentCollectionPage attachmentCollectionPage = new AttachmentCollectionPage(attachmentCollectionResponse, null);
-//		message.attachments = attachmentCollectionPage;
-//
-//		// Comment these snippet if production is readiness
-//		//message.ccRecipients = ccRecipientsList;
-//
-//		/*LinkedList<Recipient> ccRecipientsList = new LinkedList<Recipient>();
-//		Recipient ccRecipients = new Recipient();
-//		EmailAddress emailAddress1 = new EmailAddress();
-//		emailAddress1.address = ccList;//"suvarna.jagadale@tatacommunications.com";
-//		ccRecipients.emailAddress = emailAddress1;
-//		ccRecipientsList.add(ccRecipients);
-//		message.ccRecipients = ccRecipientsList;*/
-//
-//		boolean saveToSentItems = true;
-//		graphClient.users("service.supportuat@tatacommunications.com").
-//				sendMail(UserSendMailParameterSet.
-//						newBuilder().
-//						withMessage(message).
-//						withSaveToSentItems(saveToSentItems).
-//						build()).
-//				buildRequest().
-//				post();
-//
-//		System.out.println("+++++++++++Successfully send email with attachment+++++++++++++");
-//
-//		return "";
-//	}
+	public  String sendMailWithAttachment(LinkedList<Recipient> toList,LinkedList<Recipient> ccRecipientsList,String content,String subject,String html,String file) throws IOException {
+		String PROXY_SERVER_HOST = "10.133.12.181"; //UAT Proxy - 10.133.12.181   PROD Proxy -121.244.254.154 ;
+		java.security.Security.setProperty("jdk.tls.disabledAlgorithms", "SSLv2Hello, SSLv3, TLSv1, TLSv1.1");
+		int PROXY_SERVER_PORT = 80;
+		Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(PROXY_SERVER_HOST, PROXY_SERVER_PORT));
+		SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+		requestFactory.setProxy(proxy);
+
+		String clientId = "64d33c44-2d40-4d0f-a73a-dd0ed9950e1f";
+		String clientSecret = "cOd01o649ogXPxvRHHnMvnW3LGi7ZSfrqUsa+HWlYGE=";
+		String tenantId = "20210462-2c5e-4ec8-b3e2-0be950f292ca";
+		String redirect_url = "https://graph.microsoft.com/";
+		final String GRAPH_DEFAULT_SCOPE = "https://graph.microsoft.com/.default";
+
+		ClientSecretCredential clientSecretCredential = new ClientSecretCredentialBuilder()
+				.clientId(clientId)
+				.clientSecret(clientSecret)
+				.tenantId(tenantId)
+				.proxyOptions(new ProxyOptions(ProxyOptions.Type.HTTP, new InetSocketAddress(PROXY_SERVER_HOST, PROXY_SERVER_PORT)))
+				.build();
+
+		List<String> scopes = new ArrayList<>();
+		scopes.add(GRAPH_DEFAULT_SCOPE);
+
+		TokenCredentialAuthProvider tokenCredAuthProvider =
+				new TokenCredentialAuthProvider(scopes, clientSecretCredential);
+
+		GraphServiceClient graphClient = GraphServiceClient
+				.builder()
+				.authenticationProvider(tokenCredAuthProvider)
+				.buildClient();
+
+		Message message = new Message();
+		message.subject = "Incident Summary Notification // "+subject;
+		ItemBody body = new ItemBody();
+		body.contentType = BodyType.HTML;
+		body.content = html.toString();
+		message.body = body;
+		/*LinkedList<Recipient> toRecipientsList = new LinkedList<Recipient>();
+		Recipient toRecipients = new Recipient();
+		EmailAddress emailAddress = new EmailAddress();
+		emailAddress.address = toList;//"suvarna.jagadale@tatacommunications.com";
+		toRecipients.emailAddress = emailAddress;
+		toRecipientsList.add(toRecipients);*/
+
+		message.toRecipients = toList;
+
+		String encodeFileContent = fileUploadHelper.load(file);
+		String encode = Base64.getEncoder().encodeToString(encodeFileContent.getBytes());
+		LinkedList<Attachment> attachmentsList = new LinkedList<Attachment>();
+		FileAttachment attachments = new FileAttachment();
+		attachments.name = file;
+		attachments.contentType = "text/plain";
+		attachments.contentBytes = Base64.getDecoder().decode(encode);
+		attachments.oDataType = "#microsoft.graph.fileAttachment";
+		attachmentsList.add(attachments);
+		AttachmentCollectionResponse attachmentCollectionResponse = new AttachmentCollectionResponse();
+		attachmentCollectionResponse.value = attachmentsList;
+		AttachmentCollectionPage attachmentCollectionPage = new AttachmentCollectionPage(attachmentCollectionResponse, null);
+		message.attachments = attachmentCollectionPage;
+
+		// Comment these snippet if production is readiness
+		//message.ccRecipients = ccRecipientsList;
+
+		/*LinkedList<Recipient> ccRecipientsList = new LinkedList<Recipient>();
+		Recipient ccRecipients = new Recipient();
+		EmailAddress emailAddress1 = new EmailAddress();
+		emailAddress1.address = ccList;//"suvarna.jagadale@tatacommunications.com";
+		ccRecipients.emailAddress = emailAddress1;
+		ccRecipientsList.add(ccRecipients);
+		message.ccRecipients = ccRecipientsList;*/
+
+		boolean saveToSentItems = true;
+		graphClient.users("service.supportuat@tatacommunications.com").
+				sendMail(UserSendMailParameterSet.
+						newBuilder().
+						withMessage(message).
+						withSaveToSentItems(saveToSentItems).
+						build()).
+				buildRequest().
+				post();
+
+		System.out.println("+++++++++++Successfully send email with attachment+++++++++++++");
+
+		return "";
+	}
 }

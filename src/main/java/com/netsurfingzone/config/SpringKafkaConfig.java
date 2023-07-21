@@ -54,7 +54,6 @@ public class SpringKafkaConfig {
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "com.netsurfingzone.dto");
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "com.netsurfingzone.dto.Notify");
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
-		configMap.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"earliest");
 		//configMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaNotifyDeserializer.class);
 		return new DefaultKafkaConsumerFactory<>(configMap);
 	}
@@ -69,7 +68,6 @@ public class SpringKafkaConfig {
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "com.netsurfingzone.dto");
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "com.netsurfingzone.dto.SummaryPayload");
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
-		configMap.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"earliest");
 		//configMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaNotifyDeserializer.class);
 		return new DefaultKafkaConsumerFactory<>(configMap);
 	}
