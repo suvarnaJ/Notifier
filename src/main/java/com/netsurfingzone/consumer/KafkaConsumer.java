@@ -290,7 +290,7 @@ public class KafkaConsumer {
 
 		List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
 		urlParameters.add(new BasicNameValuePair("client_id","64d33c44-2d40-4d0f-a73a-dd0ed9950e1f"));
-		urlParameters.add(new BasicNameValuePair("client_secret","320j1.n-tD.aa114YHC0z-42beLV45tGcc"));
+		urlParameters.add(new BasicNameValuePair("client_secret","cOd01o649ogXPxvRHHnMvnW3LGi7ZSfrqUsa+HWlYGE="));
 		urlParameters.add(new BasicNameValuePair("grant_type","client_credentials"));
 		urlParameters.add(new BasicNameValuePair("redirect_uri","https://graph.microsoft.com/"));
 		urlParameters.add(new BasicNameValuePair("refresh_token","24"));
