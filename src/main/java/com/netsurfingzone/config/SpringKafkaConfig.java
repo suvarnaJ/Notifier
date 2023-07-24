@@ -55,6 +55,7 @@ public class SpringKafkaConfig {
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
 		configMap.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG,"700000");
 		configMap.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,"false");
+		configMap.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG,"8000");
 		//configMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaNotifyDeserializer.class);
 		return new DefaultKafkaConsumerFactory<>(configMap);
 	}
@@ -71,6 +72,7 @@ public class SpringKafkaConfig {
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
 		configMap.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG,"700000");
 		configMap.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,"false");
+		configMap.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG,"8000");
 		//configMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaNotifyDeserializer.class);
 		return new DefaultKafkaConsumerFactory<>(configMap);
 	}
