@@ -35,7 +35,6 @@ public class SpringKafkaConfig {
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES,"com.netsurfingzone.dto.Notify");
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES,"com.netsurfingzone.dto.SummaryPayload");
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES,"*");
-		configMap.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"earliest");
 		return new DefaultKafkaProducerFactory<String, Object>(configMap);
 	}
 
