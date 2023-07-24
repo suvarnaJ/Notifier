@@ -53,7 +53,7 @@ public class SpringKafkaConfig {
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "com.netsurfingzone.dto");
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "com.netsurfingzone.dto.Notify");
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
-		configMap.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG,"3000000");
+		configMap.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG,"700000");
 		configMap.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,"false");
 		//configMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaNotifyDeserializer.class);
 		return new DefaultKafkaConsumerFactory<>(configMap);
@@ -69,7 +69,7 @@ public class SpringKafkaConfig {
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "com.netsurfingzone.dto");
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "com.netsurfingzone.dto.SummaryPayload");
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
-		configMap.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG,"3000000");
+		configMap.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG,"700000");
 		configMap.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,"false");
 		//configMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaNotifyDeserializer.class);
 		return new DefaultKafkaConsumerFactory<>(configMap);
