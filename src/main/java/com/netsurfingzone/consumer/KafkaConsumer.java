@@ -365,7 +365,7 @@ public class KafkaConsumer {
 				.buildClient();
 
 		Message message = new Message();
-		message.subject = "Incident Summary Notification Mukul // "+subject;
+		message.subject = "Incident Summary Notification Mohit // "+subject;
 		ItemBody body = new ItemBody();
 		body.contentType = BodyType.HTML;
 		body.content = html.toString();
