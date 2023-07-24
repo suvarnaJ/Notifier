@@ -57,6 +57,8 @@ public class SpringKafkaConfig {
 		configMap.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,"false");
 		configMap.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG,"5000");
 		configMap.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG,"20000");
+		configMap.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG,"1");
+		configMap.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"latest");
 		//configMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaNotifyDeserializer.class);
 		return new DefaultKafkaConsumerFactory<>(configMap);
 	}
@@ -75,6 +77,8 @@ public class SpringKafkaConfig {
 		configMap.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,"false");
 		configMap.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG,"5000");
 		configMap.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG,"20000");
+		configMap.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG,"1");
+		configMap.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"latest");
 		//configMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaNotifyDeserializer.class);
 		return new DefaultKafkaConsumerFactory<>(configMap);
 	}
