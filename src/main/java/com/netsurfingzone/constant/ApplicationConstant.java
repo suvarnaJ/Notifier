@@ -1,6 +1,13 @@
 package com.netsurfingzone.constant;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ApplicationConstant {
+
+//	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+//	Date date = new Date();
+//	String strDate = formatter.format(date);
 
 	public static final String KAFKA_LOCAL_SERVER_CONFIG = "localhost:9092";
 	public static final String TOPIC_NAME = "netsurfingzone-topic-1";
