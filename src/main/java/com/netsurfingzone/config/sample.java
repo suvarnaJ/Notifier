@@ -255,81 +255,81 @@ public class sample {
 
     }
 
-    public static String sendMail(){
-        String PROXY_SERVER_HOST = "10.133.12.181" ;
-        String PROXY_SERVER_PORT = "80";
-        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(PROXY_SERVER_HOST, Integer.parseInt(PROXY_SERVER_PORT)));
-        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
-        requestFactory.setProxy(proxy);
-
-        String clientId = "64d33c44-2d40-4d0f-a73a-dd0ed9950e1f";
-        String clientSecret = "320j1.n-tD.aa114YHC0z-42beLV45tGcc";
-        String tenantId = "20210462-2c5e-4ec8-b3e2-0be950f292ca";
-        String redirect_url = "https://graph.microsoft.com/";
-        final String GRAPH_DEFAULT_SCOPE = "https://graph.microsoft.com/.default";
-
-
-        ClientSecretCredential clientSecretCredential = new ClientSecretCredentialBuilder()
-                .clientId(clientId)
-                .clientSecret(clientSecret)
-                .tenantId(tenantId)
-                .proxyOptions(new ProxyOptions(ProxyOptions.Type.HTTP, new InetSocketAddress("10.133.12.181", 80)))
-                .build();
-
-        List<String> scopes = new ArrayList<>();
-        scopes.add(GRAPH_DEFAULT_SCOPE);
-
-         TokenCredentialAuthProvider tokenCredAuthProvider =
-                new TokenCredentialAuthProvider(scopes, clientSecretCredential);
-
-        System.out.println(tokenCredAuthProvider.toString());
-
-         GraphServiceClient graphClient = GraphServiceClient
-                .builder()
-                .authenticationProvider(tokenCredAuthProvider)
-                .buildClient();
-
-        Message message = new Message();
-        message.subject = "Meet for lunch?";
-        ItemBody body = new ItemBody();
-        body.contentType = BodyType.TEXT;
-        body.content = "The new cafeteria is open.";
-        message.body = body;
-        LinkedList<Recipient> toRecipientsList = new LinkedList<Recipient>();
-        Recipient toRecipients = new Recipient();
-        EmailAddress emailAddress = new EmailAddress();
-        emailAddress.address = "suvarna.jagadale@tatacommunications.com";
-        toRecipients.emailAddress = emailAddress;
-        toRecipientsList.add(toRecipients);
-        message.toRecipients = toRecipientsList;
-        LinkedList<Recipient> ccRecipientsList = new LinkedList<Recipient>();
-        Recipient ccRecipients = new Recipient();
-        EmailAddress emailAddress1 = new EmailAddress();
-        emailAddress1.address = "suvarna.jagadale@tatacommunications.com";
-        ccRecipients.emailAddress = emailAddress1;
-        ccRecipientsList.add(ccRecipients);
-        message.ccRecipients = ccRecipientsList;
-
-        boolean saveToSentItems = false;
-        graphClient.users("service.supportuat@tatacommunications.com").
-                sendMail(UserSendMailParameterSet.
-                    newBuilder().
-                    withMessage(message).
-                        withSaveToSentItems(saveToSentItems).
-                        build()).
-                        buildRequest().
-                post();
-        /*graphClient.me()
-                .sendMail(UserSendMailParameterSet
-                        .newBuilder()
-                        .withMessage(message)
-                        .withSaveToSentItems(saveToSentItems)
-                        .build())
-                .buildRequest()
-                .post();
-*/
-        return "";
-    }
+//    public static String sendMail(){
+//        String PROXY_SERVER_HOST = "10.133.12.181" ;
+//        String PROXY_SERVER_PORT = "80";
+//        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(PROXY_SERVER_HOST, Integer.parseInt(PROXY_SERVER_PORT)));
+//        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+//        requestFactory.setProxy(proxy);
+//
+//        String clientId = "64d33c44-2d40-4d0f-a73a-dd0ed9950e1f";
+//        String clientSecret = "320j1.n-tD.aa114YHC0z-42beLV45tGcc";
+//        String tenantId = "20210462-2c5e-4ec8-b3e2-0be950f292ca";
+//        String redirect_url = "https://graph.microsoft.com/";
+//        final String GRAPH_DEFAULT_SCOPE = "https://graph.microsoft.com/.default";
+//
+//
+//        ClientSecretCredential clientSecretCredential = new ClientSecretCredentialBuilder()
+//                .clientId(clientId)
+//                .clientSecret(clientSecret)
+//                .tenantId(tenantId)
+//                .proxyOptions(new ProxyOptions(ProxyOptions.Type.HTTP, new InetSocketAddress("10.133.12.181", 80)))
+//                .build();
+//
+//        List<String> scopes = new ArrayList<>();
+//        scopes.add(GRAPH_DEFAULT_SCOPE);
+//
+//         TokenCredentialAuthProvider tokenCredAuthProvider =
+//                new TokenCredentialAuthProvider(scopes, clientSecretCredential);
+//
+//        System.out.println(tokenCredAuthProvider.toString());
+//
+//         GraphServiceClient graphClient = GraphServiceClient
+//                .builder()
+//                .authenticationProvider(tokenCredAuthProvider)
+//                .buildClient();
+//
+//        Message message = new Message();
+//        message.subject = "Meet for lunch?";
+//        ItemBody body = new ItemBody();
+//        body.contentType = BodyType.TEXT;
+//        body.content = "The new cafeteria is open.";
+//        message.body = body;
+//        LinkedList<Recipient> toRecipientsList = new LinkedList<Recipient>();
+//        Recipient toRecipients = new Recipient();
+//        EmailAddress emailAddress = new EmailAddress();
+//        emailAddress.address = "suvarna.jagadale@tatacommunications.com";
+//        toRecipients.emailAddress = emailAddress;
+//        toRecipientsList.add(toRecipients);
+//        message.toRecipients = toRecipientsList;
+//        LinkedList<Recipient> ccRecipientsList = new LinkedList<Recipient>();
+//        Recipient ccRecipients = new Recipient();
+//        EmailAddress emailAddress1 = new EmailAddress();
+//        emailAddress1.address = "suvarna.jagadale@tatacommunications.com";
+//        ccRecipients.emailAddress = emailAddress1;
+//        ccRecipientsList.add(ccRecipients);
+//        message.ccRecipients = ccRecipientsList;
+//
+//        boolean saveToSentItems = false;
+//        graphClient.users("service.supportuat@tatacommunications.com").
+//                sendMail(UserSendMailParameterSet.
+//                    newBuilder().
+//                    withMessage(message).
+//                        withSaveToSentItems(saveToSentItems).
+//                        build()).
+//                        buildRequest().
+//                post();
+//        /*graphClient.me()
+//                .sendMail(UserSendMailParameterSet
+//                        .newBuilder()
+//                        .withMessage(message)
+//                        .withSaveToSentItems(saveToSentItems)
+//                        .build())
+//                .buildRequest()
+//                .post();
+//*/
+//        return "";
+//    }
 
     public static String removeDuplicates(){
         String array[]
