@@ -29,8 +29,8 @@ public class SpringKafkaConfig {
 	public ProducerFactory<String, Object> producerFactory() {
 		Map<String, Object> configMap = new HashMap<>();
 		configMap.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, ApplicationConstant.KAFKA_LOCAL_SERVER_CONFIG);
-		configMap.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-		configMap.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+		configMap.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+		configMap.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class.getName());
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "com.netsurfingzone.dto");
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES,"com.netsurfingzone.dto.Notify");
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES,"com.netsurfingzone.dto.SummaryPayload");
