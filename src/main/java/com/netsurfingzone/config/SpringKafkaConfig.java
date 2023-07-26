@@ -45,7 +45,7 @@ public class SpringKafkaConfig {
 	}
 
 	@Bean
-	public ConsumerFactory<String, String> consumerFactory() {
+	public ConsumerFactory<String, Notify> consumerFactory() {
 		Map<String, Object> configMap = new HashMap<>();
 		configMap.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, ApplicationConstant.KAFKA_LOCAL_SERVER_CONFIG);//mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
 		configMap.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
@@ -61,11 +61,11 @@ public class SpringKafkaConfig {
 		configMap.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG,"10");
 		configMap.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"earliest");
 		//configMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaNotifyDeserializer.class);
-		return new DefaultKafkaConsumerFactory<String,String>(configMap,new StringDeserializer(),new StringDeserializer());
+		return new DefaultKafkaConsumerFactory<>(configMap);
 	}
 
 	@Bean
-	public ConsumerFactory<String, String> consumerFactory1() {
+	public ConsumerFactory<String, SummaryPayload> consumerFactory1() {
 		Map<String, Object> configMap = new HashMap<>();
 		configMap.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, ApplicationConstant.KAFKA_LOCAL_SERVER_CONFIG);//mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
 		configMap.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
@@ -81,33 +81,33 @@ public class SpringKafkaConfig {
 		configMap.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG,"10");
 		configMap.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"earliest");
 		//configMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaNotifyDeserializer.class);
-		return new DefaultKafkaConsumerFactory<String,String>(configMap,new StringDeserializer(),new StringDeserializer());
+		return new DefaultKafkaConsumerFactory<>(configMap);
 	}
 
 	@Bean
-	public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
-		ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<String, String>();
+	public ConcurrentKafkaListenerContainerFactory<String, Notify> kafkaListenerContainerFactory() {
+		ConcurrentKafkaListenerContainerFactory<String, Notify> factory = new ConcurrentKafkaListenerContainerFactory<String, Notify>();
 		factory.setConsumerFactory(consumerFactory());
 		return factory;
 	}
 
 	@Bean
-	public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory1() {
-		ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<String, String>();
+	public ConcurrentKafkaListenerContainerFactory<String, SummaryPayload> kafkaListenerContainerFactory1() {
+		ConcurrentKafkaListenerContainerFactory<String, SummaryPayload> factory = new ConcurrentKafkaListenerContainerFactory<String, SummaryPayload>();
 		factory.setConsumerFactory(consumerFactory1());
 		return factory;
 	}
 
 	@Bean
-	public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory_SUMMARY_V1() {
-		ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<String, String>();
+	public ConcurrentKafkaListenerContainerFactory<String, Notify> kafkaListenerContainerFactory_SUMMARY_V1() {
+		ConcurrentKafkaListenerContainerFactory<String, Notify> factory = new ConcurrentKafkaListenerContainerFactory<String, Notify>();
 		factory.setConsumerFactory(consumerFactory());
 		return factory;
 	}
 
 	@Bean
-	public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory_SUMMARY_V2() {
-		ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<String, String>();
+	public ConcurrentKafkaListenerContainerFactory<String, SummaryPayload> kafkaListenerContainerFactory_SUMMARY_V2() {
+		ConcurrentKafkaListenerContainerFactory<String, SummaryPayload> factory = new ConcurrentKafkaListenerContainerFactory<String, SummaryPayload>();
 		factory.setConsumerFactory(consumerFactory1());
 		return factory;
 	}
