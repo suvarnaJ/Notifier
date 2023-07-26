@@ -45,7 +45,7 @@ public class SpringKafkaConfig {
 	}
 
 	@Bean
-	public ConsumerFactory<String, Notify> consumerFactory() {
+	public ConsumerFactory<String, String> consumerFactory() {
 		Map<String, Object> configMap = new HashMap<>();
 		configMap.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, ApplicationConstant.KAFKA_LOCAL_SERVER_CONFIG);//mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
 		configMap.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
@@ -55,17 +55,17 @@ public class SpringKafkaConfig {
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "com.netsurfingzone.dto.Notify");
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
 		configMap.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG,"700000");
-		configMap.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,"true");
+		configMap.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,"false");
 		configMap.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG,"1000");
 		configMap.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG,"3600000");
 		configMap.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG,"10");
 		configMap.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"earliest");
 		//configMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaNotifyDeserializer.class);
-		return new DefaultKafkaConsumerFactory<>(configMap);
+		return new DefaultKafkaConsumerFactory<String,String>(configMap,new StringDeserializer(),new StringDeserializer());
 	}
 
 	@Bean
-	public ConsumerFactory<String, SummaryPayload> consumerFactory1() {
+	public ConsumerFactory<String, String> consumerFactory1() {
 		Map<String, Object> configMap = new HashMap<>();
 		configMap.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, ApplicationConstant.KAFKA_LOCAL_SERVER_CONFIG);//mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
 		configMap.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
@@ -75,39 +75,39 @@ public class SpringKafkaConfig {
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "com.netsurfingzone.dto.SummaryPayload");
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
 		configMap.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG,"700000");
-		configMap.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,"true");
+		configMap.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,"false");
 		configMap.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG,"1000");
 		configMap.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG,"3600000");
 		configMap.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG,"10");
 		configMap.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"earliest");
 		//configMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaNotifyDeserializer.class);
-		return new DefaultKafkaConsumerFactory<>(configMap);
+		return new DefaultKafkaConsumerFactory<String,String>(configMap,new StringDeserializer(),new StringDeserializer());
 	}
 
 	@Bean
-	public ConcurrentKafkaListenerContainerFactory<String, Notify> kafkaListenerContainerFactory() {
-		ConcurrentKafkaListenerContainerFactory<String, Notify> factory = new ConcurrentKafkaListenerContainerFactory<String, Notify>();
+	public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
+		ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<String, String>();
 		factory.setConsumerFactory(consumerFactory());
 		return factory;
 	}
 
 	@Bean
-	public ConcurrentKafkaListenerContainerFactory<String, SummaryPayload> kafkaListenerContainerFactory1() {
-		ConcurrentKafkaListenerContainerFactory<String, SummaryPayload> factory = new ConcurrentKafkaListenerContainerFactory<String, SummaryPayload>();
+	public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory1() {
+		ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<String, String>();
 		factory.setConsumerFactory(consumerFactory1());
 		return factory;
 	}
 
 	@Bean
-	public ConcurrentKafkaListenerContainerFactory<String, Notify> kafkaListenerContainerFactory_SUMMARY_V1() {
-		ConcurrentKafkaListenerContainerFactory<String, Notify> factory = new ConcurrentKafkaListenerContainerFactory<String, Notify>();
+	public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory_SUMMARY_V1() {
+		ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<String, String>();
 		factory.setConsumerFactory(consumerFactory());
 		return factory;
 	}
 
 	@Bean
-	public ConcurrentKafkaListenerContainerFactory<String, SummaryPayload> kafkaListenerContainerFactory_SUMMARY_V2() {
-		ConcurrentKafkaListenerContainerFactory<String, SummaryPayload> factory = new ConcurrentKafkaListenerContainerFactory<String, SummaryPayload>();
+	public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory_SUMMARY_V2() {
+		ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<String, String>();
 		factory.setConsumerFactory(consumerFactory1());
 		return factory;
 	}
