@@ -4,6 +4,9 @@ import com.google.gson.Gson;
 import com.netsurfingzone.dto.ErrorLogs;
 import com.netsurfingzone.payload.ErrorResponse;
 import com.netsurfingzone.payload.SuccessResponse;
+import com.netsurfingzone.producer.KafkaProducer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +27,8 @@ import java.util.stream.Collectors;
 @CrossOrigin("*")
 public class MainController {
 
+    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -39,6 +44,7 @@ public class MainController {
             //jdbcTemplate.execute("DROP TABLE CN_LOG_ERROR");
             //jdbcTemplate.execute("DELETE FROM CN_LOG_ERROR");
             if(from.equals("") || to.equals("")){
+                logger.info("Field can't be null");
                 response = ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Field can't be null");
             }else {
                 Object[] error_logs = jdbcTemplate.queryForList("select * from CN_LOG_ERROR").toArray();
@@ -72,6 +78,7 @@ public class MainController {
                         try {
                             return filterDates.contains(simpleDateFormat.format(dateFormat.parse(String.valueOf(item.getCreatedAt()))));
                         } catch (ParseException e) {
+                            logger.info(e.getMessage());
                             e.printStackTrace();
                         }
                         return false;
@@ -81,7 +88,7 @@ public class MainController {
                 return response;
             }
         }catch (Exception ex){
-            System.out.println(ex);
+            logger.info(ex.getMessage());
             response = ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,ex.getMessage());
         }
         return response;
@@ -96,6 +103,7 @@ public class MainController {
             List<Map<String,Object>> data = jdbcTemplate.queryForList("select * from CN_LOG_ERROR");
             return SuccessResponse.successHandler(HttpStatus.OK, false, "Successfully operation performed", data);
         }catch (Exception ex){
+            logger.info(ex.getMessage());
             return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,ex.getMessage());
         }
     }

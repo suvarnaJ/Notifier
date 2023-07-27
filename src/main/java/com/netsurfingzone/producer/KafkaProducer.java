@@ -619,7 +619,6 @@ public class KafkaProducer {
 	@PostMapping(value = "/email1.1/notifySummaryWithAttachment",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<?> sendSummaryNotificationV2(@RequestPart("AccDetails") SummaryPayload summaryPayload, @RequestPart("file") MultipartFile file,HttpServletRequest request) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException {
 		logger.info("Message received in producer = " + summaryPayload.toString());
-		System.out.println(file.getOriginalFilename());
 		try {
 			//Validation's of MultipartFile
 			if (file.isEmpty()) {
