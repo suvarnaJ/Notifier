@@ -3,11 +3,9 @@ com\netsurfingzone\consumer\KafkaConsumer.class
 main\java\com\netsurfingzone\dto\Contact.class
 com\netsurfingzone\config\RegexConfig.class
 com\netsurfingzone\payload\SuccessResponse.class
-com\netsurfingzone\config\ConnectingToDB.class
 com\netsurfingzone\main\SpringMain.class
 com\netsurfingzone\deserializer\kafkaSummaryDeserializer.class
 com\netsurfingzone\dto\CcRecipient.class
-com\netsurfingzone\config\sample.class
 com\netsurfingzone\dto\ErrorLogs.class
 com\netsurfingzone\exception\GlobalExceptionHandler.class
 com\netsurfingzone\entity\templateData.class

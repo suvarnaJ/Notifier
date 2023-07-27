@@ -22,7 +22,6 @@ C:\Users\SHARMAMU\Desktop\Spring-Boot-Kafka-Producer-and-Consumer-Example-master
 C:\Users\SHARMAMU\Desktop\Spring-Boot-Kafka-Producer-and-Consumer-Example-master\src\main\java\com\netsurfingzone\dto\CcRecipient.java
 C:\Users\SHARMAMU\Desktop\Spring-Boot-Kafka-Producer-and-Consumer-Example-master\src\main\java\com\netsurfingzone\consumer\KafkaConsumer.java
 C:\Users\SHARMAMU\Desktop\Spring-Boot-Kafka-Producer-and-Consumer-Example-master\src\main\java\com\netsurfingzone\constant\ApplicationConstant.java
-C:\Users\SHARMAMU\Desktop\Spring-Boot-Kafka-Producer-and-Consumer-Example-master\src\main\java\com\netsurfingzone\config\ConnectingToDB.java
 C:\Users\SHARMAMU\Desktop\Spring-Boot-Kafka-Producer-and-Consumer-Example-master\src\main\java\com\netsurfingzone\dto\Notification.java
 C:\Users\SHARMAMU\Desktop\Spring-Boot-Kafka-Producer-and-Consumer-Example-master\src\main\java\com\netsurfingzone\deserializer\KafkaNotifyDeserializer.java
 C:\Users\SHARMAMU\Desktop\Spring-Boot-Kafka-Producer-and-Consumer-Example-master\src\main\java\com\netsurfingzone\dto\AccDetails.java
@@ -31,7 +30,6 @@ C:\Users\SHARMAMU\Desktop\Spring-Boot-Kafka-Producer-and-Consumer-Example-master
 C:\Users\SHARMAMU\Desktop\Spring-Boot-Kafka-Producer-and-Consumer-Example-master\src\main\java\com\netsurfingzone\config\ThymeleafTemplateConfig.java
 C:\Users\SHARMAMU\Desktop\Spring-Boot-Kafka-Producer-and-Consumer-Example-master\src\main\java\com\netsurfingzone\dto\AdditionalInfo.java
 C:\Users\SHARMAMU\Desktop\Spring-Boot-Kafka-Producer-and-Consumer-Example-master\src\main\java\com\netsurfingzone\dto\Product.java
-C:\Users\SHARMAMU\Desktop\Spring-Boot-Kafka-Producer-and-Consumer-Example-master\src\main\java\com\netsurfingzone\config\sample.java
 C:\Users\SHARMAMU\Desktop\Spring-Boot-Kafka-Producer-and-Consumer-Example-master\src\main\java\com\netsurfingzone\dto\Notify.java
 C:\Users\SHARMAMU\Desktop\Spring-Boot-Kafka-Producer-and-Consumer-Example-master\src\main\java\com\netsurfingzone\config\SwaggerConfig.java
 C:\Users\SHARMAMU\Desktop\Spring-Boot-Kafka-Producer-and-Consumer-Example-master\src\main\java\com\netsurfingzone\dto\EmailAddress.java

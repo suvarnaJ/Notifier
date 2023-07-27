@@ -75,9 +75,6 @@ public class KafkaConsumer {
 
 	RegexConfig regexConfig = new RegexConfig();
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
 	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY)
 	public ResponseEntity<?> receivedRfTemplateMessageV1(Notify message) throws IOException, MessagingException {
 		logger.info("Message received in consumer = " + message.toString());

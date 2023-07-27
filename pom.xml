@@ -17,7 +17,6 @@
 
 	<properties>
 		<start-class>com.netsurfingzone.main.SpringMain</start-class>
-		<!--<start-class>com.netsurfingzone.config.sample</start-class>-->
 	</properties>
 
 	<dependencies>
