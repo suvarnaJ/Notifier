@@ -75,6 +75,9 @@ public class KafkaConsumer {
 
 	RegexConfig regexConfig = new RegexConfig();
 
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
 	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY)
 	public ResponseEntity<?> receivedRfTemplateMessageV1(Notify message) throws IOException, MessagingException {
 		logger.info("Message received in consumer = " + message.toString());
@@ -332,7 +335,7 @@ public class KafkaConsumer {
 
 	//public  String sendMail(){
 	public  String sendMail(LinkedList<Recipient> toList,LinkedList<Recipient> ccRecipientsList,String content,String subject,String html){
-		String PROXY_SERVER_HOST = "121.244.254.154"; //UAT Proxy - 10.133.12.181   PROD Proxy -121.244.254.154 ;
+		String PROXY_SERVER_HOST = "10.133.12.181"; //UAT Proxy - 10.133.12.181   PROD Proxy -121.244.254.154 ;
 		java.security.Security.setProperty("jdk.tls.disabledAlgorithms", "SSLv2Hello, SSLv3, TLSv1, TLSv1.1");
 		int PROXY_SERVER_PORT = 80;
 		Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(PROXY_SERVER_HOST, PROXY_SERVER_PORT));
@@ -572,7 +575,7 @@ public class KafkaConsumer {
 
 	//public  String sendMail(){
 	public  String sendMailWithAttachment(LinkedList<Recipient> toList, LinkedList<Recipient> ccRecipientsList, String content, String subject, String html, byte[] fileData, String fileName) throws IOException {
-		String PROXY_SERVER_HOST = "121.244.254.154"; //UAT Proxy - 10.133.12.181   PROD Proxy -121.244.254.154 ;
+		String PROXY_SERVER_HOST = "10.133.12.181"; //UAT Proxy - 10.133.12.181   PROD Proxy -121.244.254.154 ;
 		java.security.Security.setProperty("jdk.tls.disabledAlgorithms", "SSLv2Hello, SSLv3, TLSv1, TLSv1.1");
 		int PROXY_SERVER_PORT = 80;
 		Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(PROXY_SERVER_HOST, PROXY_SERVER_PORT));

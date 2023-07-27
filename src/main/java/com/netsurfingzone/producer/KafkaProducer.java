@@ -38,8 +38,8 @@ public class KafkaProducer {
 	@Autowired
 	private KafkaTemplate<String, Object> kafkaTemplate;
 
-//	@Autowired
-//	private JdbcTemplate jdbcTemplate;
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 
 	@Autowired
 	FileUploadHelper fileUploadHelper;
@@ -71,7 +71,7 @@ public class KafkaProducer {
 					Date date = new Date();
 					String strDate = formatter.format(date);
 					logger.info("Invalid payload");
-				//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Invalid payload', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
+					jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Invalid payload', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
 					response = ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Invalid payload");
 					return response;
 				}
@@ -81,14 +81,14 @@ public class KafkaProducer {
 					Date date = new Date();
 					String strDate = formatter.format(date);
 					logger.info("Event Name is mandatory");
-				//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Event Name is mandatory', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
+					jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Event Name is mandatory', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
 					response = ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Event Name is mandatory");
 					return response;
 				}else if(!(regexConfig.validateEventName(message.getEventName().getEventName()))){
 					Date date = new Date();
 					String strDate = formatter.format(date);
 					logger.info("Invalid event name format");
-				//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Invalid event name format', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
+					jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Invalid event name format', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
 					response = ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Invalid event name format");
 					return response;
 				}
@@ -98,14 +98,14 @@ public class KafkaProducer {
 					Date date = new Date();
 					String strDate = formatter.format(date);
 					logger.info("Invalid email format");
-				//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Invalid email format', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
+					jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Invalid email format', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
 					response = ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Invalid email format");
 					return response;
 				} else if (message.getContact().getTo().equals("")) {
 					Date date = new Date();
 					String strDate = formatter.format(date);
 					logger.info("Email is mandatory");
-				//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Email is mandatory', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
+					jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Email is mandatory', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
 					response = ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Email is mandatory");
 					return response;
 				}
@@ -116,7 +116,7 @@ public class KafkaProducer {
 							Date date = new Date();
 							String strDate = formatter.format(date);
 							logger.info("One of the email address is not encrypted");
-						//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'One of the email address is not encrypted', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
+							jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'One of the email address is not encrypted', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
 							return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "One of the email address is not encrypted");
 						}else {
 							String encryptToEmail = encryptionConfig.decrypt(contactToEmail);
@@ -129,7 +129,7 @@ public class KafkaProducer {
 								Date date = new Date();
 								String strDate = formatter.format(date);
 								logger.info("One of the email address is not encrypted");
-							//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'One of the email address is not encrypted', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
+								jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'One of the email address is not encrypted', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
 								return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "One of the email address is not encrypted");
 							}else{
 								String encryptToEmail = encryptionConfig.decrypt(contactToEmailSplit[t]);
@@ -180,7 +180,7 @@ public class KafkaProducer {
 						Date date = new Date();
 						String strDate = formatter.format(date);
 						logger.info("To List is invalid");
-					//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'To List is invalid', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
+						jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'To List is invalid', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
 						response = ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "To List is invalid");
 						return response;
 					}
@@ -207,7 +207,7 @@ public class KafkaProducer {
 				e.printStackTrace();
 				Date date = new Date();
 				String strDate = formatter.format(date);
-			//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, '" + e.getMessage() + "', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
+				jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, '" + e.getMessage() + "', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
 				response = ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, e.getMessage());
 				return response;
 			}
@@ -237,7 +237,7 @@ public class KafkaProducer {
 					Date date = new Date();
 					String strDate = formatter.format(date);
 					logger.info("Invalid payload");
-				//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Invalid payload', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
+					jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Invalid payload', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
 					response = ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Invalid payload");
 					return response;
 				}
@@ -247,14 +247,14 @@ public class KafkaProducer {
 					Date date = new Date();
 					String strDate = formatter.format(date);
 					logger.info("Event Name is mandatory");
-				//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Event Name is mandatory', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
+					jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Event Name is mandatory', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
 					response = ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Event Name is mandatory");
 					return response;
 				}else if(!(regexConfig.validateEventName(message.getEventName().getEventName()))){
 					Date date = new Date();
 					String strDate = formatter.format(date);
 					logger.info("Invalid event name format");
-				//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Invalid event name format', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
+					jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Invalid event name format', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
 					response = ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Invalid event name format");
 					return response;
 				}
@@ -264,14 +264,14 @@ public class KafkaProducer {
 					Date date = new Date();
 					String strDate = formatter.format(date);
 					logger.info("Invalid email format");
-				//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Invalid email format', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
+					jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Invalid email format', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
 					response = ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Invalid email format");
 					return response;
 				} else if (message.getContact().getTo().equals("")) {
 					Date date = new Date();
 					String strDate = formatter.format(date);
 					logger.info("Email is mandatory");
-				//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Email is mandatory', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
+					jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Email is mandatory', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
 					response = ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Email is mandatory");
 					return response;
 				}
@@ -282,7 +282,7 @@ public class KafkaProducer {
 						Date date = new Date();
 						String strDate = formatter.format(date);
 						logger.info("One of the email address is not encrypted");
-					//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'One of the email address is not encrypted', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
+						jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'One of the email address is not encrypted', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
 						return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "One of the email address is not encrypted");
 					}else {
 						String encryptToEmail = encryptionConfig.decrypt(contactToEmail);
@@ -295,7 +295,7 @@ public class KafkaProducer {
 							Date date = new Date();
 							String strDate = formatter.format(date);
 							logger.info("One of the email address is not encrypted");
-						//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'One of the email address is not encrypted', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
+							jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'One of the email address is not encrypted', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
 							return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "One of the email address is not encrypted");
 						}else{
 							String encryptToEmail = encryptionConfig.decrypt(contactToEmailSplit[t]);
@@ -346,7 +346,7 @@ public class KafkaProducer {
 						Date date = new Date();
 						String strDate = formatter.format(date);
 						logger.info("To List is invalid");
-					//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'To List is invalid', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
+						jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'To List is invalid', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
 						response = ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "To List is invalid");
 						return response;
 					}
@@ -383,7 +383,7 @@ public class KafkaProducer {
 						Date date = new Date();
 						String strDate = formatter.format(date);
 						logger.info("Invalid payload");
-					//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+message.getAdditionalInfo().getAccDetails().get(i).getAccountname()+"', 400, 'Invalid payload', '"+Constant.API_Name.RF_TEMPLATE+"', '"+strDate+"')");
+						jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+message.getAdditionalInfo().getAccDetails().get(i).getAccountname()+"', 400, 'Invalid payload', '"+Constant.API_Name.RF_TEMPLATE+"', '"+strDate+"')");
 						return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Invalid payload");
 					}
 
@@ -392,13 +392,13 @@ public class KafkaProducer {
 						Date date = new Date();
 						String strDate = formatter.format(date);
 						logger.info("Invalid email format");
-					//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+message.getAdditionalInfo().getAccDetails().get(i).getAccountname()+"', 400, 'Invalid email format', '"+Constant.API_Name.RF_TEMPLATE+"', '"+strDate+"')");
+						jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+message.getAdditionalInfo().getAccDetails().get(i).getAccountname()+"', 400, 'Invalid email format', '"+Constant.API_Name.RF_TEMPLATE+"', '"+strDate+"')");
 						return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Invalid email format");
 					}else if(message.getAdditionalInfo().getAccDetails().get(i).getToEmail().equals("")){
 						Date date = new Date();
 						String strDate = formatter.format(date);
 						logger.info("Email is mandatory");
-					//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+message.getAdditionalInfo().getAccDetails().get(i).getAccountname()+"', 400, 'Email is mandatory', '"+Constant.API_Name.RF_TEMPLATE+"', '"+strDate+"')");
+						jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+message.getAdditionalInfo().getAccDetails().get(i).getAccountname()+"', 400, 'Email is mandatory', '"+Constant.API_Name.RF_TEMPLATE+"', '"+strDate+"')");
 						return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Email is mandatory");
 					}
 
@@ -407,7 +407,7 @@ public class KafkaProducer {
 						Date date = new Date();
 						String strDate = formatter.format(date);
 						logger.info("Account Name is mandatory");
-					//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Account Name is mandatory', '"+Constant.API_Name.RF_TEMPLATE+"', '"+strDate+"')");
+						jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Account Name is mandatory', '"+Constant.API_Name.RF_TEMPLATE+"', '"+strDate+"')");
 						return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Account Name is mandatory");
 					}
 
@@ -417,7 +417,7 @@ public class KafkaProducer {
 							Date date = new Date();
 							String strDate = formatter.format(date);
 							logger.info("One of the email address is not encrypted");
-						//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+message.getAdditionalInfo().getAccDetails().get(i).getAccountname()+"', 400, 'One of the email address is not encrypted', '"+Constant.API_Name.RF_TEMPLATE+"', '"+strDate+"')");
+							jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+message.getAdditionalInfo().getAccDetails().get(i).getAccountname()+"', 400, 'One of the email address is not encrypted', '"+Constant.API_Name.RF_TEMPLATE+"', '"+strDate+"')");
 							return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"One of the email address is not encrypted");
 						}else{
 							String encryptToEmail = encryptionConfig.decrypt(message.getAdditionalInfo().getAccDetails().get(i).getToEmail());
@@ -430,7 +430,7 @@ public class KafkaProducer {
 								Date date = new Date();
 								String strDate = formatter.format(date);
 								logger.info("One of the email address is not encrypted");
-							//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+message.getAdditionalInfo().getAccDetails().get(i).getAccountname()+"', 400, 'One of the email address is not encrypted', '"+Constant.API_Name.RF_TEMPLATE+"', '"+strDate+"')");
+								jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+message.getAdditionalInfo().getAccDetails().get(i).getAccountname()+"', 400, 'One of the email address is not encrypted', '"+Constant.API_Name.RF_TEMPLATE+"', '"+strDate+"')");
 								return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"One of the email address is not encrypted");
 							}else{
 								String encryptToEmail = encryptionConfig.decrypt(to_Email_Split[t]);
@@ -450,7 +450,7 @@ public class KafkaProducer {
 							Date date = new Date();
 							String strDate = formatter.format(date);
 							logger.info("To List is invalid");
-						//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+message.getAdditionalInfo().getAccDetails().get(i).getAccountname()+"', 400, 'To List is invalid', '"+Constant.API_Name.RF_TEMPLATE+"', '"+strDate+"')");
+							jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+message.getAdditionalInfo().getAccDetails().get(i).getAccountname()+"', 400, 'To List is invalid', '"+Constant.API_Name.RF_TEMPLATE+"', '"+strDate+"')");
 							return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"To List is invalid");
 						}
 					}
@@ -478,7 +478,7 @@ public class KafkaProducer {
 				e.printStackTrace();
 				Date date = new Date();
 				String strDate = formatter.format(date);
-			//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, '" + e.getMessage() + "', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
+				jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, '" + e.getMessage() + "', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
 				response = ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, e.getMessage());
 				return response;
 			}
@@ -513,7 +513,7 @@ public class KafkaProducer {
 							Date date = new Date();
 							String strDate = formatter.format(date);
 							logger.info("Invalid payload");
-						//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'Invalid payload', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
+							jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'Invalid payload', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
 							return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Invalid payload");
 						}
 
@@ -522,13 +522,13 @@ public class KafkaProducer {
 							Date date = new Date();
 							String strDate = formatter.format(date);
 							logger.info("Invalid email format");
-						//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'Invalid email format', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
+							jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'Invalid email format', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
 							return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Invalid email format");
 						}else if(summaryPayload.getAccDetailsList().get(i).getToEmail().equals("")){
 							Date date = new Date();
 							String strDate = formatter.format(date);
 							logger.info("Email is mandatory");
-						//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'Email is mandatory', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
+							jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'Email is mandatory', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
 							return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Email is mandatory");
 						}
 
@@ -537,7 +537,7 @@ public class KafkaProducer {
 							Date date = new Date();
 							String strDate = formatter.format(date);
 							logger.info("Account Name is mandatory");
-						//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Account Name is mandatory', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
+							jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Account Name is mandatory', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
 							return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Account Name is mandatory");
 						}
 
@@ -547,7 +547,7 @@ public class KafkaProducer {
 								Date date = new Date();
 								String strDate = formatter.format(date);
 								logger.info("One of the email address is not encrypted");
-							//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'One of the email address is not encrypted', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
+								jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'One of the email address is not encrypted', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
 								return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"One of the email address is not encrypted");
 							}else{
 								String encryptToEmail = encryptionConfig.decrypt(summaryPayload.getAccDetailsList().get(i).getToEmail());
@@ -560,7 +560,7 @@ public class KafkaProducer {
 									Date date = new Date();
 									String strDate = formatter.format(date);
 									logger.info("One of the email address is not encrypted");
-								//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'One of the email address is not encrypted', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
+									jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'One of the email address is not encrypted', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
 									return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"One of the email address is not encrypted");
 								}else{
 									String encryptToEmail = encryptionConfig.decrypt(to_Email_Split[t]);
@@ -580,7 +580,7 @@ public class KafkaProducer {
 								Date date = new Date();
 								String strDate = formatter.format(date);
 								logger.info("To List is invalid");
-							//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'To List is invalid', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
+								jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'To List is invalid', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
 								return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"To List is invalid");
 							}
 						}
@@ -605,7 +605,7 @@ public class KafkaProducer {
 			e.printStackTrace();
 			Date date = new Date();
 			String strDate = formatter.format(date);
-		//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, '"+e.getMessage()+"', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
+			jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, '"+e.getMessage()+"', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
 			return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,e.getMessage());
 		}
 	}
@@ -626,13 +626,13 @@ public class KafkaProducer {
 				Date date = new Date();
 				String strDate = formatter.format(date);
 				logger.info("Request must contain file");
-			//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Request must contain file', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
+				jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Request must contain file', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
 				return ErrorResponse.errorHandler(HttpStatus.INTERNAL_SERVER_ERROR,true,"Request must contain file");
 			}else if (!file.getContentType().equals("text/plain")) {
 				Date date = new Date();
 				String strDate = formatter.format(date);
 				logger.info("Only TEXT content are allowed");
-			//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Only TEXT content are allowed', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
+				jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Only TEXT content are allowed', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
 				return ErrorResponse.errorHandler(HttpStatus.INTERNAL_SERVER_ERROR,true,"Only TEXT content are allowed");
 			}else{
 					summaryPayload.setFileData(file.getBytes());
@@ -655,7 +655,7 @@ public class KafkaProducer {
 							Date date = new Date();
 							String strDate = formatter.format(date);
 							logger.info("Invalid payload");
-						//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'Invalid payload', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
+							jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'Invalid payload', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
 							return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Invalid payload");
 						}
 
@@ -664,13 +664,13 @@ public class KafkaProducer {
 							Date date = new Date();
 							String strDate = formatter.format(date);
 							logger.info("Invalid email format");
-						//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'Invalid email format', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
+							jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'Invalid email format', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
 							return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Invalid email format");
 						}else if(summaryPayload.getAccDetailsList().get(i).getToEmail().equals("")){
 							Date date = new Date();
 							String strDate = formatter.format(date);
 							logger.info("Email is mandatory");
-						//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'Email is mandatory', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
+							jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'Email is mandatory', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
 							return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Email is mandatory");
 						}
 
@@ -679,7 +679,7 @@ public class KafkaProducer {
 							Date date = new Date();
 							String strDate = formatter.format(date);
 							logger.info("Account Name is mandatory");
-						//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Account Name is mandatory', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
+							jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Account Name is mandatory', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
 							return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"Account Name is mandatory");
 						}
 
@@ -689,7 +689,7 @@ public class KafkaProducer {
 								Date date = new Date();
 								String strDate = formatter.format(date);
 								logger.info("One of the email address is not encrypted");
-							//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'One of the email address is not encrypted', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
+								jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'One of the email address is not encrypted', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
 								return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"One of the email address is not encrypted");
 							}else{
 								String encryptToEmail = encryptionConfig.decrypt(summaryPayload.getAccDetailsList().get(i).getToEmail());
@@ -702,7 +702,7 @@ public class KafkaProducer {
 									Date date = new Date();
 									String strDate = formatter.format(date);
 									logger.info("One of the email address is not encrypted");
-								//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'One of the email address is not encrypted', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
+									jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'One of the email address is not encrypted', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
 									return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"One of the email address is not encrypted");
 								}else{
 									String encryptToEmail = encryptionConfig.decrypt(to_Email_Split[t]);
@@ -722,7 +722,7 @@ public class KafkaProducer {
 								Date date = new Date();
 								String strDate = formatter.format(date);
 								logger.info("To List is invalid");
-							//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'To List is invalid', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
+								jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('"+summaryPayload.getAccDetailsList().get(i).getAccountname()+"', 400, 'To List is invalid', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
 								return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,"To List is invalid");
 							}
 						}
@@ -749,7 +749,7 @@ public class KafkaProducer {
 			e.printStackTrace();
 			Date date = new Date();
 			String strDate = formatter.format(date);
-		//	jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, '"+e.getMessage()+"', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
+			jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, '"+e.getMessage()+"', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
 			return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,e.getMessage());
 		}
 	}
