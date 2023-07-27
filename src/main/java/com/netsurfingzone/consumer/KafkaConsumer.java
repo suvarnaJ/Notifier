@@ -61,9 +61,6 @@ public class KafkaConsumer {
 
 	private static final Logger logger = LoggerFactory.getLogger(KafkaConsumer.class);
 
-	@Resource(name = "refreshToken")
-	private Map<String, String> tokenValueMap;
-
 	@Autowired
 	private JavaMailSender emailSender;
 
@@ -146,13 +143,8 @@ public class KafkaConsumer {
 			html = templateEngine.process("RF_GREEN_EVENT", context);
 		}
 
-		String result = //sendMail();
-				sendMail(toRecipientsList,ccRecipientsList,content,subject,html);
-		//sendMailHTTP();
-
-		logger.info("Notification sent successfully in mail = " + result.toString());
-		return SuccessResponse.successHandler(HttpStatus.OK,false,"Succesfully consumed data",result.toString());
-
+		String result = sendMail(toRecipientsList,ccRecipientsList,content,subject,html);
+		return SuccessResponse.successHandler(HttpStatus.OK,false,result,null);
 	}
 
 	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME_RF_TEMPLATE, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY_RF_V2)
@@ -218,193 +210,8 @@ public class KafkaConsumer {
 
 		String html ="";
 		html = templateEngine.process("summary_notification_template.html", context);
-		String result = //sendMail();
-				sendMail(toRecipientsList,ccRecipientsList,content,subject,html);
-		//sendMailHTTP();
-
-		logger.info("Notification sent successfully in mail = " + result.toString());
-		return SuccessResponse.successHandler(HttpStatus.OK,false,"Succesfully consumed data",result.toString());
-
-	}
-
-
-	public String sendMailHTTP() throws UnsupportedEncodingException {
-		String token = tokenValueMap.get("tokenValue");
-		String jsonRequest = "{\n" +
-				"  \"message\": {\n" +
-				"    \"subject\": \"Greeting from Graph API\",\n" +
-				"    \"body\": {\n" +
-				"      \"contentType\": \"html\",\n" +
-				"      \"content\": \"Hi Team, Greeting from Spring boot kafka Graph API POC .........<html><head>The HTML content example</head><body><h3 title=\\\"Hello HTML!\\\">Titled bold head tag example</h3></body></html> Regards , Suvarna Jagadale\"\n" +
-				"    },\n" +
-				"    \"toRecipients\": [\n" +
-				"      {\n" +
-				"        \"emailAddress\": {\n" +
-				"          \"address\": \"suvarna.jagadale@tatacommunications.com\"\n" +
-				"        }\n" +
-				"      }\n" +
-				"    ],\n" +
-				"    \"ccRecipients\": [\n" +
-				"      {\n" +
-				"        \"emailAddress\": {\n" +
-				"          \"address\": \"suvarna.jagadale@tatacommunications.com\"\n" +
-				"        }\n" +
-				"      },\n" +
-				"      {\n" +
-				"        \"emailAddress\": {\n" +
-				"          \"address\": \"suvarna.jagadale@tatacommunications.com\"\n" +
-				"        }\n" +
-				"      }\n" +
-				"    ]\n" +
-				"  },\n" +
-				"  \"saveToSentItems\": \"false\"\n" +
-				"}";
-		String graphUrl = "https://graph.microsoft.com/v1.0/users/service.supportuat@tatacommunications.com/sendMail";
-		String res = "";
-		StringEntity postStr = new StringEntity(jsonRequest);
-		CloseableHttpClient client = HttpClients.createDefault();
-		HttpPost postM = new HttpPost(graphUrl);
-		postM.setHeader("Content-Type", "application/json");
-		postM.setHeader("Authorization", "Bearer " + token);
-		postM.setEntity(postStr);
-		try {
-
-			CloseableHttpResponse response = client.execute(postM);
-			int statusCode = response.getStatusLine().getStatusCode();
-
-			if (statusCode == 201) {
-				res = EntityUtils.toString(response.getEntity());
-			}else {
-				res = EntityUtils.toString(response.getEntity());
-			}
-		} catch (ClientProtocolException e) {
-			throw new RuntimeException(e);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-		return res.toString();
-	}
-
-	public String getToken() throws UnsupportedEncodingException {
-		String graphUrlToRefreshToken = "https://login.microsoftonline.com/20210462-2c5e-4ec8-b3e2-0be950f292ca/oauth2/v2.0/token";
-		String res = "",tokenValue ="";
-		CloseableHttpClient client = HttpClients.createDefault();
-		HttpPost httpPost = new HttpPost(graphUrlToRefreshToken);
-		httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded");
-
-		List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
-		urlParameters.add(new BasicNameValuePair("client_id","64d33c44-2d40-4d0f-a73a-dd0ed9950e1f"));
-		urlParameters.add(new BasicNameValuePair("client_secret","320j1.n-tD.aa114YHC0z-42beLV45tGcc"));
-		urlParameters.add(new BasicNameValuePair("grant_type","client_credentials"));
-		urlParameters.add(new BasicNameValuePair("redirect_uri","https://graph.microsoft.com/"));
-		urlParameters.add(new BasicNameValuePair("refresh_token","24"));
-		urlParameters.add(new BasicNameValuePair("scope","https://graph.microsoft.com/.default"));
-
-		HttpEntity postParams = new UrlEncodedFormEntity(urlParameters);
-		httpPost.setEntity(postParams);
-
-		try {
-			CloseableHttpResponse response = client.execute(httpPost);
-			int statusCode = response.getStatusLine().getStatusCode();
-			if (statusCode == 200) {
-				res = EntityUtils.toString(response.getEntity());
-
-				JsonObject jsonResp = new Gson().fromJson(res, JsonObject.class); // String to JSONObject
-
-				if (jsonResp.has("access_token"))
-					tokenValue = jsonResp.get("access_token").toString().replace("\"", "");
-			}else {
-				System.out.println("Failed to get Token  ..."+res.toString());
-			}
-		} catch (ClientProtocolException e) {
-			throw new RuntimeException(e);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-
-		return tokenValue;
-	}
-
-	@Bean
-	public Map<String, String> refreshToken() throws UnsupportedEncodingException {
-		final Map<String, String> tokenMap = new HashMap<>();
-		/*tokenMap.put("tokenValue", getToken());*/
-		tokenMap.put("tokenValue", "getToken");
-		return tokenMap;
-	}
-
-	//public  String sendMail(){
-	public  String sendMail(LinkedList<Recipient> toList,LinkedList<Recipient> ccRecipientsList,String content,String subject,String html){
-		String PROXY_SERVER_HOST = "10.133.12.181"; //UAT Proxy - 10.133.12.181   PROD Proxy -121.244.254.154 ;
-		java.security.Security.setProperty("jdk.tls.disabledAlgorithms", "SSLv2Hello, SSLv3, TLSv1, TLSv1.1");
-		int PROXY_SERVER_PORT = 80;
-		Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(PROXY_SERVER_HOST, PROXY_SERVER_PORT));
-		SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
-		requestFactory.setProxy(proxy);
-
-		String clientId = "64d33c44-2d40-4d0f-a73a-dd0ed9950e1f";
-		String clientSecret = "cOd01o649ogXPxvRHHnMvnW3LGi7ZSfrqUsa+HWlYGE=";
-		String tenantId = "20210462-2c5e-4ec8-b3e2-0be950f292ca";
-		String redirect_url = "https://graph.microsoft.com/";
-		final String GRAPH_DEFAULT_SCOPE = "https://graph.microsoft.com/.default";
-
-		ClientSecretCredential clientSecretCredential = new ClientSecretCredentialBuilder()
-				.clientId(clientId)
-				.clientSecret(clientSecret)
-				.tenantId(tenantId)
-				.proxyOptions(new ProxyOptions(ProxyOptions.Type.HTTP, new InetSocketAddress(PROXY_SERVER_HOST, PROXY_SERVER_PORT)))
-				.build();
-
-		List<String> scopes = new ArrayList<>();
-		scopes.add(GRAPH_DEFAULT_SCOPE);
-
-		TokenCredentialAuthProvider tokenCredAuthProvider =
-				new TokenCredentialAuthProvider(scopes, clientSecretCredential);
-
-		GraphServiceClient graphClient = GraphServiceClient
-				.builder()
-				.authenticationProvider(tokenCredAuthProvider)
-				.buildClient();
-
-		Message message = new Message();
-		message.subject = "Incident Summary Notification // "+subject;
-		ItemBody body = new ItemBody();
-		body.contentType = BodyType.HTML;
-		body.content = html.toString();
-		message.body = body;
-		/*LinkedList<Recipient> toRecipientsList = new LinkedList<Recipient>();
-		Recipient toRecipients = new Recipient();
-		EmailAddress emailAddress = new EmailAddress();
-		emailAddress.address = toList;//"suvarna.jagadale@tatacommunications.com";
-		toRecipients.emailAddress = emailAddress;
-		toRecipientsList.add(toRecipients);*/
-
-		message.toRecipients = toList;
-
-		// Comment these snippet if production is readiness
-		//message.ccRecipients = ccRecipientsList;
-
-		/*LinkedList<Recipient> ccRecipientsList = new LinkedList<Recipient>();
-		Recipient ccRecipients = new Recipient();
-		EmailAddress emailAddress1 = new EmailAddress();
-		emailAddress1.address = ccList;//"suvarna.jagadale@tatacommunications.com";
-		ccRecipients.emailAddress = emailAddress1;
-		ccRecipientsList.add(ccRecipients);
-		message.ccRecipients = ccRecipientsList;*/
-
-		boolean saveToSentItems = true;
-		graphClient.users("service.supportuat@tatacommunications.com").
-				sendMail(UserSendMailParameterSet.
-						newBuilder().
-						withMessage(message).
-						withSaveToSentItems(saveToSentItems).
-						build()).
-				buildRequest().
-				post();
-
-		System.out.println("+++++++++++Successfully send email with no attachment+++++++++++++");
-
-		return "";
+		String result = sendMail(toRecipientsList,ccRecipientsList,content,subject,html);
+		return SuccessResponse.successHandler(HttpStatus.OK,false,result,null);
 	}
 
 	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME_SUMMARY, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY_SUMMARY_V1)
@@ -481,12 +288,81 @@ public class KafkaConsumer {
 		String html = "";
 		html = templateEngine.process("summary_notification_template.html", context);
 
-		String result = //sendMail();
-				sendMail(toRecipientsList,ccRecipientsList,content,subject,html);
-		//sendMailHTTP();
+		String result = sendMail(toRecipientsList,ccRecipientsList,content,subject,html);
+		return SuccessResponse.successHandler(HttpStatus.OK,false,result,null);
+	}
 
-		logger.info("Notification sent successfully in mail = " + result.toString());
-		return SuccessResponse.successHandler(HttpStatus.OK,false,"Succesfully consumed data",result.toString());
+	//public  String sendMail(){
+	public  String sendMail(LinkedList<Recipient> toList,LinkedList<Recipient> ccRecipientsList,String content,String subject,String html){
+		String PROXY_SERVER_HOST = "10.133.12.181"; //UAT Proxy - 10.133.12.181   PROD Proxy -121.244.254.154 ;
+		java.security.Security.setProperty("jdk.tls.disabledAlgorithms", "SSLv2Hello, SSLv3, TLSv1, TLSv1.1");
+		int PROXY_SERVER_PORT = 80;
+		Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(PROXY_SERVER_HOST, PROXY_SERVER_PORT));
+		SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+		requestFactory.setProxy(proxy);
+
+		String clientId = "64d33c44-2d40-4d0f-a73a-dd0ed9950e1f";
+		String clientSecret = "cOd01o649ogXPxvRHHnMvnW3LGi7ZSfrqUsa+HWlYGE=";
+		String tenantId = "20210462-2c5e-4ec8-b3e2-0be950f292ca";
+		String redirect_url = "https://graph.microsoft.com/";
+		final String GRAPH_DEFAULT_SCOPE = "https://graph.microsoft.com/.default";
+
+		ClientSecretCredential clientSecretCredential = new ClientSecretCredentialBuilder()
+				.clientId(clientId)
+				.clientSecret(clientSecret)
+				.tenantId(tenantId)
+				.proxyOptions(new ProxyOptions(ProxyOptions.Type.HTTP, new InetSocketAddress(PROXY_SERVER_HOST, PROXY_SERVER_PORT)))
+				.build();
+
+		List<String> scopes = new ArrayList<>();
+		scopes.add(GRAPH_DEFAULT_SCOPE);
+
+		TokenCredentialAuthProvider tokenCredAuthProvider =
+				new TokenCredentialAuthProvider(scopes, clientSecretCredential);
+
+		GraphServiceClient graphClient = GraphServiceClient
+				.builder()
+				.authenticationProvider(tokenCredAuthProvider)
+				.buildClient();
+
+		Message message = new Message();
+		message.subject = "Incident Summary Notification // "+subject;
+		ItemBody body = new ItemBody();
+		body.contentType = BodyType.HTML;
+		body.content = html.toString();
+		message.body = body;
+		/*LinkedList<Recipient> toRecipientsList = new LinkedList<Recipient>();
+		Recipient toRecipients = new Recipient();
+		EmailAddress emailAddress = new EmailAddress();
+		emailAddress.address = toList;//"suvarna.jagadale@tatacommunications.com";
+		toRecipients.emailAddress = emailAddress;
+		toRecipientsList.add(toRecipients);*/
+
+		message.toRecipients = toList;
+
+		// Comment these snippet if production is readiness
+		//message.ccRecipients = ccRecipientsList;
+
+		/*LinkedList<Recipient> ccRecipientsList = new LinkedList<Recipient>();
+		Recipient ccRecipients = new Recipient();
+		EmailAddress emailAddress1 = new EmailAddress();
+		emailAddress1.address = ccList;//"suvarna.jagadale@tatacommunications.com";
+		ccRecipients.emailAddress = emailAddress1;
+		ccRecipientsList.add(ccRecipients);
+		message.ccRecipients = ccRecipientsList;*/
+
+		boolean saveToSentItems = true;
+		graphClient.users("service.supportuat@tatacommunications.com").
+				sendMail(UserSendMailParameterSet.
+						newBuilder().
+						withMessage(message).
+						withSaveToSentItems(saveToSentItems).
+						build()).
+				buildRequest().
+				post();
+
+		logger.info("+++++++++++Successfully send email with no attachment+++++++++++++");
+		return "Succesfully consumed data";
 	}
 
 
@@ -564,16 +440,11 @@ public class KafkaConsumer {
 		String html = "";
 		html = templateEngine.process("summary_notification_template.html", context);
 
-		String result = //sendMail();
-				sendMailWithAttachment(toRecipientsList,ccRecipientsList,content,subject,html,summaryPayload.getFileData(),summaryPayload.getFileName());
-		//sendMailHTTP();
-
-		logger.info("Notification sent successfully in mail = " + result.toString());
-		return SuccessResponse.successHandler(HttpStatus.OK,false,"Succesfully consumed data",result.toString());
+		String result = sendMailWithAttachment(toRecipientsList,ccRecipientsList,content,subject,html,summaryPayload.getFileData(),summaryPayload.getFileName());
+		return SuccessResponse.successHandler(HttpStatus.OK,false,result,null);
 	}
 
 
-	//public  String sendMail(){
 	public  String sendMailWithAttachment(LinkedList<Recipient> toList, LinkedList<Recipient> ccRecipientsList, String content, String subject, String html, byte[] fileData, String fileName) throws IOException {
 		String PROXY_SERVER_HOST = "10.133.12.181"; //UAT Proxy - 10.133.12.181   PROD Proxy -121.244.254.154 ;
 		java.security.Security.setProperty("jdk.tls.disabledAlgorithms", "SSLv2Hello, SSLv3, TLSv1, TLSv1.1");
@@ -656,8 +527,7 @@ public class KafkaConsumer {
 				buildRequest().
 				post();
 
-		System.out.println("+++++++++++Successfully send email with attachment+++++++++++++");
-
-		return "";
+		logger.info("+++++++++++Successfully send email with attachment+++++++++++++");
+		return "Succesfully consumed data";
 	}
 }
