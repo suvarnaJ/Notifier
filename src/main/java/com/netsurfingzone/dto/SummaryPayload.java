@@ -1,10 +1,12 @@
 package com.netsurfingzone.dto;
 
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @JsonPropertyOrder({
         "AccDetails"
@@ -21,6 +23,9 @@ public class SummaryPayload {
     public List<AccDetails> getAccDetailsList() {
         return accDetailsList;
     }
+
+    @JsonProperty("fileData")
+    private byte[] fileData;
 
     @JsonProperty("fileName")
     private String fileName;
@@ -40,6 +45,14 @@ public class SummaryPayload {
         this.additionalProperties = additionalProperties;
     }
 
+    public byte[] getFileData() {
+        return fileData;
+    }
+
+    public void setFileData(byte[] fileData) {
+        this.fileData = fileData;
+    }
+
     public String getFileName() {
         return fileName;
     }
@@ -52,8 +65,9 @@ public class SummaryPayload {
     public String toString() {
         return "SummaryPayload{" +
                 "accDetailsList=" + accDetailsList +
-                ", fileName='" + fileName + '\'' +
                 ", additionalProperties=" + additionalProperties +
+                ", fileData=" + Arrays.toString(fileData) +
+                ", fileName='" + fileName + '\'' +
                 '}';
     }
 }

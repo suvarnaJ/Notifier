@@ -41,10 +41,12 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.netsurfingzone.constant.ApplicationConstant;
+import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -333,7 +335,7 @@ public class KafkaConsumer {
 
 	//public  String sendMail(){
 	public  String sendMail(LinkedList<Recipient> toList,LinkedList<Recipient> ccRecipientsList,String content,String subject,String html){
-		String PROXY_SERVER_HOST = "10.133.12.181"; //UAT Proxy - 10.133.12.181   PROD Proxy -121.244.254.154 ;
+		String PROXY_SERVER_HOST = "121.244.254.154"; //UAT Proxy - 10.133.12.181   PROD Proxy -121.244.254.154 ;
 		java.security.Security.setProperty("jdk.tls.disabledAlgorithms", "SSLv2Hello, SSLv3, TLSv1, TLSv1.1");
 		int PROXY_SERVER_PORT = 80;
 		Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(PROXY_SERVER_HOST, PROXY_SERVER_PORT));
@@ -563,7 +565,7 @@ public class KafkaConsumer {
 		html = templateEngine.process("summary_notification_template.html", context);
 
 		String result = //sendMail();
-				sendMailWithAttachment(toRecipientsList,ccRecipientsList,content,subject,html,summaryPayload.getFileName());
+				sendMailWithAttachment(toRecipientsList,ccRecipientsList,content,subject,html,summaryPayload.getFileData(),summaryPayload.getFileName());
 		//sendMailHTTP();
 
 		logger.info("Notification sent successfully in mail = " + result.toString());
@@ -572,8 +574,8 @@ public class KafkaConsumer {
 
 
 	//public  String sendMail(){
-	public  String sendMailWithAttachment(LinkedList<Recipient> toList,LinkedList<Recipient> ccRecipientsList,String content,String subject,String html,String file) throws IOException {
-		String PROXY_SERVER_HOST = "10.133.12.181"; //UAT Proxy - 10.133.12.181   PROD Proxy -121.244.254.154 ;
+	public  String sendMailWithAttachment(LinkedList<Recipient> toList, LinkedList<Recipient> ccRecipientsList, String content, String subject, String html, byte[] fileData, String fileName) throws IOException {
+		String PROXY_SERVER_HOST = "121.244.254.154"; //UAT Proxy - 10.133.12.181   PROD Proxy -121.244.254.154 ;
 		java.security.Security.setProperty("jdk.tls.disabledAlgorithms", "SSLv2Hello, SSLv3, TLSv1, TLSv1.1");
 		int PROXY_SERVER_PORT = 80;
 		Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(PROXY_SERVER_HOST, PROXY_SERVER_PORT));
@@ -619,11 +621,11 @@ public class KafkaConsumer {
 
 		message.toRecipients = toList;
 
-		String encodeFileContent = fileUploadHelper.load(file);
+		String encodeFileContent = fileUploadHelper.load(fileData);
 		String encode = Base64.getEncoder().encodeToString(encodeFileContent.getBytes());
 		LinkedList<Attachment> attachmentsList = new LinkedList<Attachment>();
 		FileAttachment attachments = new FileAttachment();
-		attachments.name = file;
+		attachments.name = fileName;
 		attachments.contentType = "text/plain";
 		attachments.contentBytes = Base64.getDecoder().decode(encode);
 		attachments.oDataType = "#microsoft.graph.fileAttachment";

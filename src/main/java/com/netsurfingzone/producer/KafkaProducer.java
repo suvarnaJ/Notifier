@@ -635,8 +635,7 @@ public class KafkaProducer {
 				jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Only TEXT content are allowed', '"+Constant.API_Name.SUMMARY_NOTIFICATION+"', '"+strDate+"')");
 				return ErrorResponse.errorHandler(HttpStatus.INTERNAL_SERVER_ERROR,true,"Only TEXT content are allowed");
 			}else{
-				boolean f = fileUploadHelper.uploadFile(file,request);
-				if(f){
+					summaryPayload.setFileData(file.getBytes());
 					summaryPayload.setFileName(file.getOriginalFilename());
 					for(int i = 0; i < summaryPayload.getAccDetailsList().size(); i++) {
 
@@ -742,7 +741,6 @@ public class KafkaProducer {
 //				}
 
 					}
-				}
 			}
 			kafkaTemplate.send(ApplicationConstant.TOPIC_NAME_SUMMARY_ATTACHMENTS, summaryPayload);
 			logger.info("Message sent successfully in consumer = " + summaryPayload.toString());
