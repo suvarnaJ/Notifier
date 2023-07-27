@@ -66,7 +66,7 @@ public class SummaryPayload {
         return "SummaryPayload{" +
                 "accDetailsList=" + accDetailsList +
                 ", additionalProperties=" + additionalProperties +
-                ", fileData=" + Arrays.toString(fileData) +
+                ", fileData=" + "************" +
                 ", fileName='" + fileName + '\'' +
                 '}';
     }
