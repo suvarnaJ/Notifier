@@ -191,6 +191,10 @@ public class KafkaConsumer {
 			summaryTable.setImpact(message.getAdditionalInfo().getAccDetails().get(i).getImpact());
 			summaryTable.setState(message.getAdditionalInfo().getAccDetails().get(i).getState());
 			summaryTable.setStatusReason(message.getAdditionalInfo().getAccDetails().get(i).getStatusReason());
+			summaryTable.setProduct(message.getAdditionalInfo().getAccDetails().get(i).getProduct());
+			summaryTable.setA_end_site_address(message.getAdditionalInfo().getAccDetails().get(i).getA_end_site_address());
+			String replaceLatestUpdate = message.getAdditionalInfo().getAccDetails().get(i).getLatest_update().replace('!', ' ');
+			summaryTable.setLatest_update(replaceLatestUpdate.replace('=',' '));
 			summaryTableList.add(summaryTable);
 		}
 
@@ -269,6 +273,10 @@ public class KafkaConsumer {
 				summaryTable.setImpact(summaryPayload.getAccDetailsList().get(i).getImpact());
 				summaryTable.setState(summaryPayload.getAccDetailsList().get(i).getState());
 				summaryTable.setStatusReason(summaryPayload.getAccDetailsList().get(i).getStatusReason());
+			    summaryTable.setProduct(summaryPayload.getAccDetailsList().get(i).getProduct());
+			    summaryTable.setA_end_site_address(summaryPayload.getAccDetailsList().get(i).getA_end_site_address());
+			    String replaceLatestUpdate = summaryPayload.getAccDetailsList().get(i).getLatest_update().replace('!', ' ');
+			    summaryTable.setLatest_update(replaceLatestUpdate.replace('=',' '));
 				summaryTableList.add(summaryTable);
 		}
 		model.put("list", summaryTableList);
@@ -331,6 +339,7 @@ public class KafkaConsumer {
 		body.contentType = BodyType.HTML;
 		body.content = html.toString();
 		message.body = body;
+
 		/*LinkedList<Recipient> toRecipientsList = new LinkedList<Recipient>();
 		Recipient toRecipients = new Recipient();
 		EmailAddress emailAddress = new EmailAddress();
@@ -421,6 +430,10 @@ public class KafkaConsumer {
 			summaryTable.setImpact(summaryPayload.getAccDetailsList().get(i).getImpact());
 			summaryTable.setState(summaryPayload.getAccDetailsList().get(i).getState());
 			summaryTable.setStatusReason(summaryPayload.getAccDetailsList().get(i).getStatusReason());
+			summaryTable.setProduct(summaryPayload.getAccDetailsList().get(i).getProduct());
+			summaryTable.setA_end_site_address(summaryPayload.getAccDetailsList().get(i).getA_end_site_address());
+			String replaceLatestUpdate = summaryPayload.getAccDetailsList().get(i).getLatest_update().replace('!', ' ');
+			summaryTable.setLatest_update(replaceLatestUpdate.replace('=',' '));
 			summaryTableList.add(summaryTable);
 		}
 		model.put("list", summaryTableList);

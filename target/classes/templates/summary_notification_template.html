@@ -1,66 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Email</title>
+    <style>
+table {
+    border-collapse: collapse;
+    border: 1px solid black;
+    font-size:9px;
+}
+th, td {
+  font-size:9px;
+  border: 1px solid black;
+  }
+  td{
+  font-family: "Times New Roman", Times, serif;
+  }
+  pre {
+  font-family: "Times New Roman", Times, serif;
+  font-size:9px;
+  margin:2px;
+}
+p{
+margin:2px;
+}
+</style>
+</head>
+<body>
 <p style='margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;background:white;'><span style='font-size:13px;font-family:"Trebuchet MS",sans-serif;color:#6D6E71;'>Dear valued customer/partner,<br><br>Request you to refer the latest updates for the cases that are active with Tata Communications Ltd.</span></p>
-<table style="width: 4.8e+2pt;border: none;border-collapse:collapse;">
-    <tbody>
-    <tr>
-        <td style="width:53.15pt;border:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:36.25pt;">
-            <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:13px;font-family:"Trebuchet MS",sans-serif;color:#6D6E71;'>&nbsp;</span><strong><span style="font-size:11px;color:black;">Ticket Number</span></strong></p>
-        </td>
-        <td style="width:53.75pt;border:solid windowtext 1.0pt;border-left:none;padding:0cm 5.4pt 0cm 5.4pt;height:36.25pt;">
-            <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:11px;color:black;">Service ID</span></strong></p>
-        </td>
-        <td style="width:48.4pt;border:solid windowtext 1.0pt;border-left:  none;padding:0cm 5.4pt 0cm 5.4pt;height:36.25pt;">
-            <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:11px;color:black;">Account name</span></strong></p>
-        </td>
-        <td style="width:64.5pt;border:solid windowtext 1.0pt;border-left:  none;padding:0cm 5.4pt 0cm 5.4pt;height:36.25pt;">
-            <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:11px;color:black;">Bandwidth</span></strong></p>
-        </td>
-        <td style="width:53.75pt;border:solid windowtext 1.0pt;border-left:  none;padding:0cm 5.4pt 0cm 5.4pt;height:36.25pt;">
-            <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:11px;color:black;">Impact</span></strong></p>
-        </td>
-        <td style="width:48.4pt;border:solid windowtext 1.0pt;border-left:  none;padding:0cm 5.4pt 0cm 5.4pt;height:36.25pt;">
-            <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:11px;color:black;">State</span></strong></p>
-        </td>
-        <td style="width:48.4pt;border:solid windowtext 1.0pt;border-left:  none;padding:0cm 5.4pt 0cm 5.4pt;height:36.25pt;">
-            <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:11px;color:black;">Status Reason</span></strong></p>
-        </td>
-        <td style="width:48.4pt;border:solid windowtext 1.0pt;border-left:  none;padding:0cm 5.4pt 0cm 5.4pt;height:36.25pt;">
-            <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:11px;color:black;">Customer Portal Link</span></strong></p>
-        </td>
-        <!--<td style="width:107.55pt;border-top:solid windowtext 1.0pt;border-left:none;border-bottom:none;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:36.25pt;">
-            <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:11px;color:black;">Customer response</span></strong></p>
-        </td>-->
-    </tr>
-    <tr th:each="Summary : ${list}">
-        <td style="width:53.15pt;border:solid windowtext 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:63.0pt;">
-            <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;' th:text="${Summary.ticketNumber}"></p>
-        </td>
-        <td style="width:53.75pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:63.0pt;">
-            <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;' th:text="${Summary.serviceID}"></p>
-        </td>
-        <td style="width:48.4pt;border-top:none;border-left:none;border-bottom:  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:63.0pt;">
-            <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;' th:text="${Summary.accountName}"></p>
-        </td>
-        <td style="width:64.5pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:63.0pt;">
-            <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;' th:text="${Summary.bandwidth}"></p>
-        </td>
-        <td style="width:53.75pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:63.0pt;">
-            <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;' th:text="${Summary.impact}"></p>
-        </td>
-        <td style="width:48.4pt;border-top:none;border-left:none;border-bottom:  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:63.0pt;">
-            <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;' th:text="${Summary.state}"></p>
-        </td>
-        <td style="width:48.4pt;border-top:none;border-left:none;border-bottom:  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:63.0pt;">
-            <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;' th:text="${Summary.statusReason}"></p>
-        </td>
-        <td style="width:48.4pt;border-top:none;border-left:none;border-bottom:  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt;height:63.0pt;">
-            <p style='margin-top:2.25pt;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;background:white;'><span style='font-size:13px;font-family:"Trebuchet MS",sans-serif;color:#6D6E71;'><a th:href="@{'https://customer.tatacommunications.com/optimus/support-maintanence/view-incident-details/'+${Summary.ticketNumber}}" th:text="${Summary.ticketNumber}"> target="_blank">https://customer.tatacommunications.com/optimus/support-maintanence/view-incident-details/<span th:text="${Summary.ticketNumber}" style='font-size:13px;font-family:"Trebuchet MS",sans-serif;color:#3C3C3B;'></span></a></span></p>
-        </td>
-        <!--<td style="width:107.55pt;border:solid windowtext 1.0pt;border-left:  none;padding:0cm 5.4pt 0cm 5.4pt;height:63.0pt;">
-             <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:11px;color:black;">Click on this link- (land customer to TCx portal )</span></strong></p>
-        </td>-->
-    </tr>
-    </tbody>
-</table>
+<div style="overflow-x: auto;">
+    <table>
+        <tr style="background-color:#486aae;color:white">
+            <th>Ticket Number(Click on the ticket number below for latest updates)</th>
+            <th>Service ID</th>
+            <th>Account Name</th>
+            <th>Bandwidth</th>
+            <th>Impact</th>
+            <th>State</th>
+            <th>Status Reason</th>
+            <th>Product</th>
+            <th>Location</th>
+            <th>Latest Update</th>
+            <!--            <th>Ticket Number</th>-->
+        </tr>
+        <tr th:each="Summary : ${list}">
+            <td>
+                <p style='font-size:9px;font-family:"Calibri",sans-serif;background:white;'><span style='font-size:9px;font-family:"Trebuchet MS",sans-serif;color:#6D6E71;'><a th:href="@{'https://customer.tatacommunications.com/optimus/support-maintanence/view-incident-details/'+${Summary.ticketNumber}}" th:text="${Summary.ticketNumber}"> target="_blank">https://customer.tatacommunications.com/optimus/support-maintanence/view-incident-details/<span th:text="${Summary.ticketNumber}" style='font-size:9px;font-family:"Trebuchet MS",sans-serif;color:#3C3C3B;'></span></a></span></p>
+            </td>
+            <td>
+                <p th:text="${Summary.serviceID}"></p>
+            </td>
+            <td>
+                <p th:text="${Summary.accountName}"></p>
+            </td>
+            <td>
+                <p th:text="${Summary.bandwidth}"></p>
+            </td>
+            <td>
+                <p th:text="${Summary.impact}"></p>
+            </td>
+            <td>
+                <p th:text="${Summary.state}"></p>
+            </td>
+            <td>
+                <p th:text="${Summary.statusReason}"></p>
+            </td>
+            <td>
+                <p th:text="${Summary.product}"></p>
+            </td>
+            <td>
+                <p th:text="${Summary.a_end_site_address}"></p>
+            </td>
+            <td>
+                <pre th:utext="${Summary.latest_update}"></pre>
+            </td>
+            <!--            <td>-->
+            <!--                <p th:text="${Summary.ticketNumber}"></p>-->
+            <!--            </td>-->
+        </tr>
+    </table>
+</div>
 <p style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:107%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:13px;line-height:107%;font-family:"Trebuchet MS",sans-serif;color:#6D6E71;background:white;'>&nbsp;</span></p>
 <p style='margin-top:2.25pt;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;background:white;'><span style='font-size:13px;font-family:"Trebuchet MS",sans-serif;color:#6D6E71;'>To obtain real-time status updates, make inquiries, or respond to this issue, you may access our Portal&nbsp;online 24 hours a day, 7 days a week.</span></p>
 <!--<p style='margin-top:2.25pt;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;background:white;'><span style='font-size:13px;font-family:"Trebuchet MS",sans-serif;color:#3C3C3B;'>&nbsp;</span></p>-->
@@ -70,3 +93,5 @@
 <p style='margin-top:2.25pt;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;background:white;'><span style='font-size:13px;font-family:"Trebuchet MS",sans-serif;color:#3C3C3B;'>&nbsp;</span></p>
 <p style='margin-top:2.25pt;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;background:white;'><span style='font-size:13px;font-family:"Trebuchet MS",sans-serif;color:#6D6E71;'>Best regards,<br>Client Services<br>Tata Communications</span></p>
 <p style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:107%;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+</body>
+</html>

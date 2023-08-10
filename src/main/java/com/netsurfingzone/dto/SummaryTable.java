@@ -14,6 +14,9 @@ public class SummaryTable {
     private String impact;
     private String state;
     private String statusReason;
+    private String product;
+    private String a_end_site_address;
+    private String latest_update;
 
     Map model = new HashMap();
 
@@ -79,5 +82,46 @@ public class SummaryTable {
 
     public void setStatusReason(String statusReason) {
         this.statusReason = statusReason;
+    }
+
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
+    public String getA_end_site_address() {
+        return a_end_site_address;
+    }
+
+    public void setA_end_site_address(String a_end_site_address) {
+        this.a_end_site_address = a_end_site_address;
+    }
+
+    public String getLatest_update() {
+        return latest_update;
+    }
+
+    public void setLatest_update(String latest_update) {
+        this.latest_update = latest_update;
+    }
+
+    @Override
+    public String toString() {
+        return "SummaryTable{" +
+                "ticketNumber='" + ticketNumber + '\'' +
+                ", serviceID='" + serviceID + '\'' +
+                ", accountName='" + accountName + '\'' +
+                ", bandwidth='" + bandwidth + '\'' +
+                ", impact='" + impact + '\'' +
+                ", state='" + state + '\'' +
+                ", statusReason='" + statusReason + '\'' +
+                ", product='" + product + '\'' +
+                ", a_end_site_address='" + a_end_site_address + '\'' +
+                ", latest_update='" + latest_update + '\'' +
+                ", model=" + model +
+                '}';
     }
 }

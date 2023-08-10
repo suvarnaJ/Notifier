@@ -20,7 +20,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "StatusReason",
         "to_email",
         "cc_email",
-        "opened_at"
+        "opened_at",
+        "product",
+        "a_end_site_address",
+        "latest_update"
 })
 public class AccDetails {
 
@@ -44,6 +47,13 @@ public class AccDetails {
     private String ccEmail;
     @JsonProperty("opened_at")
     private String openedAt;
+    @JsonProperty("product")
+    private String product;
+    @JsonProperty("a_end_site_address")
+    private String a_end_site_address;
+    @JsonProperty("latest_update")
+    private String latest_update;
+
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
@@ -157,6 +167,37 @@ public class AccDetails {
         this.additionalProperties.put(name, value);
     }
 
+
+    @JsonProperty("product")
+    public String getProduct() {
+        return product;
+    }
+
+    @JsonProperty("product")
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
+    @JsonProperty("a_end_site_address")
+    public String getA_end_site_address() {
+        return a_end_site_address;
+    }
+
+    @JsonProperty("a_end_site_address")
+    public void setA_end_site_address(String a_end_site_address) {
+        this.a_end_site_address = a_end_site_address;
+    }
+
+    @JsonProperty("latest_update")
+    public String getLatest_update() {
+        return latest_update;
+    }
+
+    @JsonProperty("latest_update")
+    public void setLatest_update(String latest_update) {
+        this.latest_update = latest_update;
+    }
+
     @Override
     public String toString() {
         return "AccDetails{" +
@@ -170,6 +211,9 @@ public class AccDetails {
                 ", toEmail='" + toEmail + '\'' +
                 ", ccEmail='" + ccEmail + '\'' +
                 ", openedAt='" + openedAt + '\'' +
+                ", product='" + product + '\'' +
+                ", a_end_site_address='" + a_end_site_address + '\'' +
+                ", latest_update='" + latest_update + '\'' +
                 ", additionalProperties=" + additionalProperties +
                 '}';
     }

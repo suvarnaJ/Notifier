@@ -377,9 +377,12 @@ public class KafkaProducer {
 					String state  = message.getAdditionalInfo().getAccDetails().get(i).getState();
 					String statusReason  = message.getAdditionalInfo().getAccDetails().get(i).getStatusReason();
 					String openedAt  = message.getAdditionalInfo().getAccDetails().get(i).getOpenedAt();
+					String product  = message.getAdditionalInfo().getAccDetails().get(i).getProduct();
+					String a_end_site_address  = message.getAdditionalInfo().getAccDetails().get(i).getA_end_site_address();
+					String latest_update  = message.getAdditionalInfo().getAccDetails().get(i).getLatest_update();
 
 
-					if(additionalInfo_to_Email==null || ticketNumber==null || serviceID==null || accountName==null || bandwidth==null || impact==null || state==null || statusReason==null || openedAt==null ){
+					if(additionalInfo_to_Email==null || ticketNumber==null || serviceID==null || accountName==null || bandwidth==null || impact==null || state==null || statusReason==null || openedAt==null || product==null || a_end_site_address==null || latest_update==null ){
 						Date date = new Date();
 						String strDate = formatter.format(date);
 						logger.info("Invalid payload");
@@ -508,8 +511,11 @@ public class KafkaProducer {
 						String state  = summaryPayload.getAccDetailsList().get(i).getState();
 						String statusReason  = summaryPayload.getAccDetailsList().get(i).getStatusReason();
 						String openedAt  = summaryPayload.getAccDetailsList().get(i).getOpenedAt();
+						String product  = summaryPayload.getAccDetailsList().get(i).getProduct();
+						String a_end_site_address  = summaryPayload.getAccDetailsList().get(i).getA_end_site_address();
+						String latest_update  = summaryPayload.getAccDetailsList().get(i).getLatest_update();
 
-						if(to_Email==null || ticketNumber==null || serviceID==null || accountName==null || bandwidth==null || impact==null || state==null || statusReason==null || openedAt==null ){
+						if(to_Email==null || ticketNumber==null || serviceID==null || accountName==null || bandwidth==null || impact==null || state==null || statusReason==null || openedAt==null || product==null || a_end_site_address==null || latest_update==null){
 							Date date = new Date();
 							String strDate = formatter.format(date);
 							logger.info("Invalid payload");
@@ -648,9 +654,11 @@ public class KafkaProducer {
 						String state  = summaryPayload.getAccDetailsList().get(i).getState();
 						String statusReason  = summaryPayload.getAccDetailsList().get(i).getStatusReason();
 						String openedAt  = summaryPayload.getAccDetailsList().get(i).getOpenedAt();
+						String product  = summaryPayload.getAccDetailsList().get(i).getProduct();
+						String a_end_site_address  = summaryPayload.getAccDetailsList().get(i).getA_end_site_address();
+						String latest_update  = summaryPayload.getAccDetailsList().get(i).getLatest_update();
 
-
-						if(to_Email==null || ticketNumber==null || serviceID==null || accountName==null || bandwidth==null || impact==null || state==null || statusReason==null || openedAt==null ){
+						if(to_Email==null || ticketNumber==null || serviceID==null || accountName==null || bandwidth==null || impact==null || state==null || statusReason==null || openedAt==null || product==null || a_end_site_address==null || latest_update==null ){
 							Date date = new Date();
 							String strDate = formatter.format(date);
 							logger.info("Invalid payload");
