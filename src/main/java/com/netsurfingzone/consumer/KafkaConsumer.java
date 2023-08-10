@@ -81,6 +81,7 @@ public class KafkaConsumer {
 		ObjectMapper mapper = new ObjectMapper();
 		System.out.println("+++"+mapper);
 		String jsonString = mapper.writeValueAsString(message);
+		System.out.println(jsonString);
 		String toList = message.getContact().getTo();
 		String ccList = message.getContact().getCc();
 		String content = message.getEventName().getEventName();
