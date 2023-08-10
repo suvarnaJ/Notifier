@@ -80,6 +80,7 @@ public class KafkaConsumer {
 		logger.info("Message received in consumer = " + message.toString());
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonString = mapper.writeValueAsString(message);
+		System.out.println(jsonString);
 		String toList = message.getContact().getTo();
 		String ccList = message.getContact().getCc();
 		String content = message.getEventName().getEventName();
