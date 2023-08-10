@@ -79,9 +79,7 @@ public class KafkaConsumer {
 	public ResponseEntity<?> receivedRfTemplateMessageV1(Notify message) throws IOException, MessagingException {
 		logger.info("Message received in consumer = " + message.toString());
 		ObjectMapper mapper = new ObjectMapper();
-		System.out.println("+++"+mapper);
 		String jsonString = mapper.writeValueAsString(message);
-		System.out.println(jsonString);
 		String toList = message.getContact().getTo();
 		String ccList = message.getContact().getCc();
 		String content = message.getEventName().getEventName();
