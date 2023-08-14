@@ -1,9 +1,14 @@
 package main.java.com.netsurfingzone.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class TicketInfo {
 
     private String number;
+
+    @JsonProperty("Service ID")
     private String serviceId;
+
     private String asset;
     private String productName;
     private String tableName;
@@ -41,7 +46,10 @@ public class TicketInfo {
     private String contactType;
     private String startDate;
     private String endDate;
+
+    @JsonProperty("Location of activity")
     private String location;
+
     private String requestedBy;
     private String category;
     private String subCategory;
@@ -59,6 +67,7 @@ public class TicketInfo {
         return number;
     }
 
+    @JsonProperty("Service ID")
     public String getServiceId() {
         return serviceId;
     }
@@ -211,6 +220,7 @@ public class TicketInfo {
         return endDate;
     }
 
+    @JsonProperty("Location of activity")
     public String getLocation() {
         return location;
     }
@@ -257,6 +267,7 @@ public class TicketInfo {
         this.number = number;
     }
 
+    @JsonProperty("Service ID")
     public void setServiceId(String serviceId) {
         this.serviceId = serviceId;
     }
@@ -409,6 +420,7 @@ public class TicketInfo {
         this.endDate = endDate;
     }
 
+    @JsonProperty("Location of activity")
     public void setLocation(String location) {
         this.location = location;
     }

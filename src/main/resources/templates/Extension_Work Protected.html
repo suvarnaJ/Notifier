@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Extension_Work Protected</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link href='http://fonts.googleapis.com/css?family=verdana' rel='stylesheet' type='text/css'/>
+
+    <!-- use the font -->
+    <style>
+     body {
+            font-family: 'verdana', sans-serif;
+        }
+    table {
+    border-collapse: collapse;
+    border: 1px solid black;
+    font-size: 12px;
+    width:65%;
+}
+th, td {
+  border: 1px solid black;
+  text-align:left;
+  }
+    </style>
+</head>
+<body>
+<p style='margin-top:0cm;margin-right:0cm;margin-bottom:12.0pt;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;background:white;'><span style='font-size:13px;font-family:"Trebuchet MS",sans-serif;color:#6D6E71;'>Dear Customer,<br><br>Please note that this activity will be extended till <span style="color:red;" th:text="${activityWindowIST}"></span>.<br><br>The details of the Extended Impact have been mentioned below. Main path of your service will be down during mentioned time & traffic will switch to alternate path.<br>Your service would experience switch hits during activity window.</span></p>
+<table>
+    <tbody>
+    <tr>
+        <th style="padding-left:5px;padding-top:10px;padding-bottom:10px;font-size:14px" colspan="3" bgcolor="#3985c8"><font color="white">TATA COMMUNICATIONS</font></th>
+    </tr>
+    <tr>
+        <th style="padding-left:5px;padding-top:2px;padding-bottom:2px;font-size:15px;font-weight:100" colspan="3" bgcolor="#3985c8"><font color="white">Planned Work Notification</font></th>
+    </tr>
+    <tr>
+        <td style="font-weight:600;">Ticket Reference - TCL</td>
+        <td colspan="2"><p th:text="${ticketRef}"></p></td>
+    </tr>
+    <tr>
+        <td style="font-weight:600;">Service ID</td>
+        <td colspan="2"><p th:text="${serviceId}"></p></td>
+    </tr>
+    <tr>
+        <td style="font-weight:600;">NIMS ID</td>
+        <td colspan="2"><p th:text="${nimsId}"></p></td>
+    </tr>
+    <tr>
+        <td style="font-weight:600;">Maintenance Type</td>
+        <td colspan="2"><p th:text="${maintenanceType}"></p></td>
+    </tr>
+    <tr>
+        <td style="font-weight:600;">Activity Status</td>
+        <td colspan="2"><p th:text="${activityStatus}"></p></td>
+    </tr>
+    <tr>
+        <td style="font-weight:600;">Execution Owner</td>
+        <td colspan="2"><p th:text="${executionOwner}"></p></td>
+    </tr>
+    <tr>
+        <td style="font-weight:600;">Location of activity</td>
+        <td colspan="2"><p th:text="${location}"></p></td>
+    </tr>
+    <tr>
+        <th style="padding:11px" colspan="3" bgcolor="#3985c8"></th>
+    </tr>
+    <tr>
+        <td style="font-weight:600;">Activity Window (IST)</td>
+        <td colspan="2"><p th:text="${activityWindowIST}"></p></td>
+    </tr>
+    <tr>
+        <td style="font-weight:600;">Activity Window (GMT)</td>
+        <td colspan="2"><p th:text="${activityWindowGMT}"></p></td>
+    </tr>
+    <tr>
+        <td style="font-weight:600;">Extended Up to Time Window (IST)</td>
+        <td colspan="2"><p th:text="${extendedUpToTimeWindowIST}"></p></td>
+    </tr>
+    <tr>
+        <td style="font-weight:600;">Extended Up to Time Window (GMT)</td>
+        <td colspan="2"><p th:text="${extendedUpToTimeWindowGMT}"></p></td>
+    </tr>
+    <tr>
+        <td style="font-weight:600;">Expected Impact</td>
+        <td colspan="2"><p th:text="${expectedImpact}"></p></td>
+    </tr>
+    <tr>
+        <th style="padding:11px" colspan="3" bgcolor="#3985c8"></th>
+    </tr>
+    <tr>
+        <td style="font-weight:600;">Activity Description</td>
+        <td colspan="2"><p th:text="${activityDescription}"></p></td>
+    </tr>
+    </tbody>
+</table>
+
+<p style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:107%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:13px;line-height:107%;font-family:"Trebuchet MS",sans-serif;color:#6D6E71;background:white;'>&nbsp;</span></p>
+<p style='margin-top:2.25pt;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;background:white;'><span style='font-size:13px;font-family:"Trebuchet MS",sans-serif;color:#6D6E71;'>We request you to reschedule sensitive operations at your end accordingly.<br><br>We apologize for any inconvenience due to this event and resulting downtime.</span></p>
+<!--<p style='margin-top:2.25pt;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;background:white;'><span style='font-size:13px;font-family:"Trebuchet MS",sans-serif;color:#3C3C3B;'>&nbsp;</span></p>-->
+<!--<p style='margin-top:2.25pt;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;background:white;'><span style='font-size:13px;font-family:"Trebuchet MS",sans-serif;color:#6D6E71;'>Customer Portal Link: <a href="https://idp.tatacommunications.com/optimus-login/login" target="_blank">Tata Communications</a></span><span style='font-size:13px;font-family:"Trebuchet MS",sans-serif;color:#3C3C3B;'>.</span></p>-->
+<p style='margin-top:2.25pt;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;background:white;'><span style='font-size:13px;font-family:"Trebuchet MS",sans-serif;color:#3C3C3B;'>&nbsp;</span></p>
+<p style='margin-top:2.25pt;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;background:white;'><span style='font-size:13px;font-family:"Trebuchet MS",sans-serif;color:#6D6E71;'>If you have any queries with respect to this activity, feel free to contact us on the coordinates mentioned below:<br>Mail ID :<a href="planned.activity@tatacommunications.com">planned.activity@tatacommunications.com</a><br>Contact Number : + 91 20 6614 4444 & Toll Free no: 1-8002660660</span></p>
+<p style='margin-top:2.25pt;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;background:white;'><span style='font-size:13px;font-family:"Trebuchet MS",sans-serif;color:#3C3C3B;'>&nbsp;</span></p>
+<p style='margin-top:2.25pt;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;background:white;'><span style='font-size:13px;font-family:"Trebuchet MS",sans-serif;color:#6D6E71;'>We look forward to your co-operation and a long term synergic association.<br><br>Best Regards,<br>Customer Service<br>TATA COMMUNICATIONS</span></p>
+<p style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:107%;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+
+</body>
+</html>
+</body>
+</html>

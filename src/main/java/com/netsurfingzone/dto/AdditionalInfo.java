@@ -11,7 +11,47 @@ public class AdditionalInfo {
 
     public AdditionalInfo(){}
 
+    @JsonProperty("Ticket Reference - TCL")
     private String ticketRef;
+
+    @JsonProperty("NIMS ID")
+    private String nimsId;
+
+    @JsonProperty("Maintenance Type")
+    private String maintenanceType;
+
+    @JsonProperty("Activity Status")
+    private String activityStatus;
+
+    @JsonProperty("Execution Owner")
+    private String executionOwner;
+
+    @JsonProperty("Activity Window (IST)")
+    private String activityWindowIST;
+
+    @JsonProperty("Activity Window (GMT)")
+    private String activityWindowGMT;
+
+    @JsonProperty("Expected Impact")
+    private String expectedImpact;
+
+    @JsonProperty("Activity Description")
+    private String activityDescription;
+
+    @JsonProperty("Expected Impact Duration(DD:HH:MM)")
+    private String expectedImpactDurationDD_HH_MM;
+
+    @JsonProperty("Extended Up to Time Window (IST)")
+    private String extendedUpToTimeWindowIST;
+
+    @JsonProperty("Extended Up to Time Window (GMT)")
+    private String extendedUpToTimeWindowGMT;
+
+    @JsonProperty("Revised Activity Window (IST)")
+    private String revisedActivityWindowIST;
+
+    @JsonProperty("Revised Activity Window (GMT)")
+    private String revisedActivityWindowGMT;
 
     private String eventDescription;
 
@@ -44,12 +84,146 @@ public class AdditionalInfo {
     @JsonProperty("AccDetails")
     private List<AccDetails> accDetails;
 
+    @JsonProperty("Ticket Reference - TCL")
     public void setTicketRef(String ticketRef){
         this.ticketRef = ticketRef;
     }
+
+    @JsonProperty("Ticket Reference - TCL")
     public String getTicketRef(){
         return this.ticketRef;
     }
+
+    @JsonProperty("NIMS ID")
+    public String getNimsId() {
+        return nimsId;
+    }
+
+    @JsonProperty("NIMS ID")
+    public void setNimsId(String nimsId) {
+        this.nimsId = nimsId;
+    }
+
+    @JsonProperty("Maintenance Type")
+    public String getMaintenanceType() {
+        return maintenanceType;
+    }
+
+    @JsonProperty("Maintenance Type")
+    public void setMaintenanceType(String maintenanceType) {
+        this.maintenanceType = maintenanceType;
+    }
+
+    @JsonProperty("Activity Status")
+    public String getActivityStatus() {
+        return activityStatus;
+    }
+
+    @JsonProperty("Activity Status")
+    public void setActivityStatus(String activityStatus) {
+        this.activityStatus = activityStatus;
+    }
+
+    @JsonProperty("Execution Owner")
+    public String getExecutionOwner() {
+        return executionOwner;
+    }
+
+    @JsonProperty("Execution Owner")
+    public void setExecutionOwner(String executionOwner) {
+        this.executionOwner = executionOwner;
+    }
+
+    @JsonProperty("Activity Window (IST)")
+    public String getActivityWindowIST() {
+        return activityWindowIST;
+    }
+
+    @JsonProperty("Activity Window (IST)")
+    public void setActivityWindowIST(String activityWindowIST) {
+        this.activityWindowIST = activityWindowIST;
+    }
+
+    @JsonProperty("Activity Window (GMT)")
+    public String getActivityWindowGMT() {
+        return activityWindowGMT;
+    }
+
+    @JsonProperty("Activity Window (GMT)")
+    public void setActivityWindowGMT(String activityWindowGMT) {
+        this.activityWindowGMT = activityWindowGMT;
+    }
+
+    @JsonProperty("Expected Impact")
+    public String getExpectedImpact() {
+        return expectedImpact;
+    }
+
+    @JsonProperty("Expected Impact")
+    public void setExpectedImpact(String expectedImpact) {
+        this.expectedImpact = expectedImpact;
+    }
+
+    @JsonProperty("Activity Description")
+    public String getActivityDescription() {
+        return activityDescription;
+    }
+
+    @JsonProperty("Activity Description")
+    public void setActivityDescription(String activityDescription) {
+        this.activityDescription = activityDescription;
+    }
+
+    @JsonProperty("Expected Impact Duration(DD:HH:MM)")
+    public String getExpectedImpactDurationDD_HH_MM() {
+        return expectedImpactDurationDD_HH_MM;
+    }
+
+    @JsonProperty("Expected Impact Duration(DD:HH:MM)")
+    public void setExpectedImpactDurationDD_HH_MM(String expectedImpactDurationDD_HH_MM) {
+        this.expectedImpactDurationDD_HH_MM = expectedImpactDurationDD_HH_MM;
+    }
+
+    @JsonProperty("Extended Up to Time Window (IST)")
+    public String getExtendedUpToTimeWindowIST() {
+        return extendedUpToTimeWindowIST;
+    }
+
+    @JsonProperty("Extended Up to Time Window (IST)")
+    public void setExtendedUpToTimeWindowIST(String extendedUpToTimeWindowIST) {
+        this.extendedUpToTimeWindowIST = extendedUpToTimeWindowIST;
+    }
+
+    @JsonProperty("Extended Up to Time Window (GMT)")
+    public String getExtendedUpToTimeWindowGMT() {
+        return extendedUpToTimeWindowGMT;
+    }
+
+    @JsonProperty("Extended Up to Time Window (GMT)")
+    public void setExtendedUpToTimeWindowGMT(String extendedUpToTimeWindowGMT) {
+        this.extendedUpToTimeWindowGMT = extendedUpToTimeWindowGMT;
+    }
+
+    @JsonProperty("Revised Activity Window (IST)")
+    public String getRevisedActivityWindowIST() {
+        return revisedActivityWindowIST;
+    }
+
+    @JsonProperty("Revised Activity Window (IST)")
+    public void setRevisedActivityWindowIST(String revisedActivityWindowIST) {
+        this.revisedActivityWindowIST = revisedActivityWindowIST;
+    }
+
+    @JsonProperty("Revised Activity Window (GMT)")
+    public String getRevisedActivityWindowGMT() {
+        return revisedActivityWindowGMT;
+    }
+
+    @JsonProperty("Revised Activity Window (GMT)")
+    public void setRevisedActivityWindowGMT(String revisedActivityWindowGMT) {
+        this.revisedActivityWindowGMT = revisedActivityWindowGMT;
+    }
+
     public void setEventDescription(String eventDescription){
         this.eventDescription = eventDescription;
     }
@@ -148,6 +322,19 @@ public class AdditionalInfo {
     public String toString() {
         return "AdditionalInfo{" +
                 "ticketRef='" + ticketRef + '\'' +
+                ", nimsId='" + nimsId + '\'' +
+                ", maintenanceType='" + maintenanceType + '\'' +
+                ", activityStatus='" + activityStatus + '\'' +
+                ", executionOwner='" + executionOwner + '\'' +
+                ", activityWindowIST='" + activityWindowIST + '\'' +
+                ", activityWindowGMT='" + activityWindowGMT + '\'' +
+                ", expectedImpact='" + expectedImpact + '\'' +
+                ", activityDescription='" + activityDescription + '\'' +
+                ", expectedImpactDurationDD_HH_MM='" + expectedImpactDurationDD_HH_MM + '\'' +
+                ", extendedUpToTimeWindowIST='" + extendedUpToTimeWindowIST + '\'' +
+                ", extendedUpToTimeWindowGMT='" + extendedUpToTimeWindowGMT + '\'' +
+                ", revisedActivityWindowIST='" + revisedActivityWindowIST + '\'' +
+                ", revisedActivityWindowGMT='" + revisedActivityWindowGMT + '\'' +
                 ", eventDescription='" + eventDescription + '\'' +
                 ", bsName='" + bsName + '\'' +
                 ", circle='" + circle + '\'' +
