@@ -13,4 +13,36 @@ public class ApplicationConstant {
 	public static final String KAFKA_LISTENER_CONTAINER_FACTORY_SUMMARY_V2 = "kafkaListenerContainerFactory_SUMMARY_V2";
 	public static final String GROUP_ID_JSON = "#{T(java.util.UUID).randomUUID().toString()}";//"group-id-json-1";
 
+	public static final String RF_RED_EVENT = "RF_RED_EVENT";
+	public static final String RF_GREEN_EVENT = "RF_GREEN_EVENT";
+	public static final String Planned_Work_Cancel_Protecting = "Planned Work Cancel Protecting";
+	public static final String Planned_Work_Unprotected = "Planned Work Unprotected";
+	public static final String Planned_Work_Remdr_Protecting = "Planned Work Remdr Protecting";
+	public static final String Planned_Work_Com_Protecting = "Planned Work Com-Protecting";
+	public static final String Extension_Work_Protected = "Extension_Work Protected";
+	public static final String ReSchedule_Work_Unprotected = "ReSchedule_Work Unprotected";
+	public static final String Planned_Work_Remdr_Protected = "Planned Work Remdr Protected";
+	public static final String Extension_Work_Protecting = "Extension_Work Protecting";
+	public static final String Planned_Work_Protected = "Planned Work Protected";
+	public static final String Planned_Work_Comunsuc_Protected = "Planned Work Comunsuc-Protected";
+	public static final String Planned_Work_Protection_Failure = "Planned Work Protection Failure";
+	public static final String Planned_Work_Com_protect_Fail = "Planned Work Com-protect Fail";
+	public static final String Extension_Protection_Failure = "Extension_Protection_Failure";
+	public static final String Planned_Work_Cancel_Protected = "Planned Work Cancel Protected";
+	public static final String Planned_Work_Com_Protected = "Planned Work Com-Protected";
+	public static final String Planned_Work_Comun_protect_Fail = "Planned Work Comun-protect Fail";
+	public static final String Plan_Work_Remdr_Protection_Fail = "Plan Work Remdr Protection Fail";
+	public static final String Planned_Work_Com_Unprotected = "Planned Work Com-Unprotected";
+	public static final String Planned_Work_Comuns_Unprotected = "Planned Work Comuns-Unprotected";
+	public static final String Planned_Work_Cancel_Unprotected = "Planned Work Cancel Unprotected";
+	public static final String ReSchedule_Protection_Failure = "ReSchedule_Protection_Failure";
+	public static final String Plan_Wrk_Cancel_Protection_Fail = "Plan Wrk Cancel Protection Fail";
+	public static final String ReSchedule_Work_Protecting = "ReSchedule_Work Protecting";
+	public static final String DeleteNotificationForSIA = "DeleteNotificationForSIA";
+	public static final String Planned_Work_Comunsu_Protecting = "Planned Work Comunsu-Protecting";
+	public static final String Planned_Work_Protecting = "Planned Work Protecting";
+	public static final String Extension_Work_Unprotected = "Extension_Work Unprotected";
+	public static final String ReSchedule_Work_Protected = "ReSchedule_Work Protected";
+	public static final String Planned_Work_Remdr_Unprotected = "Planned Work Remdr Unprotected";
+	public static final String Conflicting_PE_Notifications = "Conflicting PE Notifications";
 }

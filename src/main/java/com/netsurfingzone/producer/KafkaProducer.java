@@ -60,7 +60,7 @@ public class KafkaProducer {
 	@PostMapping("/email/sendnotification")
 	public ResponseEntity<?> sendRfTemplateNotificationV1(@RequestBody Notify message) {
 		logger.info("Message received in producer = " + message.toString());
-		ResponseEntity<?> response;
+		ResponseEntity<?> response = null;
 		while(!alreadyExecuted) {
 			try {
 
@@ -198,10 +198,14 @@ public class KafkaProducer {
 //						return response;
 //					}
 //				}
-				kafkaTemplate.send(ApplicationConstant.TOPIC_NAME, message);
-				logger.info("Message sent successfully in consumer = " + message.toString());
-				alreadyExecuted = false;
-				response = SuccessResponse.successHandler(HttpStatus.OK, false, "Notification sent successfully",null);
+				if(message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.RF_RED_EVENT) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.RF_GREEN_EVENT) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Cancel_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Remdr_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Com_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Extension_Work_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.ReSchedule_Work_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Remdr_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Extension_Work_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Comunsuc_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Protection_Failure) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Com_protect_Fail) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Extension_Protection_Failure) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Cancel_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Com_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Comun_protect_Fail) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Plan_Work_Remdr_Protection_Fail) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Com_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Comuns_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Cancel_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.ReSchedule_Protection_Failure) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Plan_Wrk_Cancel_Protection_Fail) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.ReSchedule_Work_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.DeleteNotificationForSIA) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Comunsu_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Extension_Work_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.ReSchedule_Work_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Remdr_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Conflicting_PE_Notifications)) {
+					kafkaTemplate.send(ApplicationConstant.TOPIC_NAME, message);
+					logger.info("Message sent successfully in consumer = " + message.toString());
+					alreadyExecuted = false;
+					response = SuccessResponse.successHandler(HttpStatus.OK, false, "Notification sent successfully", null);
+				}else {
+					response = ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Event Name not found");
+				}
 				return response;
 			} catch (Exception e) {
 				e.printStackTrace();

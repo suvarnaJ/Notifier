@@ -154,138 +154,12 @@ public class KafkaConsumer {
 		//helper.setTo(toList);
 
 		String html ="";
-		if(message.getEventName().getEventName().equalsIgnoreCase("RF_RED_EVENT")) {
-			html = templateEngine.process("RF_RED_EVENT", context);
-			message.getNotification().setType("RF_RED_EVENT");
+		if(message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.RF_RED_EVENT) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.RF_GREEN_EVENT) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Cancel_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Remdr_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Com_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Extension_Work_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.ReSchedule_Work_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Remdr_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Extension_Work_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Comunsuc_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Protection_Failure) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Com_protect_Fail) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Extension_Protection_Failure) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Cancel_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Com_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Comun_protect_Fail) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Plan_Work_Remdr_Protection_Fail) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Com_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Comuns_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Cancel_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.ReSchedule_Protection_Failure) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Plan_Wrk_Cancel_Protection_Fail) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.ReSchedule_Work_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.DeleteNotificationForSIA) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Comunsu_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Extension_Work_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.ReSchedule_Work_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Remdr_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Conflicting_PE_Notifications)) {
+			html = templateEngine.process(message.getEventName().getEventName(), context);
+			message.getNotification().setType(message.getEventName().getEventName());
 			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("RF_GREEN_EVENT")){
-			html = templateEngine.process("RF_GREEN_EVENT", context);
-			message.getNotification().setType("RF_GREEN_EVENT");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("Planned Work Cancel Protecting")){
-			html = templateEngine.process("Planned Work Cancel Protecting", context);
-			message.getNotification().setType("Planned Work Cancel Protecting");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("Planned Work Unprotected")){
-			html = templateEngine.process("Planned Work Unprotected", context);
-			message.getNotification().setType("Planned Work Unprotected");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("Planned Work Remdr Protecting")){
-			html = templateEngine.process("Planned Work Remdr Protecting", context);
-			message.getNotification().setType("Planned Work Remdr Protecting");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("Planned Work Com-Protecting")){
-			html = templateEngine.process("Planned Work Com-Protecting", context);
-			message.getNotification().setType("Planned Work Com-Protecting");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("Extension_Work Protected")){
-			html = templateEngine.process("Extension_Work Protected", context);
-			message.getNotification().setType("Extension_Work Protected");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("ReSchedule_Work Unprotected")){
-			html = templateEngine.process("ReSchedule_Work Unprotected", context);
-			message.getNotification().setType("ReSchedule_Work Unprotected");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("Planned Work Remdr Protected")){
-			html = templateEngine.process("Planned Work Remdr Protected", context);
-			message.getNotification().setType("Planned Work Remdr Protected");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("Extension_Work Protecting")){
-			html = templateEngine.process("Extension_Work Protecting", context);
-			message.getNotification().setType("Extension_Work Protecting");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("Planned Work Protected")){
-			html = templateEngine.process("Planned Work Protected", context);
-			message.getNotification().setType("Planned Work Protected");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("Planned Work Comunsuc-Protected")){
-			html = templateEngine.process("Planned Work Comunsuc-Protected", context);
-			message.getNotification().setType("Planned Work Comunsuc-Protected");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("Planned Work Protection Failure")){
-			html = templateEngine.process("Planned Work Protection Failure", context);
-			message.getNotification().setType("Planned Work Protection Failure");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("Planned Work Com-protect Fail")){
-			html = templateEngine.process("Planned Work Com-protect Fail", context);
-			message.getNotification().setType("Planned Work Com-protect Fail");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("Extension_Protection_Failure")){
-			html = templateEngine.process("Extension_Protection_Failure", context);
-			message.getNotification().setType("Extension_Protection_Failure");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("Planned Work Cancel Protected")){
-			html = templateEngine.process("Planned Work Cancel Protected", context);
-			message.getNotification().setType("Planned Work Cancel Protected");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("Planned Work Com-Protected")){
-			html = templateEngine.process("Planned Work Com-Protected", context);
-			message.getNotification().setType("Planned Work Com-Protected");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("Planned Work Comun-protect Fail")){
-			html = templateEngine.process("Planned Work Comun-protect Fail", context);
-			message.getNotification().setType("Planned Work Comun-protect Fail");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("Plan Work Remdr Protection Fail")){
-			html = templateEngine.process("Plan Work Remdr Protection Fail", context);
-			message.getNotification().setType("Plan Work Remdr Protection Fail");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("Planned Work Com-Unprotected")){
-			html = templateEngine.process("Planned Work Com-Unprotected", context);
-			message.getNotification().setType("Planned Work Com-Unprotected");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("Planned Work Comuns-Unprotected")){
-			html = templateEngine.process("Planned Work Comuns-Unprotected", context);
-			message.getNotification().setType("Planned Work Comuns-Unprotected");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("Planned Work Cancel Unprotected")){
-			html = templateEngine.process("Planned Work Cancel Unprotected", context);
-			message.getNotification().setType("Planned Work Cancel Unprotected");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("ReSchedule_Protection_Failure")){
-			html = templateEngine.process("ReSchedule_Protection_Failure", context);
-			message.getNotification().setType("ReSchedule_Protection_Failure");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("Plan Wrk Cancel Protection Fail")){
-			html = templateEngine.process("Plan Wrk Cancel Protection Fail", context);
-			message.getNotification().setType("Plan Wrk Cancel Protection Fail");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("ReSchedule_Work Protecting")){
-			html = templateEngine.process("ReSchedule_Work Protecting", context);
-			message.getNotification().setType("ReSchedule_Work Protecting");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("DeleteNotificationForSIA")){
-			html = templateEngine.process("DeleteNotificationForSIA", context);
-			message.getNotification().setType("DeleteNotificationForSIA");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("Planned Work Comunsu-Protecting")){
-			html = templateEngine.process("Planned Work Comunsu-Protecting", context);
-			message.getNotification().setType("Planned Work Comunsu-Protecting");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("Planned Work Protecting")){
-			html = templateEngine.process("Planned Work Protecting", context);
-			message.getNotification().setType("Planned Work Protecting");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("Extension_Work Unprotected")){
-			html = templateEngine.process("Extension_Work Unprotected", context);
-			message.getNotification().setType("Extension_Work Unprotected");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("ReSchedule_Work Protected")){
-			html = templateEngine.process("ReSchedule_Work Protected", context);
-			message.getNotification().setType("ReSchedule_Work Protected");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("Planned Work Remdr Unprotected")){
-			html = templateEngine.process("Planned Work Remdr Unprotected", context);
-			message.getNotification().setType("Planned Work Remdr Unprotected");
-			subject = message.getNotification().getType();
-		}else if(message.getEventName().getEventName().equalsIgnoreCase("Conflicting PE Notifications")){
-			html = templateEngine.process("Conflicting PE Notifications", context);
-			message.getNotification().setType("Conflicting PE Notifications");
-			subject = message.getNotification().getType();
-		}else{
-			html = templateEngine.process("DEFAULT_EVENT", context);
-			message.getNotification().setType("DEFAULT_EVENT");
-			subject = message.getNotification().getType();
+		}else {
+			logger.info("Event Name not found");
 		}
 
 		String result = sendMail(toRecipientsList,ccRecipientsList,content,subject,html);
@@ -479,7 +353,7 @@ public class KafkaConsumer {
 				.buildClient();
 
 		Message message = new Message();
-		message.subject = "Incident Summary Notification // "+subject;
+		message.subject = subject;
 		ItemBody body = new ItemBody();
 		body.contentType = BodyType.HTML;
 		body.content = html.toString();
