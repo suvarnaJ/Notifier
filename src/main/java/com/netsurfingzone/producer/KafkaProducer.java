@@ -94,7 +94,7 @@ public class KafkaProducer {
 				}
 
 				//Validation's of email format
-				if (message.getContact().getCc().contains(",") || message.getContact().getTo().contains(",")) {
+				if (message.getContact().getCc().contains(";") || message.getContact().getTo().contains(";")) {
 					Date date = new Date();
 					String strDate = formatter.format(date);
 					logger.info("Invalid email format");
@@ -110,7 +110,7 @@ public class KafkaProducer {
 					return response;
 				}
 
-					String[] contactToEmailSplit = contactToEmail.split(";");
+					String[] contactToEmailSplit = contactToEmail.split(",");
 					if(contactToEmailSplit.length==1) {
 						if(!(regexConfig.isBase64(contactToEmail))) {
 							Date date = new Date();
@@ -133,7 +133,7 @@ public class KafkaProducer {
 								return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "One of the email address is not encrypted");
 							}else{
 								String encryptToEmail = encryptionConfig.decrypt(contactToEmailSplit[t]);
-								s1+=encryptToEmail+";";
+								s1+=encryptToEmail+",";
 							}
 						}
 						StringBuffer sb= new StringBuffer(s1);
@@ -142,7 +142,7 @@ public class KafkaProducer {
 					}
 
 
-//					String[] contactCcEmailSplit = contactCcEmail.split(";");
+//					String[] contactCcEmailSplit = contactCcEmail.split(",");
 //					if(contactCcEmailSplit.length==1) {
 //						if(!(regexConfig.isBase64(contactCcEmail))) {
 //				            Date date = new Date();
@@ -165,7 +165,7 @@ public class KafkaProducer {
 //								return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "One of the email address is not encrypted");
 //							}else{
 //								String encryptCcEmail = encryptionConfig.decrypt(contactCcEmailSplit[t]);
-//								s1+=encryptCcEmail+";";
+//								s1+=encryptCcEmail+",";
 //							}
 //						}
 //						StringBuffer sb= new StringBuffer(s1);
@@ -174,7 +174,7 @@ public class KafkaProducer {
 //					}
 
 				//Validation's of toEmail
-				String[] contactToEmailSplitValid = message.getContact().getTo().split(";");
+				String[] contactToEmailSplitValid = message.getContact().getTo().split(",");
 				for (int t = 0; t < contactToEmailSplitValid.length; t++) {
 					if (!(regexConfig.validateEmail(contactToEmailSplitValid[t]))) {
 						Date date = new Date();
@@ -187,7 +187,7 @@ public class KafkaProducer {
 				}
 
 				//Validation's of ccEmail
-//				String[] contactCcEmailSplitValid = message.getContact().getCc().split(";");
+//				String[] contactCcEmailSplitValid = message.getContact().getCc().split(",");
 //				for (int c = 0; c < contactCcEmailSplitValid.length; c++) {
 //					if (!(regexConfig.validateEmail(contactCcEmailSplitValid[c]))) {
 //				        Date date = new Date();
@@ -198,7 +198,7 @@ public class KafkaProducer {
 //						return response;
 //					}
 //				}
-				if(message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.RF_RED_EVENT) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.RF_GREEN_EVENT) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Cancel_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Remdr_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Com_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Extension_Work_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.ReSchedule_Work_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Remdr_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Extension_Work_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Comunsuc_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Protection_Failure) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Com_protect_Fail) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Extension_Protection_Failure) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Cancel_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Com_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Comun_protect_Fail) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Plan_Work_Remdr_Protection_Fail) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Com_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Comuns_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Cancel_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.ReSchedule_Protection_Failure) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Plan_Wrk_Cancel_Protection_Fail) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.ReSchedule_Work_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.DeleteNotificationForSIA) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Comunsu_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Extension_Work_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.ReSchedule_Work_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Remdr_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Conflicting_PE_Notifications)) {
+				if(message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.RF_RED_EVENT) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.RF_GREEN_EVENT) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Cancel_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Remdr_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Com_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Extension_Work_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.pe_rescheduled) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Remdr_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Extension_Work_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.pe_scheduled) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Comunsuc_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Protection_Failure) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.pe_closure_successful) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.pe_implement_extension) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Cancel_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Com_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.pe_closure_unsuccessful) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.pe_reminder) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Com_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Comuns_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Cancel_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.ReSchedule_Protection_Failure) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.pe_canceled) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.ReSchedule_Work_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.DeleteNotificationForSIA) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Comunsu_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Extension_Work_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.ReSchedule_Work_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Remdr_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Conflicting_PE_Notifications)) {
 					kafkaTemplate.send(ApplicationConstant.TOPIC_NAME, message);
 					logger.info("Message sent successfully in consumer = " + message.toString());
 					alreadyExecuted = false;
