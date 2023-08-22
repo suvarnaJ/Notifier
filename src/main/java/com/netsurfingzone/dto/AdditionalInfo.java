@@ -1,12 +1,45 @@
 package main.java.com.netsurfingzone.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.netsurfingzone.dto.AccDetails;
 
 import java.util.List;
 
-@JsonSerialize
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+        "Ticket Reference - TCL",
+        "NIMS ID",
+        "Maintenance Type",
+        "Activity Status",
+        "Execution Owner",
+        "Activity Window (IST)",
+        "Activity Window (GMT)",
+        "Expected Impact",
+        "Activity Description",
+        "Expected Impact Duration(DD:HH:MM)",
+        "Extended Up to Time Window (IST)",
+        "Extended Up to Time Window (GMT)",
+        "Revised Activity Window (IST)",
+        "Revised Activity Window (GMT)",
+        "eventDescription",
+        "bsName",
+        "circle",
+        "city",
+        "bsType",
+        "ip",
+        "siteID",
+        "infraProvider",
+        "iorID",
+        "bsoCktID",
+        "outageStartTime",
+        "outageResolvedTime",
+        "impactedCustomer",
+        "sia",
+        "AccDetails"
+})
 public class AdditionalInfo {
 
     public AdditionalInfo(){}

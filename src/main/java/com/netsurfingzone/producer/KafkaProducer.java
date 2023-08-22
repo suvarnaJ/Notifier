@@ -59,7 +59,7 @@ public class KafkaProducer {
 			exposedHeaders = {})
 	@PostMapping("/email/sendnotification")
 	public ResponseEntity<?> sendRfTemplateNotificationV1(@RequestBody Notify message) {
-		logger.info("Message received in producer = " + message.toString());
+		logger.info("Message received in producer = " + message.getTicketInfo().getServiceId());
 		ResponseEntity<?> response = null;
 		while(!alreadyExecuted) {
 			try {
