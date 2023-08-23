@@ -6,9 +6,10 @@ public class TicketInfo {
 
     private String number;
 
-    @JsonProperty("Service ID")
+    @JsonProperty("serviceId")
     private String serviceId;
 
+    private String circuitId;
     private String asset;
     private String productName;
     private String tableName;
@@ -24,7 +25,7 @@ public class TicketInfo {
     private String statusReason;
     private String parent;
     private String state;
-    private String urfoSpecification;
+    private String rfoSpecification;
     private String closeNotes;
     private String closedBy;
     private String rfoCause;
@@ -36,7 +37,7 @@ public class TicketInfo {
     private String assignmentGroup;
     private String dueDate;
     private String requestItemVariablesDisputeId;
-    private String sysCreatedOn;
+    private String createdOn;
     private String catItem;
     private String closedAt;
     private String pendingWith;
@@ -47,7 +48,7 @@ public class TicketInfo {
     private String startDate;
     private String endDate;
 
-    @JsonProperty("Location of activity")
+    @JsonProperty("location")
     private String location;
 
     private String requestedBy;
@@ -67,7 +68,7 @@ public class TicketInfo {
         return number;
     }
 
-    @JsonProperty("Service ID")
+    @JsonProperty("serviceId")
     public String getServiceId() {
         return serviceId;
     }
@@ -132,10 +133,6 @@ public class TicketInfo {
         return state;
     }
 
-    public String getUrfoSpecification() {
-        return urfoSpecification;
-    }
-
     public String getCloseNotes() {
         return closeNotes;
     }
@@ -180,10 +177,6 @@ public class TicketInfo {
         return requestItemVariablesDisputeId;
     }
 
-    public String getSysCreatedOn() {
-        return sysCreatedOn;
-    }
-
     public String getCatItem() {
         return catItem;
     }
@@ -220,7 +213,7 @@ public class TicketInfo {
         return endDate;
     }
 
-    @JsonProperty("Location of activity")
+    @JsonProperty("location")
     public String getLocation() {
         return location;
     }
@@ -267,7 +260,7 @@ public class TicketInfo {
         this.number = number;
     }
 
-    @JsonProperty("Service ID")
+    @JsonProperty("serviceId")
     public void setServiceId(String serviceId) {
         this.serviceId = serviceId;
     }
@@ -332,10 +325,6 @@ public class TicketInfo {
         this.state = state;
     }
 
-    public void setUrfoSpecification(String urfoSpecification) {
-        this.urfoSpecification = urfoSpecification;
-    }
-
     public void setCloseNotes(String closeNotes) {
         this.closeNotes = closeNotes;
     }
@@ -380,10 +369,6 @@ public class TicketInfo {
         this.requestItemVariablesDisputeId = requestItemVariablesDisputeId;
     }
 
-    public void setSysCreatedOn(String sysCreatedOn) {
-        this.sysCreatedOn = sysCreatedOn;
-    }
-
     public void setCatItem(String catItem) {
         this.catItem = catItem;
     }
@@ -420,7 +405,7 @@ public class TicketInfo {
         this.endDate = endDate;
     }
 
-    @JsonProperty("Location of activity")
+    @JsonProperty("location")
     public void setLocation(String location) {
         this.location = location;
     }
@@ -459,5 +444,29 @@ public class TicketInfo {
 
     public void setProtectionState(String protectionState) {
         this.protectionState = protectionState;
+    }
+
+    public String getRfoSpecification() {
+        return rfoSpecification;
+    }
+
+    public void setRfoSpecification(String rfoSpecification) {
+        this.rfoSpecification = rfoSpecification;
+    }
+
+    public String getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(String createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public String getCircuitId() {
+        return circuitId;
+    }
+
+    public void setCircuitId(String circuitId) {
+        this.circuitId = circuitId;
     }
 }

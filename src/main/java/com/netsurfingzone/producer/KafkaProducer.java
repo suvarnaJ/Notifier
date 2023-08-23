@@ -64,6 +64,7 @@ public class KafkaProducer {
 		while(!alreadyExecuted) {
 			try {
 
+				message.getContact().setTo("suvarna.jagadale@tatacommunications.com,MUKUL.SHARMA1@contractor.tatacommunications.com");
 				String contactToEmail  = message.getContact().getTo();
 				String contactCcEmail  = message.getContact().getCc();
 
@@ -109,69 +110,6 @@ public class KafkaProducer {
 					response = ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Email is mandatory");
 					return response;
 				}
-
-					String[] contactToEmailSplit = contactToEmail.split(",");
-					if(contactToEmailSplit.length==1) {
-						if(!(regexConfig.isBase64(contactToEmail))) {
-							Date date = new Date();
-							String strDate = formatter.format(date);
-							logger.info("One of the email address is not encrypted");
-							jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'One of the email address is not encrypted', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
-							return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "One of the email address is not encrypted");
-						}else {
-							String encryptToEmail = encryptionConfig.decrypt(contactToEmail);
-							message.getContact().setTo(encryptToEmail);
-						}
-					}else{
-						String s1="";
-						for(int t = 0; t < contactToEmailSplit.length; t++){
-							if(!(regexConfig.isBase64(contactToEmailSplit[t]))) {
-								Date date = new Date();
-								String strDate = formatter.format(date);
-								logger.info("One of the email address is not encrypted");
-								jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'One of the email address is not encrypted', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
-								return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "One of the email address is not encrypted");
-							}else{
-								String encryptToEmail = encryptionConfig.decrypt(contactToEmailSplit[t]);
-								s1+=encryptToEmail+",";
-							}
-						}
-						StringBuffer sb= new StringBuffer(s1);
-						sb.deleteCharAt(sb.length()-1);
-						message.getContact().setTo(sb.toString());
-					}
-
-
-//					String[] contactCcEmailSplit = contactCcEmail.split(",");
-//					if(contactCcEmailSplit.length==1) {
-//						if(!(regexConfig.isBase64(contactCcEmail))) {
-//				            Date date = new Date();
-//					        String strDate = formatter.format(date);
-//							logger.info("One of the email address is not encrypted");
-//							jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'One of the email address is not encrypted', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
-//							return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "One of the email address is not encrypted");
-//						}else{
-//							String encryptCcEmail = encryptionConfig.decrypt(contactCcEmail);
-//							message.getContact().setCc(encryptCcEmail);
-//						}
-//					}else{
-//						String s1="";
-//						for(int t = 0; t < contactCcEmailSplit.length; t++){
-//							if(!(regexConfig.isBase64(contactCcEmailSplit[t]))) {
-//				                Date date = new Date();
-//				                String strDate = formatter.format(date);
-//								logger.info("One of the email address is not encrypted");
-//								jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'One of the email address is not encrypted', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
-//								return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "One of the email address is not encrypted");
-//							}else{
-//								String encryptCcEmail = encryptionConfig.decrypt(contactCcEmailSplit[t]);
-//								s1+=encryptCcEmail+",";
-//							}
-//						}
-//						StringBuffer sb= new StringBuffer(s1);
-//						sb.deleteCharAt(sb.length()-1);
-//						message.getContact().setCc(sb.toString());
-//					}
 
 				//Validation's of toEmail
 				String[] contactToEmailSplitValid = message.getContact().getTo().split(",");
