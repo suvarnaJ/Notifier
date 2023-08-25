@@ -59,12 +59,12 @@ public class KafkaProducer {
 			exposedHeaders = {})
 	@PostMapping("/email/sendnotification")
 	public ResponseEntity<?> sendRfTemplateNotificationV1(@RequestBody Notify message) {
-		logger.info("Message received in producer = " + message.getTicketInfo().getServiceId());
+		logger.info("Message received in producer = " + message.getAdditionalInfo().toString());
 		ResponseEntity<?> response = null;
 		while(!alreadyExecuted) {
 			try {
 
-				message.getContact().setTo("suvarna.jagadale@tatacommunications.com,MUKUL.SHARMA1@contractor.tatacommunications.com");
+				message.getContact().setTo("MUKUL.SHARMA1@contractor.tatacommunications.com");
 				String contactToEmail  = message.getContact().getTo();
 				String contactCcEmail  = message.getContact().getCc();
 

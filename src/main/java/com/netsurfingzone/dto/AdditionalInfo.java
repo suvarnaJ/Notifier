@@ -5,25 +5,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.netsurfingzone.dto.AccDetails;
+import com.netsurfingzone.dto.Product;
 
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "Ticket Reference - TCL",
-        "NIMS ID",
-        "Maintenance Type",
-        "Activity Status",
-        "Execution Owner",
-        "Activity Window (IST)",
-        "Activity Window (GMT)",
-        "Expected Impact",
-        "Activity Description",
-        "Expected Impact Duration(DD:HH:MM)",
-        "Extended Up to Time Window (IST)",
-        "Extended Up to Time Window (GMT)",
-        "Revised Activity Window (IST)",
-        "Revised Activity Window (GMT)",
+        "ticketReferenceTCL",
+        "nimsId",
+        "maintenanceType",
+        "activityStatus",
+        "executionOwner",
+        "activityWindowIST",
+        "activityWindowGMT",
+        "expectedImpact",
+        "activityDescription",
+        "expectedImpactDuration_dd_hh_mm",
+        "extendedUpToTimeWindowIST",
+        "extendedUpToTimeWindowGMT",
+        "revisedActivityWindowIST",
+        "revisedActivityWindowGMT",
+        "reminder",
         "eventDescription",
         "bsName",
         "circle",
@@ -44,47 +46,53 @@ public class AdditionalInfo {
 
     public AdditionalInfo(){}
 
-    @JsonProperty("Ticket Reference - TCL")
-    private String ticketRef;
+    @JsonProperty("ticketReferenceTCL")
+    private String ticketReferenceTCL;
 
-    @JsonProperty("NIMS ID")
+    @JsonProperty("nimsId")
     private String nimsId;
 
-    @JsonProperty("Maintenance Type")
+    @JsonProperty("maintenanceType")
     private String maintenanceType;
 
-    @JsonProperty("Activity Status")
+    @JsonProperty("activityStatus")
     private String activityStatus;
 
-    @JsonProperty("Execution Owner")
+    @JsonProperty("executionOwner")
     private String executionOwner;
 
-    @JsonProperty("Activity Window (IST)")
+    @JsonProperty("activityWindowIST")
     private String activityWindowIST;
 
-    @JsonProperty("Activity Window (GMT)")
+    @JsonProperty("activityWindowGMT")
     private String activityWindowGMT;
 
-    @JsonProperty("Expected Impact")
+    @JsonProperty("expectedImpact")
     private String expectedImpact;
 
-    @JsonProperty("Activity Description")
+    @JsonProperty("activityDescription")
     private String activityDescription;
 
-    @JsonProperty("Expected Impact Duration(DD:HH:MM)")
-    private String expectedImpactDurationDD_HH_MM;
+    @JsonProperty("expectedImpactDuration_dd_hh_mm")
+    private String expectedImpactDuration_dd_hh_mm;
 
-    @JsonProperty("Extended Up to Time Window (IST)")
+    @JsonProperty("extendedUpToTimeWindowIST")
     private String extendedUpToTimeWindowIST;
 
-    @JsonProperty("Extended Up to Time Window (GMT)")
+    @JsonProperty("extendedUpToTimeWindowGMT")
     private String extendedUpToTimeWindowGMT;
 
-    @JsonProperty("Revised Activity Window (IST)")
+    @JsonProperty("revisedActivityWindowIST")
     private String revisedActivityWindowIST;
 
-    @JsonProperty("Revised Activity Window (GMT)")
+    @JsonProperty("revisedActivityWindowGMT")
     private String revisedActivityWindowGMT;
+
+    @JsonProperty("reminder")
+    private String reminder;
+
+    @JsonProperty("Product")
+    private List<com.netsurfingzone.dto.Product> Product;
 
     private String eventDescription;
 
@@ -117,144 +125,164 @@ public class AdditionalInfo {
     @JsonProperty("AccDetails")
     private List<AccDetails> accDetails;
 
-    @JsonProperty("Ticket Reference - TCL")
-    public void setTicketRef(String ticketRef){
-        this.ticketRef = ticketRef;
+    @JsonProperty("ticketReferenceTCL")
+    public String getTicketReferenceTCL() {
+        return ticketReferenceTCL;
     }
 
-    @JsonProperty("Ticket Reference - TCL")
-    public String getTicketRef(){
-        return this.ticketRef;
+    @JsonProperty("ticketReferenceTCL")
+    public void setTicketReferenceTCL(String ticketReferenceTCL) {
+        this.ticketReferenceTCL = ticketReferenceTCL;
     }
 
-    @JsonProperty("NIMS ID")
+    @JsonProperty("nimsId")
     public String getNimsId() {
         return nimsId;
     }
 
-    @JsonProperty("NIMS ID")
+    @JsonProperty("nimsId")
     public void setNimsId(String nimsId) {
         this.nimsId = nimsId;
     }
 
-    @JsonProperty("Maintenance Type")
+    @JsonProperty("maintenanceType")
     public String getMaintenanceType() {
         return maintenanceType;
     }
 
-    @JsonProperty("Maintenance Type")
+    @JsonProperty("maintenanceType")
     public void setMaintenanceType(String maintenanceType) {
         this.maintenanceType = maintenanceType;
     }
 
-    @JsonProperty("Activity Status")
+    @JsonProperty("activityStatus")
     public String getActivityStatus() {
         return activityStatus;
     }
 
-    @JsonProperty("Activity Status")
+    @JsonProperty("activityStatus")
     public void setActivityStatus(String activityStatus) {
         this.activityStatus = activityStatus;
     }
 
-    @JsonProperty("Execution Owner")
+    @JsonProperty("executionOwner")
     public String getExecutionOwner() {
         return executionOwner;
     }
 
-    @JsonProperty("Execution Owner")
+    @JsonProperty("executionOwner")
     public void setExecutionOwner(String executionOwner) {
         this.executionOwner = executionOwner;
     }
 
-    @JsonProperty("Activity Window (IST)")
+    @JsonProperty("activityWindowIST")
     public String getActivityWindowIST() {
         return activityWindowIST;
     }
 
-    @JsonProperty("Activity Window (IST)")
+    @JsonProperty("activityWindowIST")
     public void setActivityWindowIST(String activityWindowIST) {
         this.activityWindowIST = activityWindowIST;
     }
 
-    @JsonProperty("Activity Window (GMT)")
+    @JsonProperty("activityWindowGMT")
     public String getActivityWindowGMT() {
         return activityWindowGMT;
     }
 
-    @JsonProperty("Activity Window (GMT)")
+    @JsonProperty("activityWindowGMT")
     public void setActivityWindowGMT(String activityWindowGMT) {
         this.activityWindowGMT = activityWindowGMT;
     }
 
-    @JsonProperty("Expected Impact")
+    @JsonProperty("expectedImpact")
     public String getExpectedImpact() {
         return expectedImpact;
     }
 
-    @JsonProperty("Expected Impact")
+    @JsonProperty("expectedImpact")
     public void setExpectedImpact(String expectedImpact) {
         this.expectedImpact = expectedImpact;
     }
 
-    @JsonProperty("Activity Description")
+    @JsonProperty("activityDescription")
     public String getActivityDescription() {
         return activityDescription;
     }
 
-    @JsonProperty("Activity Description")
+    @JsonProperty("activityDescription")
     public void setActivityDescription(String activityDescription) {
         this.activityDescription = activityDescription;
     }
 
-    @JsonProperty("Expected Impact Duration(DD:HH:MM)")
-    public String getExpectedImpactDurationDD_HH_MM() {
-        return expectedImpactDurationDD_HH_MM;
+    @JsonProperty("expectedImpactDuration_dd_hh_mm")
+    public String getExpectedImpactDuration_dd_hh_mm() {
+        return expectedImpactDuration_dd_hh_mm;
     }
 
-    @JsonProperty("Expected Impact Duration(DD:HH:MM)")
-    public void setExpectedImpactDurationDD_HH_MM(String expectedImpactDurationDD_HH_MM) {
-        this.expectedImpactDurationDD_HH_MM = expectedImpactDurationDD_HH_MM;
+    @JsonProperty("expectedImpactDuration_dd_hh_mm")
+    public void setExpectedImpactDuration_dd_hh_mm(String expectedImpactDuration_dd_hh_mm) {
+        this.expectedImpactDuration_dd_hh_mm = expectedImpactDuration_dd_hh_mm;
     }
 
-    @JsonProperty("Extended Up to Time Window (IST)")
+    @JsonProperty("extendedUpToTimeWindowIST")
     public String getExtendedUpToTimeWindowIST() {
         return extendedUpToTimeWindowIST;
     }
 
-    @JsonProperty("Extended Up to Time Window (IST)")
+    @JsonProperty("extendedUpToTimeWindowIST")
     public void setExtendedUpToTimeWindowIST(String extendedUpToTimeWindowIST) {
         this.extendedUpToTimeWindowIST = extendedUpToTimeWindowIST;
     }
 
-    @JsonProperty("Extended Up to Time Window (GMT)")
+    @JsonProperty("extendedUpToTimeWindowGMT")
     public String getExtendedUpToTimeWindowGMT() {
         return extendedUpToTimeWindowGMT;
     }
 
-    @JsonProperty("Extended Up to Time Window (GMT)")
+    @JsonProperty("extendedUpToTimeWindowGMT")
     public void setExtendedUpToTimeWindowGMT(String extendedUpToTimeWindowGMT) {
         this.extendedUpToTimeWindowGMT = extendedUpToTimeWindowGMT;
     }
 
-    @JsonProperty("Revised Activity Window (IST)")
+    @JsonProperty("revisedActivityWindowIST")
     public String getRevisedActivityWindowIST() {
         return revisedActivityWindowIST;
     }
 
-    @JsonProperty("Revised Activity Window (IST)")
+    @JsonProperty("revisedActivityWindowIST")
     public void setRevisedActivityWindowIST(String revisedActivityWindowIST) {
         this.revisedActivityWindowIST = revisedActivityWindowIST;
     }
 
-    @JsonProperty("Revised Activity Window (GMT)")
+    @JsonProperty("revisedActivityWindowGMT")
     public String getRevisedActivityWindowGMT() {
         return revisedActivityWindowGMT;
     }
 
-    @JsonProperty("Revised Activity Window (GMT)")
+    @JsonProperty("revisedActivityWindowGMT")
     public void setRevisedActivityWindowGMT(String revisedActivityWindowGMT) {
         this.revisedActivityWindowGMT = revisedActivityWindowGMT;
+    }
+
+    @JsonProperty("reminder")
+    public String getReminder() {
+        return reminder;
+    }
+
+    @JsonProperty("reminder")
+    public void setReminder(String reminder) {
+        this.reminder = reminder;
+    }
+
+    @JsonProperty("Product")
+    public List<com.netsurfingzone.dto.Product> getProduct() {
+        return Product;
+    }
+
+    @JsonProperty("Product")
+    public void setProduct(List<com.netsurfingzone.dto.Product> product) {
+        Product = product;
     }
 
     public void setEventDescription(String eventDescription){
@@ -354,7 +382,7 @@ public class AdditionalInfo {
     @Override
     public String toString() {
         return "AdditionalInfo{" +
-                "ticketRef='" + ticketRef + '\'' +
+                "ticketReferenceTCL='" + ticketReferenceTCL + '\'' +
                 ", nimsId='" + nimsId + '\'' +
                 ", maintenanceType='" + maintenanceType + '\'' +
                 ", activityStatus='" + activityStatus + '\'' +
@@ -363,11 +391,13 @@ public class AdditionalInfo {
                 ", activityWindowGMT='" + activityWindowGMT + '\'' +
                 ", expectedImpact='" + expectedImpact + '\'' +
                 ", activityDescription='" + activityDescription + '\'' +
-                ", expectedImpactDurationDD_HH_MM='" + expectedImpactDurationDD_HH_MM + '\'' +
+                ", expectedImpactDuration_dd_hh_mm='" + expectedImpactDuration_dd_hh_mm + '\'' +
                 ", extendedUpToTimeWindowIST='" + extendedUpToTimeWindowIST + '\'' +
                 ", extendedUpToTimeWindowGMT='" + extendedUpToTimeWindowGMT + '\'' +
                 ", revisedActivityWindowIST='" + revisedActivityWindowIST + '\'' +
                 ", revisedActivityWindowGMT='" + revisedActivityWindowGMT + '\'' +
+                ", reminder='" + reminder + '\'' +
+                ", Product=" + Product +
                 ", eventDescription='" + eventDescription + '\'' +
                 ", bsName='" + bsName + '\'' +
                 ", circle='" + circle + '\'' +

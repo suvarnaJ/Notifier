@@ -9,6 +9,7 @@ com\netsurfingzone\dto\ErrorLogs.class
 com\netsurfingzone\exception\GlobalExceptionHandler.class
 main\java\com\netsurfingzone\dto\AdditionalInfo.class
 com\netsurfingzone\deserializer\KafkaNotifyDeserializer.class
+com\netsurfingzone\dto\Product.class
 com\netsurfingzone\config\Constant$API_Name.class
 com\netsurfingzone\config\Constant.class
 com\netsurfingzone\dto\Mail.class
