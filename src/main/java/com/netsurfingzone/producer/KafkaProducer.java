@@ -703,4 +703,19 @@ public class KafkaProducer {
 		}
 	}
 
+	@GetMapping("fetchData/errorLogs")
+	public ResponseEntity<?> findErrorLogs(){
+		try{
+			//String sql = "select \"Ticket Number\" TicketNumber, \"Service ID\" ServiceID, \"Account name\" Accountname, bandwidth, impact, state, \"Status Reason\" StatusReason, to_email, cc_email, \"opened_at\" opened_at, product, a_end_site_address, latest_update from Casen where \"Account name\"='Bajaj Finance Limited'";
+			jdbcTemplate.execute("CREATE TABLE CN_LOG_ERROR(" + "AccountName VARCHAR(255), Status NUMERIC(3), Message VARCHAR(255), API_Name VARCHAR(255), Created_At VARCHAR(255))");
+			//connectingToDB.Execute("CREATE TABLE CN_LOG_ERROR(" + "AccountName VARCHAR(255), Status NUMERIC(3), Message VARCHAR(255), API_Name VARCHAR(255), Created_At VARCHAR(255))");
+			//connectingToDB.Execute("DROP TABLE CN_LOG_ERROR");
+			//connectingToDB.Execute("DELETE FROM CN_LOG_ERROR");
+			//  List<Map<String,Object>> data = connectingToDB.QueryForList("select * from CN_LOG_ERROR");
+			return SuccessResponse.successHandler(HttpStatus.OK, false, "Successfully operation performed", null);
+		}catch (Exception ex){
+			return ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST,true,ex.getMessage());
+		}
+	}
+
 }
