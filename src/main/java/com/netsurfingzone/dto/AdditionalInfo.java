@@ -11,7 +11,6 @@ import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "ticketReferenceTCL",
         "nimsId",
         "maintenanceType",
         "activityStatus",
@@ -19,10 +18,8 @@ import java.util.List;
         "activityWindowIST",
         "activityWindowGMT",
         "expectedImpact",
-        "activityDescription",
-        "expectedImpactDuration_dd_hh_mm",
-        "extendedUpToTimeWindowIST",
-        "extendedUpToTimeWindowGMT",
+        "timeWindowIST",
+        "revisedEndDate",
         "revisedActivityWindowIST",
         "revisedActivityWindowGMT",
         "reminder",
@@ -46,17 +43,11 @@ public class AdditionalInfo {
 
     public AdditionalInfo(){}
 
-    @JsonProperty("ticketReferenceTCL")
-    private String ticketReferenceTCL;
-
     @JsonProperty("nimsId")
     private String nimsId;
 
     @JsonProperty("maintenanceType")
     private String maintenanceType;
-
-    @JsonProperty("activityStatus")
-    private String activityStatus;
 
     @JsonProperty("executionOwner")
     private String executionOwner;
@@ -70,16 +61,10 @@ public class AdditionalInfo {
     @JsonProperty("expectedImpact")
     private String expectedImpact;
 
-    @JsonProperty("activityDescription")
-    private String activityDescription;
-
-    @JsonProperty("expectedImpactDuration_dd_hh_mm")
-    private String expectedImpactDuration_dd_hh_mm;
-
-    @JsonProperty("extendedUpToTimeWindowIST")
+    @JsonProperty("timeWindowIST")
     private String extendedUpToTimeWindowIST;
 
-    @JsonProperty("extendedUpToTimeWindowGMT")
+    @JsonProperty("revisedEndDate")
     private String extendedUpToTimeWindowGMT;
 
     @JsonProperty("revisedActivityWindowIST")
@@ -125,16 +110,6 @@ public class AdditionalInfo {
     @JsonProperty("AccDetails")
     private List<AccDetails> accDetails;
 
-    @JsonProperty("ticketReferenceTCL")
-    public String getTicketReferenceTCL() {
-        return ticketReferenceTCL;
-    }
-
-    @JsonProperty("ticketReferenceTCL")
-    public void setTicketReferenceTCL(String ticketReferenceTCL) {
-        this.ticketReferenceTCL = ticketReferenceTCL;
-    }
-
     @JsonProperty("nimsId")
     public String getNimsId() {
         return nimsId;
@@ -153,16 +128,6 @@ public class AdditionalInfo {
     @JsonProperty("maintenanceType")
     public void setMaintenanceType(String maintenanceType) {
         this.maintenanceType = maintenanceType;
-    }
-
-    @JsonProperty("activityStatus")
-    public String getActivityStatus() {
-        return activityStatus;
-    }
-
-    @JsonProperty("activityStatus")
-    public void setActivityStatus(String activityStatus) {
-        this.activityStatus = activityStatus;
     }
 
     @JsonProperty("executionOwner")
@@ -205,47 +170,27 @@ public class AdditionalInfo {
         this.expectedImpact = expectedImpact;
     }
 
-    @JsonProperty("activityDescription")
-    public String getActivityDescription() {
-        return activityDescription;
-    }
-
-    @JsonProperty("activityDescription")
-    public void setActivityDescription(String activityDescription) {
-        this.activityDescription = activityDescription;
-    }
-
-    @JsonProperty("expectedImpactDuration_dd_hh_mm")
-    public String getExpectedImpactDuration_dd_hh_mm() {
-        return expectedImpactDuration_dd_hh_mm;
-    }
-
-    @JsonProperty("expectedImpactDuration_dd_hh_mm")
-    public void setExpectedImpactDuration_dd_hh_mm(String expectedImpactDuration_dd_hh_mm) {
-        this.expectedImpactDuration_dd_hh_mm = expectedImpactDuration_dd_hh_mm;
-    }
-
     @JsonProperty("extendedUpToTimeWindowIST")
     public String getExtendedUpToTimeWindowIST() {
         return extendedUpToTimeWindowIST;
     }
 
-    @JsonProperty("extendedUpToTimeWindowIST")
+    @JsonProperty("timeWindowIST")
     public void setExtendedUpToTimeWindowIST(String extendedUpToTimeWindowIST) {
         this.extendedUpToTimeWindowIST = extendedUpToTimeWindowIST;
     }
 
-    @JsonProperty("extendedUpToTimeWindowGMT")
+    @JsonProperty("timeWindowIST")
     public String getExtendedUpToTimeWindowGMT() {
         return extendedUpToTimeWindowGMT;
     }
 
-    @JsonProperty("extendedUpToTimeWindowGMT")
+    @JsonProperty("revisedEndDate")
     public void setExtendedUpToTimeWindowGMT(String extendedUpToTimeWindowGMT) {
         this.extendedUpToTimeWindowGMT = extendedUpToTimeWindowGMT;
     }
 
-    @JsonProperty("revisedActivityWindowIST")
+    @JsonProperty("revisedEndDate")
     public String getRevisedActivityWindowIST() {
         return revisedActivityWindowIST;
     }
@@ -382,16 +327,12 @@ public class AdditionalInfo {
     @Override
     public String toString() {
         return "AdditionalInfo{" +
-                "ticketReferenceTCL='" + ticketReferenceTCL + '\'' +
                 ", nimsId='" + nimsId + '\'' +
                 ", maintenanceType='" + maintenanceType + '\'' +
-                ", activityStatus='" + activityStatus + '\'' +
                 ", executionOwner='" + executionOwner + '\'' +
                 ", activityWindowIST='" + activityWindowIST + '\'' +
                 ", activityWindowGMT='" + activityWindowGMT + '\'' +
                 ", expectedImpact='" + expectedImpact + '\'' +
-                ", activityDescription='" + activityDescription + '\'' +
-                ", expectedImpactDuration_dd_hh_mm='" + expectedImpactDuration_dd_hh_mm + '\'' +
                 ", extendedUpToTimeWindowIST='" + extendedUpToTimeWindowIST + '\'' +
                 ", extendedUpToTimeWindowGMT='" + extendedUpToTimeWindowGMT + '\'' +
                 ", revisedActivityWindowIST='" + revisedActivityWindowIST + '\'' +

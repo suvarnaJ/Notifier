@@ -142,6 +142,10 @@ public class KafkaProducer {
 					alreadyExecuted = false;
 					response = SuccessResponse.successHandler(HttpStatus.OK, false, "Notification sent successfully", null);
 				}else {
+					Date date = new Date();
+					String strDate = formatter.format(date);
+					logger.info("Event Name not found");
+					jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'Event Name not found', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
 					response = ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Event Name not found");
 				}
 				return response;

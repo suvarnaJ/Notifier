@@ -127,16 +127,16 @@ public class KafkaConsumer {
 
 		model.put("serviceId", message.getTicketInfo().getServiceId());
 		model.put("location", message.getTicketInfo().getLocation());
-		model.put("ticketRef", message.getAdditionalInfo().getTicketReferenceTCL());
+		model.put("ticketRef", message.getTicketInfo().getNumber());
 		model.put("nimsId",  message.getAdditionalInfo().getNimsId());
 		model.put("maintenanceType", message.getAdditionalInfo().getMaintenanceType());
-		model.put("activityStatus", message.getAdditionalInfo().getActivityStatus());
+		model.put("activityStatus", message.getTicketInfo().getState());
 		model.put("executionOwner", message.getAdditionalInfo().getExecutionOwner());
 		model.put("activityWindowIST", message.getAdditionalInfo().getActivityWindowIST());
 		model.put("activityWindowGMT", message.getAdditionalInfo().getActivityWindowGMT());
 		model.put("expectedImpact", message.getAdditionalInfo().getExpectedImpact());
-		model.put("activityDescription", message.getAdditionalInfo().getActivityDescription());
-		model.put("expectedImpactDurationDD_HH_MM", message.getAdditionalInfo().getExpectedImpactDuration_dd_hh_mm());
+		model.put("activityDescription", message.getTicketInfo().getDescription());
+		model.put("expectedImpactDurationDD_HH_MM", message.getTicketInfo().getServiceDowntimeStart());
 		model.put("extendedUpToTimeWindowIST", message.getAdditionalInfo().getExtendedUpToTimeWindowIST());
 		model.put("extendedUpToTimeWindowGMT", message.getAdditionalInfo().getExtendedUpToTimeWindowGMT());
 		model.put("revisedActivityWindowIST", message.getAdditionalInfo().getRevisedActivityWindowIST());
