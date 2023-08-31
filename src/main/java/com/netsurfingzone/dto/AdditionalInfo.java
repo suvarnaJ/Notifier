@@ -12,11 +12,8 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "nimsId",
-        "maintenanceType",
         "activityStatus",
-        "executionOwner",
-        "activityWindowIST",
-        "activityWindowGMT",
+        "revisedDateIST",
         "expectedImpact",
         "timeWindowIST",
         "revisedEndDate",
@@ -46,17 +43,8 @@ public class AdditionalInfo {
     @JsonProperty("nimsId")
     private String nimsId;
 
-    @JsonProperty("maintenanceType")
-    private String maintenanceType;
-
-    @JsonProperty("executionOwner")
-    private String executionOwner;
-
-    @JsonProperty("activityWindowIST")
+    @JsonProperty("revisedDateIST")
     private String activityWindowIST;
-
-    @JsonProperty("activityWindowGMT")
-    private String activityWindowGMT;
 
     @JsonProperty("expectedImpact")
     private String expectedImpact;
@@ -120,44 +108,14 @@ public class AdditionalInfo {
         this.nimsId = nimsId;
     }
 
-    @JsonProperty("maintenanceType")
-    public String getMaintenanceType() {
-        return maintenanceType;
-    }
-
-    @JsonProperty("maintenanceType")
-    public void setMaintenanceType(String maintenanceType) {
-        this.maintenanceType = maintenanceType;
-    }
-
-    @JsonProperty("executionOwner")
-    public String getExecutionOwner() {
-        return executionOwner;
-    }
-
-    @JsonProperty("executionOwner")
-    public void setExecutionOwner(String executionOwner) {
-        this.executionOwner = executionOwner;
-    }
-
-    @JsonProperty("activityWindowIST")
+    @JsonProperty("revisedDateIST")
     public String getActivityWindowIST() {
         return activityWindowIST;
     }
 
-    @JsonProperty("activityWindowIST")
+    @JsonProperty("revisedDateIST")
     public void setActivityWindowIST(String activityWindowIST) {
         this.activityWindowIST = activityWindowIST;
-    }
-
-    @JsonProperty("activityWindowGMT")
-    public String getActivityWindowGMT() {
-        return activityWindowGMT;
-    }
-
-    @JsonProperty("activityWindowGMT")
-    public void setActivityWindowGMT(String activityWindowGMT) {
-        this.activityWindowGMT = activityWindowGMT;
     }
 
     @JsonProperty("expectedImpact")
@@ -328,10 +286,7 @@ public class AdditionalInfo {
     public String toString() {
         return "AdditionalInfo{" +
                 ", nimsId='" + nimsId + '\'' +
-                ", maintenanceType='" + maintenanceType + '\'' +
-                ", executionOwner='" + executionOwner + '\'' +
                 ", activityWindowIST='" + activityWindowIST + '\'' +
-                ", activityWindowGMT='" + activityWindowGMT + '\'' +
                 ", expectedImpact='" + expectedImpact + '\'' +
                 ", extendedUpToTimeWindowIST='" + extendedUpToTimeWindowIST + '\'' +
                 ", extendedUpToTimeWindowGMT='" + extendedUpToTimeWindowGMT + '\'' +

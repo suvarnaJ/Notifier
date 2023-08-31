@@ -129,11 +129,11 @@ public class KafkaConsumer {
 		model.put("location", message.getTicketInfo().getLocation());
 		model.put("ticketRef", message.getTicketInfo().getNumber());
 		model.put("nimsId",  message.getAdditionalInfo().getNimsId());
-		model.put("maintenanceType", message.getAdditionalInfo().getMaintenanceType());
+		model.put("maintenanceType", message.getTicketInfo().getType());
 		model.put("activityStatus", message.getTicketInfo().getState());
-		model.put("executionOwner", message.getAdditionalInfo().getExecutionOwner());
+		model.put("executionOwner", message.getTicketInfo().getContactType());
 		model.put("activityWindowIST", message.getAdditionalInfo().getActivityWindowIST());
-		model.put("activityWindowGMT", message.getAdditionalInfo().getActivityWindowGMT());
+		model.put("activityWindowGMT", message.getTicketInfo().getDate());
 		model.put("expectedImpact", message.getAdditionalInfo().getExpectedImpact());
 		model.put("activityDescription", message.getTicketInfo().getDescription());
 		model.put("expectedImpactDurationDD_HH_MM", message.getTicketInfo().getServiceDowntimeStart());

@@ -9,6 +9,9 @@ public class TicketInfo {
     @JsonProperty("serviceId")
     private String serviceId;
 
+    @JsonProperty("date")
+    private String date;
+
     private String circuitId;
     private String asset;
     private String productName;
@@ -468,5 +471,15 @@ public class TicketInfo {
 
     public void setCircuitId(String circuitId) {
         this.circuitId = circuitId;
+    }
+
+    @JsonProperty("date")
+    public String getDate() {
+        return date;
+    }
+
+    @JsonProperty("date")
+    public void setDate(String date) {
+        this.date = date;
     }
 }
