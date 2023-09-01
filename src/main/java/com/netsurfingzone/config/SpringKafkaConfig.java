@@ -97,4 +97,18 @@ public class SpringKafkaConfig {
 		factory.setConsumerFactory(consumerFactory1());
 		return factory;
 	}
+
+	@Bean
+	public ConcurrentKafkaListenerContainerFactory<String, Notify> kafkaListenerContainerFactory_SUMMARY_V1() {
+		ConcurrentKafkaListenerContainerFactory<String, Notify> factory = new ConcurrentKafkaListenerContainerFactory<String, Notify>();
+		factory.setConsumerFactory(consumerFactory());
+		return factory;
+	}
+
+	@Bean
+	public ConcurrentKafkaListenerContainerFactory<String, SummaryPayload> kafkaListenerContainerFactory_SUMMARY_V2() {
+		ConcurrentKafkaListenerContainerFactory<String, SummaryPayload> factory = new ConcurrentKafkaListenerContainerFactory<String, SummaryPayload>();
+		factory.setConsumerFactory(consumerFactory1());
+		return factory;
+	}
 }
