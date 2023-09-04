@@ -48,18 +48,18 @@ public class SpringKafkaConfig {
 	public ConsumerFactory<String, Notify> consumerFactory() {
 		Map<String, Object> configMap = new HashMap<>();
 		configMap.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, ApplicationConstant.KAFKA_LOCAL_SERVER_CONFIG);//mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-		configMap.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-		configMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class.getName());
+		configMap.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+		configMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
 		configMap.put(ConsumerConfig.GROUP_ID_CONFIG, ApplicationConstant.GROUP_ID_JSON);
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "com.netsurfingzone.dto");
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "com.netsurfingzone.dto.Notify");
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
-		configMap.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG,"300000");
-		configMap.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,"false");
-		configMap.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG,"300000");
-		configMap.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG,"300000");
-		configMap.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG,"300000");
-		configMap.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"latest");
+//		configMap.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG,"300000");
+//		configMap.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,"false");
+//		configMap.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG,"300000");
+//		configMap.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG,"300000");
+//		configMap.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG,"300000");
+//		configMap.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"latest");
 		//configMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaNotifyDeserializer.class);
 		return new DefaultKafkaConsumerFactory<>(configMap);
 	}
@@ -68,18 +68,18 @@ public class SpringKafkaConfig {
 	public ConsumerFactory<String, SummaryPayload> consumerFactory1() {
 		Map<String, Object> configMap = new HashMap<>();
 		configMap.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, ApplicationConstant.KAFKA_LOCAL_SERVER_CONFIG);//mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-		configMap.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-		configMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class.getName());
+		configMap.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+		configMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
 		configMap.put(ConsumerConfig.GROUP_ID_CONFIG, ApplicationConstant.GROUP_ID_JSON);
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "com.netsurfingzone.dto");
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "com.netsurfingzone.dto.SummaryPayload");
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
-		configMap.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG,"300000");
-		configMap.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,"false");
-		configMap.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG,"300000");
-		configMap.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG,"300000");
-		configMap.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG,"300000");
-		configMap.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"latest");
+//		configMap.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG,"300000");
+//		configMap.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,"false");
+//		configMap.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG,"300000");
+//		configMap.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG,"300000");
+//		configMap.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG,"300000");
+//		configMap.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"latest");
 		//configMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaNotifyDeserializer.class);
 		return new DefaultKafkaConsumerFactory<>(configMap);
 	}
