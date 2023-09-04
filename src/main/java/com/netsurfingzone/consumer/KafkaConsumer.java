@@ -76,7 +76,7 @@ public class KafkaConsumer {
     private JdbcTemplate jdbcTemplate;
 
 	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY)
-	public ResponseEntity<?> receivedRfTemplateMessageV1(Notify message) throws IOException, MessagingException {
+	public void receivedRfTemplateMessageV1(Notify message) throws IOException, MessagingException {
 		logger.info("Message received in consumer = " + message.toString());
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonString = mapper.writeValueAsString(message);
@@ -162,12 +162,11 @@ public class KafkaConsumer {
 			logger.info("Event Name not found");
 		}
 
-		String result = sendMail(toRecipientsList,ccRecipientsList,content,subject,html);
-		return SuccessResponse.successHandler(HttpStatus.OK,false,result,null);
+		sendMail(toRecipientsList,ccRecipientsList,content,subject,html);
 	}
 
 	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME_RF_TEMPLATE, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY_RF_V2)
-	public ResponseEntity<?> receivedRfTemplateMessageV2(Notify message) throws IOException, MessagingException {
+	public void receivedRfTemplateMessageV2(Notify message) throws IOException, MessagingException {
 		logger.info("Message received in consumer = " + message.toString());
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonString = mapper.writeValueAsString(message);
@@ -233,12 +232,11 @@ public class KafkaConsumer {
 
 		String html ="";
 		html = templateEngine.process("summary_notification_template.html", context);
-		String result = sendMail(toRecipientsList,ccRecipientsList,content,subject,html);
-		return SuccessResponse.successHandler(HttpStatus.OK,false,result,null);
+		sendMail(toRecipientsList,ccRecipientsList,content,subject,html);
 	}
 
 	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME_SUMMARY, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY_SUMMARY_V1)
-	public ResponseEntity<?> receivedSummaryNotificationMessage(SummaryPayload summaryPayload) throws IOException, MessagingException {
+	public void receivedSummaryNotificationMessage(SummaryPayload summaryPayload) throws IOException, MessagingException {
 		logger.info("Message received in consumer = " + summaryPayload.toString());
 		int i = 0;
 		String ccList = "",toList = "",content = "",subject = "",htmlContent = "";
@@ -315,12 +313,11 @@ public class KafkaConsumer {
 		String html = "";
 		html = templateEngine.process("summary_notification_template.html", context);
 
-		String result = sendMail(toRecipientsList,ccRecipientsList,content,subject,html);
-		return SuccessResponse.successHandler(HttpStatus.OK,false,result,null);
+		sendMail(toRecipientsList,ccRecipientsList,content,subject,html);
 	}
 
 	//public  String sendMail(){
-	public  String sendMail(LinkedList<Recipient> toList,LinkedList<Recipient> ccRecipientsList,String content,String subject,String html){
+	public  void sendMail(LinkedList<Recipient> toList,LinkedList<Recipient> ccRecipientsList,String content,String subject,String html){
 		String PROXY_SERVER_HOST = "10.133.12.181"; //UAT Proxy - 10.133.12.181   PROD Proxy -121.244.254.154 ;
 		java.security.Security.setProperty("jdk.tls.disabledAlgorithms", "SSLv2Hello, SSLv3, TLSv1, TLSv1.1");
 		int PROXY_SERVER_PORT = 80;
@@ -390,12 +387,11 @@ public class KafkaConsumer {
 				post();
 
 		logger.info("+++++++++++Successfully send email with no attachment+++++++++++++");
-		return "Succesfully consumed data";
 	}
 
 
 	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME_SUMMARY_ATTACHMENTS, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY_SUMMARY_V2)
-	public ResponseEntity<?> receivedSummaryNotificationMessageWithAttachment(SummaryPayload summaryPayload) throws IOException, MessagingException {
+	public void receivedSummaryNotificationMessageWithAttachment(SummaryPayload summaryPayload) throws IOException, MessagingException {
 		logger.info("Message received in consumer = " + summaryPayload.toString());
 		int i = 0;
 		String ccList = "",toList = "",content = "",subject = "",htmlContent = "";
@@ -472,12 +468,11 @@ public class KafkaConsumer {
 		String html = "";
 		html = templateEngine.process("summary_notification_template.html", context);
 
-		String result = sendMailWithAttachment(toRecipientsList,ccRecipientsList,content,subject,html,summaryPayload.getFileData(),summaryPayload.getFileName());
-		return SuccessResponse.successHandler(HttpStatus.OK,false,result,null);
+		sendMailWithAttachment(toRecipientsList,ccRecipientsList,content,subject,html,summaryPayload.getFileData(),summaryPayload.getFileName());
 	}
 
 
-	public  String sendMailWithAttachment(LinkedList<Recipient> toList, LinkedList<Recipient> ccRecipientsList, String content, String subject, String html, byte[] fileData, String fileName) throws IOException {
+	public  void sendMailWithAttachment(LinkedList<Recipient> toList, LinkedList<Recipient> ccRecipientsList, String content, String subject, String html, byte[] fileData, String fileName) throws IOException {
 		String PROXY_SERVER_HOST = "10.133.12.181"; //UAT Proxy - 10.133.12.181   PROD Proxy -121.244.254.154 ;
 		java.security.Security.setProperty("jdk.tls.disabledAlgorithms", "SSLv2Hello, SSLv3, TLSv1, TLSv1.1");
 		int PROXY_SERVER_PORT = 80;
@@ -560,6 +555,5 @@ public class KafkaConsumer {
 				post();
 
 		logger.info("+++++++++++Successfully send email with attachment+++++++++++++");
-		return "Succesfully consumed data";
 	}
 }
