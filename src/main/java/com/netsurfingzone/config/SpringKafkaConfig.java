@@ -26,7 +26,7 @@ import com.netsurfingzone.constant.ApplicationConstant;
 public class SpringKafkaConfig {
 
 	@Bean
-	public ProducerFactory<String, SummaryPayload> SummaryPayloadProducerFactory() {
+	public ProducerFactory<String, Object> producerFactory() {
 		Map<String, Object> configMap = new HashMap<>();
 		configMap.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, ApplicationConstant.KAFKA_LOCAL_SERVER_CONFIG);
 		configMap.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -34,33 +34,14 @@ public class SpringKafkaConfig {
 //		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "com.netsurfingzone.dto");
 //		configMap.put(JsonDeserializer.TRUSTED_PACKAGES,"com.netsurfingzone.dto.Notify");
 //		configMap.put(JsonDeserializer.TRUSTED_PACKAGES,"com.netsurfingzone.dto.SummaryPayload");
-//		configMap.put(JsonDeserializer.TRUSTED_PACKAGES,"*");
+		configMap.put(JsonDeserializer.TRUSTED_PACKAGES,"*");
 //		configMap.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG,true);
-		return new DefaultKafkaProducerFactory<>(configMap);
+		return new DefaultKafkaProducerFactory<String, Object>(configMap);
 	}
 
 	@Bean
-	public KafkaTemplate<String, SummaryPayload> SummaryPayloadProducerFactoryKafkaTemplate() {
-		return new KafkaTemplate<>(SummaryPayloadProducerFactory());
-	}
-
-	@Bean
-	public ProducerFactory<String, Notify> NotifyProducerFactory() {
-		Map<String, Object> configMap = new HashMap<>();
-		configMap.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, ApplicationConstant.KAFKA_LOCAL_SERVER_CONFIG);
-		configMap.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-		configMap.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
-//		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "com.netsurfingzone.dto");
-//		configMap.put(JsonDeserializer.TRUSTED_PACKAGES,"com.netsurfingzone.dto.Notify");
-//		configMap.put(JsonDeserializer.TRUSTED_PACKAGES,"com.netsurfingzone.dto.SummaryPayload");
-//		configMap.put(JsonDeserializer.TRUSTED_PACKAGES,"*");
-//		configMap.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG,true);
-		return new DefaultKafkaProducerFactory<>(configMap);
-	}
-
-	@Bean
-	public KafkaTemplate<String, Notify> NotifyFactoryKafkaTemplate() {
-		return new KafkaTemplate<>(NotifyProducerFactory());
+	public KafkaTemplate<String, Object> kafkaTemplate() {
+		return new KafkaTemplate<>(producerFactory());
 	}
 
 	@Bean
