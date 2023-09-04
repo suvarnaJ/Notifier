@@ -376,6 +376,8 @@ public class KafkaConsumer {
 		ccRecipientsList.add(ccRecipients);
 		message.ccRecipients = ccRecipientsList;*/
 
+		logger.info("+++++++++++Successfully send email with upper+++++++++++++");
+
 		boolean saveToSentItems = true;
 		graphClient.users("service.supportuat@tatacommunications.com").
 				sendMail(UserSendMailParameterSet.
