@@ -235,7 +235,7 @@ public class KafkaConsumer {
 		sendMail(toRecipientsList,ccRecipientsList,content,subject,html);
 	}
 
-	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME_SUMMARY, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY_SUMMARY_V1)
+	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME_SUMMARY, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY_RF_V2)
 	public void receivedSummaryNotificationMessage(SummaryPayload summaryPayload) throws IOException, MessagingException {
 		logger.info("Message received in consumer = " + summaryPayload.toString());
 		int i = 0;
@@ -317,7 +317,7 @@ public class KafkaConsumer {
 	}
 
 	//public  String sendMail(){
-	public  void sendMail(LinkedList<Recipient> toList,LinkedList<Recipient> ccRecipientsList,String content,String subject,String html){
+	public void sendMail(LinkedList<Recipient> toList,LinkedList<Recipient> ccRecipientsList,String content,String subject,String html){
 		String PROXY_SERVER_HOST = "10.133.12.181"; //UAT Proxy - 10.133.12.181   PROD Proxy -121.244.254.154 ;
 		java.security.Security.setProperty("jdk.tls.disabledAlgorithms", "SSLv2Hello, SSLv3, TLSv1, TLSv1.1");
 		int PROXY_SERVER_PORT = 80;
@@ -390,7 +390,7 @@ public class KafkaConsumer {
 	}
 
 
-	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME_SUMMARY_ATTACHMENTS, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY_SUMMARY_V2)
+	@KafkaListener(groupId = ApplicationConstant.GROUP_ID_JSON, topics = ApplicationConstant.TOPIC_NAME_SUMMARY_ATTACHMENTS, containerFactory = ApplicationConstant.KAFKA_LISTENER_CONTAINER_FACTORY_RF_V2)
 	public void receivedSummaryNotificationMessageWithAttachment(SummaryPayload summaryPayload) throws IOException, MessagingException {
 		logger.info("Message received in consumer = " + summaryPayload.toString());
 		int i = 0;
