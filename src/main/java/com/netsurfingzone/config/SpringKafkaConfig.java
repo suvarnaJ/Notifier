@@ -35,7 +35,7 @@ public class SpringKafkaConfig {
 //		configMap.put(JsonDeserializer.TRUSTED_PACKAGES,"com.netsurfingzone.dto.Notify");
 //		configMap.put(JsonDeserializer.TRUSTED_PACKAGES,"com.netsurfingzone.dto.SummaryPayload");
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES,"*");
-//		configMap.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG,true);
+		configMap.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG,true);
 		return new DefaultKafkaProducerFactory<String, Object>(configMap);
 	}
 
@@ -55,11 +55,11 @@ public class SpringKafkaConfig {
 //		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "com.netsurfingzone.dto.Notify");
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
 //		configMap.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG,"300000");
-		configMap.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,"true");
-    	configMap.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG,"1000");
+	//	configMap.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,"true");
+   // 	configMap.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG,"1000");
 //		configMap.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG,"100000");
 //		configMap.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG,"1");
-		configMap.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"earliest");
+	//	configMap.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"earliest");
 		//configMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaNotifyDeserializer.class);
 		return new DefaultKafkaConsumerFactory<>(configMap,
 				new StringDeserializer(),
@@ -77,11 +77,11 @@ public class SpringKafkaConfig {
 //		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "com.netsurfingzone.dto.SummaryPayload");
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
 //		configMap.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG,"300000");
-    	configMap.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,"true");
-		configMap.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG,"1000");
+ //   	configMap.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,"true");
+	//	configMap.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG,"1000");
 //     	configMap.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG,"100000");
 //		configMap.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG,"1");
-		configMap.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"earliest");
+//		configMap.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"earliest");
 		//configMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaNotifyDeserializer.class);
 		return new DefaultKafkaConsumerFactory<>(configMap,
 				new StringDeserializer(),
