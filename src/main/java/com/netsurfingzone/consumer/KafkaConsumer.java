@@ -141,6 +141,7 @@ public class KafkaConsumer {
 		model.put("extendedUpToTimeWindowGMT", message.getAdditionalInfo().getExtendedUpToTimeWindowGMT());
 		model.put("revisedActivityWindowIST", message.getAdditionalInfo().getRevisedActivityWindowIST());
 		model.put("revisedActivityWindowGMT", message.getAdditionalInfo().getRevisedActivityWindowGMT());
+		model.put("siteIsolationOrServiceDegradation",message.getAdditionalInfo().getSiteIsolationOrServiceDegradation());
 
 		mail.setModel(model);
 

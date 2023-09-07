@@ -67,6 +67,8 @@ public class AdditionalInfo {
     @JsonProperty("Product")
     private List<com.netsurfingzone.dto.Product> Product;
 
+    private String siteIsolationOrServiceDegradation;
+
     private String eventDescription;
 
     private String bsName;
@@ -282,10 +284,18 @@ public class AdditionalInfo {
         this.accDetails = accDetails;
     }
 
+    public String getSiteIsolationOrServiceDegradation() {
+        return siteIsolationOrServiceDegradation;
+    }
+
+    public void setSiteIsolationOrServiceDegradation(String siteIsolationOrServiceDegradation) {
+        this.siteIsolationOrServiceDegradation = siteIsolationOrServiceDegradation;
+    }
+
     @Override
     public String toString() {
         return "AdditionalInfo{" +
-                ", nimsId='" + nimsId + '\'' +
+                "nimsId='" + nimsId + '\'' +
                 ", activityWindowIST='" + activityWindowIST + '\'' +
                 ", expectedImpact='" + expectedImpact + '\'' +
                 ", extendedUpToTimeWindowIST='" + extendedUpToTimeWindowIST + '\'' +
@@ -294,6 +304,7 @@ public class AdditionalInfo {
                 ", revisedActivityWindowGMT='" + revisedActivityWindowGMT + '\'' +
                 ", reminder='" + reminder + '\'' +
                 ", Product=" + Product +
+                ", siteIsolationOrServiceDegradation='" + siteIsolationOrServiceDegradation + '\'' +
                 ", eventDescription='" + eventDescription + '\'' +
                 ", bsName='" + bsName + '\'' +
                 ", circle='" + circle + '\'' +

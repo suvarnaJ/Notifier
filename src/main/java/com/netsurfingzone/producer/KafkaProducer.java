@@ -1,10 +1,7 @@
 package com.netsurfingzone.producer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.netsurfingzone.config.Constant;
-import com.netsurfingzone.config.EncryptionConfig;
-import com.netsurfingzone.config.FileUploadHelper;
-import com.netsurfingzone.config.RegexConfig;
+import com.netsurfingzone.config.*;
 import com.netsurfingzone.dto.*;
 import com.netsurfingzone.payload.ErrorResponse;
 import com.netsurfingzone.payload.SuccessResponse;
@@ -49,6 +46,8 @@ public class KafkaProducer {
 	RegexConfig regexConfig = new RegexConfig();
 	EncryptionConfig encryptionConfig = new EncryptionConfig();
 	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+
+	ConnectingToDB connectingToDB = new ConnectingToDB();
 
 	@CrossOrigin(
 			origins = { "http://localhost:8081" },     // You can add your allowed origins here
@@ -137,10 +136,55 @@ public class KafkaProducer {
 //					}
 //				}
 				if(message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.RF_RED_EVENT) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.RF_GREEN_EVENT) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Cancel_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Remdr_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Com_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Extension_Work_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.pe_rescheduled) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Remdr_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Extension_Work_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.pe_scheduled) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Comunsuc_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Protection_Failure) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.pe_closure_successful) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.pe_implement_extension) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Cancel_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Com_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.pe_closure_unsuccessful) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.pe_reminder) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Com_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Comuns_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Cancel_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.ReSchedule_Protection_Failure) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.pe_canceled) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.ReSchedule_Work_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.DeleteNotificationForSIA) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Comunsu_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Extension_Work_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.ReSchedule_Work_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Remdr_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Conflicting_PE_Notifications)) {
-					kafkaTemplate.send(ApplicationConstant.TOPIC_NAME, message);
-					logger.info("Message sent successfully in consumer = " + message.toString());
-					alreadyExecuted = false;
-					response = SuccessResponse.successHandler(HttpStatus.OK, false, "Notification sent successfully", null);
+					List<String> result = new ArrayList<>();
+
+					for(String str:message.getTicketInfo().getServiceId().replace(" ","").split(",")){
+						result.add(str);
+					}
+
+					StringBuilder sql = new StringBuilder("SELECT display_name,parent,product_name,status FROM telecom where status!='Terminated' and parent IN (");
+					for (int i = 0; i < result.size(); i++) {
+						sql.append("'" + result.get(i) + "',");
+					}
+					sql.append(")");
+
+					List<Map<String, Object>> rowCount = connectingToDB.Execute(sql.toString().replace(",)", ");"));
+				//	List<Map<String, Object>> rowCount = connectingToDB.Execute("SELECT display_name,parent,product_name FROM telecom where parent = '001ASHB3499030629642'");
+					System.out.println("rowcount+++++++"+rowCount);
+
+					List<Object> display_name = null;
+
+					Long count = 0l;
+
+					for (String str : result) {
+						display_name = rowCount.stream().map(a -> a.get("display_name")).collect(Collectors.toList());
+						Long collect = display_name.stream().filter(a -> a.equals(str)).collect(Collectors.counting());
+						count=collect+count;
+					}
+
+					System.out.println(count);
+
+					if((count>=1 && count<2) || rowCount.size()==1){
+						message.getAdditionalInfo().setSiteIsolationOrServiceDegradation("Site Isolation");
+						kafkaTemplate.send(ApplicationConstant.TOPIC_NAME, message);
+						logger.info("Message sent successfully in consumer = " + message.toString());
+						alreadyExecuted = false;
+						HashMap<String,String> data = new HashMap<String,String>();
+						data.put("value","Site Isolation");
+						response = SuccessResponse.successHandler(HttpStatus.OK, false, "Notification sent successfully",data);
+						System.out.println("Site Isolation");
+					}else if(count>=2){
+						message.getAdditionalInfo().setSiteIsolationOrServiceDegradation("Service Degradation");
+						kafkaTemplate.send(ApplicationConstant.TOPIC_NAME, message);
+						logger.info("Message sent successfully in consumer = " + message.toString());
+						alreadyExecuted = false;
+						HashMap<String,String> data = new HashMap<String,String>();
+						data.put("value","Service Degradation");
+						response = SuccessResponse.successHandler(HttpStatus.OK, false, "Notification sent successfully",data);
+						System.out.println("Service Degradation");
+					}else{
+						response = ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "Something went wrong");
+					}
 				}else {
 					Date date = new Date();
 					String strDate = formatter.format(date);
