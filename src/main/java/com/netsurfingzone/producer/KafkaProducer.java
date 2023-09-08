@@ -183,7 +183,7 @@ public class KafkaProducer {
 						response = SuccessResponse.successHandler(HttpStatus.OK, false, "Notification sent successfully",data);
 						System.out.println("Service Degradation");
 					}else{
-						response = SuccessResponse.successHandler(HttpStatus.CREATED, false, "Request is acknowledged",null);
+						response = SuccessResponse.successHandler(HttpStatus.OK, false, "Request is acknowledged",null);
 					}
 				}else {
 					Date date = new Date();
