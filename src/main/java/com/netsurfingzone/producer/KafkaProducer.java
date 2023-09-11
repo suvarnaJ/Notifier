@@ -48,6 +48,7 @@ public class KafkaProducer {
 	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
 	ConnectingToDB connectingToDB = new ConnectingToDB();
+	List<?> empty = new ArrayList<>();
 
 	@CrossOrigin(
 			origins = { "http://localhost:8081" },     // You can add your allowed origins here
@@ -183,7 +184,7 @@ public class KafkaProducer {
 						response = SuccessResponse.successHandler(HttpStatus.OK, false, "Notification sent successfully",data);
 						System.out.println("Service Degradation");
 					}else{
-						response = SuccessResponse.successHandler(HttpStatus.OK, false, "Request is acknowledged",null);
+						response = SuccessResponse.successHandler(HttpStatus.OK, false, "Request is acknowledged",empty);
 					}
 				}else {
 					Date date = new Date();
@@ -465,7 +466,7 @@ public class KafkaProducer {
 				kafkaTemplate.send(ApplicationConstant.TOPIC_NAME_RF_TEMPLATE, message);
 				logger.info("Message sent successfully in consumer = " + message.toString());
 				alreadyExecuted = false;
-				response = SuccessResponse.successHandler(HttpStatus.OK, false, "Notification sent successfully",null);
+				response = SuccessResponse.successHandler(HttpStatus.OK, false, "Notification sent successfully",empty);
 				return response;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -596,7 +597,7 @@ public class KafkaProducer {
 			}
 			kafkaTemplate.send(ApplicationConstant.TOPIC_NAME_SUMMARY, summaryPayload);
 			logger.info("Message sent successfully in consumer = " + summaryPayload.toString());
-			return SuccessResponse.successHandler(HttpStatus.OK,false,"Notification sent successfully",null);
+			return SuccessResponse.successHandler(HttpStatus.OK,false,"Notification sent successfully",empty);
 		} catch (Exception e) {
 			e.printStackTrace();
 			Date date = new Date();
@@ -741,7 +742,7 @@ public class KafkaProducer {
 			}
 			kafkaTemplate.send(ApplicationConstant.TOPIC_NAME_SUMMARY_ATTACHMENTS, summaryPayload);
 			logger.info("Message sent successfully in consumer = " + summaryPayload.toString());
-			return SuccessResponse.successHandler(HttpStatus.OK,false,"Notification sent successfully",null);
+			return SuccessResponse.successHandler(HttpStatus.OK,false,"Notification sent successfully",empty);
 		} catch (Exception e) {
 			e.printStackTrace();
 			Date date = new Date();
