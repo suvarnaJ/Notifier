@@ -123,6 +123,16 @@ public class KafkaProducer {
 					}
 				}
 
+				//Validation's of sdwanCircuitId
+				if(message.getAdditionalInfo().getSdwanCircuitId().size()==0){
+					Date date = new Date();
+					String strDate = formatter.format(date);
+					logger.info("SdwanCircuitId is mandatory");
+					jdbcTemplate.execute("insert into CN_LOG_ERROR (AccountName, Status, Message, API_Name, Created_At) values ('null', 400, 'SdwanCircuitId is mandatory', '" + Constant.API_Name.RF_TEMPLATE + "', '"+strDate+"')");
+					response = ErrorResponse.errorHandler(HttpStatus.BAD_REQUEST, true, "SdwanCircuitId is mandatory");
+					return response;
+				}
+
 				//Validation's of ccEmail
 //				String[] contactCcEmailSplitValid = message.getContact().getCc().split(",");
 //				for (int c = 0; c < contactCcEmailSplitValid.length; c++) {
