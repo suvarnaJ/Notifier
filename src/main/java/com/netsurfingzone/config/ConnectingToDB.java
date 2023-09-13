@@ -9,7 +9,7 @@ import java.util.Map;
 public class ConnectingToDB {
 
     public List<Map<String, Object>> Execute(String sqlStr) throws SQLException {
-        Connection developmentConnection = DriverManager.getConnection("jdbc:sqlserver://115.110.90.100:1433;databaseName=prjml;trustServerCertificate=true;","prjaiml","Tataetr@1424");
+        Connection developmentConnection = DriverManager.getConnection("jdbc:sqlserver://115.110.90.100:1433;databaseName=prjml;encrypt=false;sslProtocol=TLSv1;","prjaiml","Tataetr@1424");
         Statement statement = developmentConnection.createStatement();
         ResultSet resultSet = statement.executeQuery(sqlStr);
         List<Map<String,Object>> rows = new ArrayList<Map<String,Object>>();
