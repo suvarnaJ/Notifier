@@ -1,6 +1,5 @@
 package com.netsurfingzone.producer;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.netsurfingzone.config.*;
 import com.netsurfingzone.dto.*;
 import com.netsurfingzone.payload.ErrorResponse;
@@ -137,15 +136,21 @@ public class KafkaProducer {
 //					}
 //				}
 				if(message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.RF_RED_EVENT) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.RF_GREEN_EVENT) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Cancel_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Remdr_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Com_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Extension_Work_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.pe_rescheduled) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Remdr_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Extension_Work_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.pe_scheduled) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Comunsuc_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Protection_Failure) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.pe_closure_successful) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.pe_implement_extension) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Cancel_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Com_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.pe_closure_unsuccessful) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.pe_reminder) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Com_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Comuns_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Cancel_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.ReSchedule_Protection_Failure) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.pe_canceled) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.ReSchedule_Work_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.DeleteNotificationForSIA) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Comunsu_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Protecting) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Extension_Work_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.ReSchedule_Work_Protected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Planned_Work_Remdr_Unprotected) || message.getEventName().getEventName().equalsIgnoreCase(ApplicationConstant.Conflicting_PE_Notifications)) {
-					List<String> result = new ArrayList<>();
 
-					for(String str:message.getTicketInfo().getServiceId().replace(" ","").split(",")){
-						result.add(str);
+					Set<String> underlayService = new HashSet<String>();
+					Set<String> overlayService = new HashSet<>();
+
+					for(int i=0;i<message.getAdditionalInfo().getSdwanCircuitId().size();i++){
+						underlayService.add(message.getAdditionalInfo().getSdwanCircuitId().get(i).getUnderlayService());
+						overlayService.add(message.getAdditionalInfo().getSdwanCircuitId().get(i).getOverlayService());
 					}
 
-					StringBuilder sql = new StringBuilder("SELECT display_name,parent,product_name,status FROM telecom where status!='Terminated' and parent IN (");
-					for (int i = 0; i < result.size(); i++) {
-						sql.append("'" + result.get(i) + "',");
+					List<String> parent = overlayService.stream().collect(Collectors.toList());
+					List<String> child = underlayService.stream().collect(Collectors.toList());
+
+					StringBuilder sql = new StringBuilder("SELECT display_name,status FROM telecom where status!='Terminated' and parent IN (");
+					for (int i = 0; i < parent.size(); i++) {
+						sql.append("'" + parent.get(i) + "',");
 					}
 					sql.append(")");
 
@@ -157,7 +162,7 @@ public class KafkaProducer {
 
 					Long count = 0l;
 
-					for (String str : result) {
+					for (String str : child) {
 						display_name = rowCount.stream().map(a -> a.get("display_name")).collect(Collectors.toList());
 						Long collect = display_name.stream().filter(a -> a.equals(str)).collect(Collectors.counting());
 						count=collect+count;

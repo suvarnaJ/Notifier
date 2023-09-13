@@ -20,6 +20,7 @@ import java.util.List;
         "revisedActivityWindowIST",
         "revisedActivityWindowGMT",
         "reminder",
+        "sdwanCircuitId",
         "eventDescription",
         "bsName",
         "circle",
@@ -64,8 +65,8 @@ public class AdditionalInfo {
     @JsonProperty("reminder")
     private String reminder;
 
-    @JsonProperty("Product")
-    private List<com.netsurfingzone.dto.Product> Product;
+    @JsonProperty("sdwanCircuitId")
+    private List<com.netsurfingzone.dto.Product> sdwanCircuitId;
 
     private String siteIsolationOrServiceDegradation;
 
@@ -180,14 +181,14 @@ public class AdditionalInfo {
         this.reminder = reminder;
     }
 
-    @JsonProperty("Product")
-    public List<com.netsurfingzone.dto.Product> getProduct() {
-        return Product;
+    @JsonProperty("sdwanCircuitId")
+    public List<Product> getSdwanCircuitId() {
+        return sdwanCircuitId;
     }
 
-    @JsonProperty("Product")
-    public void setProduct(List<com.netsurfingzone.dto.Product> product) {
-        Product = product;
+    @JsonProperty("sdwanCircuitId")
+    public void setSdwanCircuitId(List<Product> sdwanCircuitId) {
+        this.sdwanCircuitId = sdwanCircuitId;
     }
 
     public void setEventDescription(String eventDescription){
@@ -303,7 +304,7 @@ public class AdditionalInfo {
                 ", revisedActivityWindowIST='" + revisedActivityWindowIST + '\'' +
                 ", revisedActivityWindowGMT='" + revisedActivityWindowGMT + '\'' +
                 ", reminder='" + reminder + '\'' +
-                ", Product=" + Product +
+                ", sdwanCircuitId=" + sdwanCircuitId +
                 ", siteIsolationOrServiceDegradation='" + siteIsolationOrServiceDegradation + '\'' +
                 ", eventDescription='" + eventDescription + '\'' +
                 ", bsName='" + bsName + '\'' +
