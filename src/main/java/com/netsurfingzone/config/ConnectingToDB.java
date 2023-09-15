@@ -8,7 +8,8 @@ import java.util.Map;
 
 public class ConnectingToDB {
 
-    public List<Map<String, Object>> Execute(String sqlStr) throws SQLException {
+    public List<Map<String, Object>> Execute(String sqlStr) throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.jdbc.Driver");
         Connection developmentConnection = DriverManager.getConnection("jdbc:sqlserver://115.110.90.100:1433;databaseName=prjml","prjaiml","Tataetr@1424");
         Statement statement = developmentConnection.createStatement();
         ResultSet resultSet = statement.executeQuery(sqlStr);
