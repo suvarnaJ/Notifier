@@ -10,7 +10,10 @@ public class ConnectingToDB {
 
     public List<Map<String, Object>> Execute(String sqlStr) throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.jdbc.Driver");
-        Connection developmentConnection = DriverManager.getConnection("jdbc:sqlserver://115.110.90.100:1433;databaseName=prjml","prjaiml","Tataetr@1424");
+        String serverName = "115.110.90.100";
+        String dbName = "prjml";
+        String  url = "jdbc:sqlserver://" +serverName + ":1433;DatabaseName=" + dbName + ";encrypt=true;trustServerCertificate=true";
+        Connection developmentConnection = DriverManager.getConnection(url,"prjaiml","Tataetr@1424");
         Statement statement = developmentConnection.createStatement();
         ResultSet resultSet = statement.executeQuery(sqlStr);
         List<Map<String,Object>> rows = new ArrayList<Map<String,Object>>();
