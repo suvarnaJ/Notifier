@@ -164,44 +164,43 @@ public class KafkaProducer {
 					}
 					sql.append(")");
 
-					jdbcTemplate.execute(sql.toString().replace(",)", ");"));
+					List<Map<String, Object>> rowCount = connectingToDB.Execute(sql.toString().replace(",)", ");"));
 				//	List<Map<String, Object>> rowCount = connectingToDB.Execute("SELECT display_name,parent,product_name FROM telecom where parent = '001ASHB3499030629642'");
-//					System.out.println("rowcount+++++++"+rowCount);
-//
-//					List<Object> display_name = null;
-//
-//					Long count = 0l;
-//
-//					for (String str : child) {
-//						display_name = rowCount.stream().map(a -> a.get("display_name")).collect(Collectors.toList());
-//						Long collect = display_name.stream().filter(a -> a.equals(str)).collect(Collectors.counting());
-//						count=collect+count;
-//					}
+					System.out.println("rowcount+++++++"+rowCount);
 
-//					System.out.println(count);
-//
-//					if((count>=1 && count<2) || rowCount.size()==1){
-//						message.getAdditionalInfo().setSiteIsolationOrServiceDegradation("Site Isolation");
-//						kafkaTemplate.send(ApplicationConstant.TOPIC_NAME, message);
-//						logger.info("Message sent successfully in consumer = " + message.toString());
-//						alreadyExecuted = false;
-//						HashMap<String,String> data = new HashMap<String,String>();
-//						data.put("value","Site Isolation");
-//						response = SuccessResponse.successHandler(HttpStatus.OK, false, "Notification sent successfully",data);
-//						System.out.println("Site Isolation");
-//					}else if(count>=2){
-//						message.getAdditionalInfo().setSiteIsolationOrServiceDegradation("Service Degradation");
-//						kafkaTemplate.send(ApplicationConstant.TOPIC_NAME, message);
-//						logger.info("Message sent successfully in consumer = " + message.toString());
-//						alreadyExecuted = false;
-//						HashMap<String,String> data = new HashMap<String,String>();
-//						data.put("value","Service Degradation");
-//						response = SuccessResponse.successHandler(HttpStatus.OK, false, "Notification sent successfully",data);
-//						System.out.println("Service Degradation");
-//					}else{
-//						response = SuccessResponse.successHandler(HttpStatus.OK, false, "Request is acknowledged",empty);
-//					}
-					response = SuccessResponse.successHandler(HttpStatus.OK, false, "Request is acknowledged",empty);
+					List<Object> display_name = null;
+
+					Long count = 0l;
+
+					for (String str : child) {
+						display_name = rowCount.stream().map(a -> a.get("display_name")).collect(Collectors.toList());
+						Long collect = display_name.stream().filter(a -> a.equals(str)).collect(Collectors.counting());
+						count=collect+count;
+					}
+
+					System.out.println(count);
+
+					if((count>=1 && count<2) || rowCount.size()==1){
+						message.getAdditionalInfo().setSiteIsolationOrServiceDegradation("Site Isolation");
+						kafkaTemplate.send(ApplicationConstant.TOPIC_NAME, message);
+						logger.info("Message sent successfully in consumer = " + message.toString());
+						alreadyExecuted = false;
+						HashMap<String,String> data = new HashMap<String,String>();
+						data.put("value","Site Isolation");
+						response = SuccessResponse.successHandler(HttpStatus.OK, false, "Notification sent successfully",data);
+						System.out.println("Site Isolation");
+					}else if(count>=2){
+						message.getAdditionalInfo().setSiteIsolationOrServiceDegradation("Service Degradation");
+						kafkaTemplate.send(ApplicationConstant.TOPIC_NAME, message);
+						logger.info("Message sent successfully in consumer = " + message.toString());
+						alreadyExecuted = false;
+						HashMap<String,String> data = new HashMap<String,String>();
+						data.put("value","Service Degradation");
+						response = SuccessResponse.successHandler(HttpStatus.OK, false, "Notification sent successfully",data);
+						System.out.println("Service Degradation");
+					}else{
+						response = SuccessResponse.successHandler(HttpStatus.OK, false, "Request is acknowledged",empty);
+					}
 				}else {
 					Date date = new Date();
 					String strDate = formatter.format(date);

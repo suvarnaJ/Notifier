@@ -9,7 +9,7 @@ import java.util.Map;
 public class ConnectingToDB {
 
     public List<Map<String, Object>> Execute(String sqlStr) throws SQLException, ClassNotFoundException {
-        String connectionUrl = "jdbc:sqlserver://115.110.90.100:1433;" + "databaseName=prjml;integratedSecurity=false;" + "encrypt=true;trustServerCertificate=true";
+        String connectionUrl = "jdbc:sqlserver://115.110.90.100:1433;" + "databaseName=prjml;integratedSecurity=false;" + "encrypt=true;trustServerCertificate=true;sslProtocol=TLSv1";
         Class.forName("com.mysql.jdbc.Driver");
         Connection developmentConnection = DriverManager.getConnection(connectionUrl,"prjaiml","Tataetr@1424");
         Statement statement = developmentConnection.createStatement();
