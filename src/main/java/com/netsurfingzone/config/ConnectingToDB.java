@@ -16,7 +16,7 @@ public class ConnectingToDB {
         String password = "Tataetr@1424";
         DriverManager.registerDriver(new com.microsoft.sqlserver.jdbc.SQLServerDriver());
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        Connection developmentConnection = DriverManager.getConnection("jdbc:sqlserver://" + host + ":" + port + ";databaseName=" + dbName + ";encrypt=true;trustServerCertificate=true;user=" + userName + ";password=" + password);
+        Connection developmentConnection = DriverManager.getConnection("jdbc:sqlserver://" + host + ":" + port + ";databaseName=" + dbName + ";encrypt=true;trustServerCertificate=true;sslProtocol=TLSv1;user=" + userName + ";password=" + password);
         Statement statement = developmentConnection.createStatement();
         ResultSet resultSet = statement.executeQuery(sqlStr);
         List<Map<String,Object>> rows = new ArrayList<Map<String,Object>>();
