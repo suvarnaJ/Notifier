@@ -9,11 +9,9 @@ import java.util.Map;
 public class ConnectingToDB {
 
     public List<Map<String, Object>> Execute(String sqlStr) throws SQLException, ClassNotFoundException {
+        String connectionUrl = "jdbc:sqlserver://115.110.90.100:1433;" + "databaseName=prjml;integratedSecurity=true;" + "encrypt=true;trustServerCertificate=true";
         Class.forName("com.mysql.jdbc.Driver");
-        String serverName = "115.110.90.100";
-        String dbName = "prjml";
-        String  url = "jdbc:sqlserver://" +serverName + ":1433;DatabaseName=" + dbName + ";encrypt=true;trustServerCertificate=true";
-        Connection developmentConnection = DriverManager.getConnection(url,"prjaiml","Tataetr@1424");
+        Connection developmentConnection = DriverManager.getConnection(connectionUrl,"prjaiml","Tataetr@1424");
         Statement statement = developmentConnection.createStatement();
         ResultSet resultSet = statement.executeQuery(sqlStr);
         List<Map<String,Object>> rows = new ArrayList<Map<String,Object>>();
