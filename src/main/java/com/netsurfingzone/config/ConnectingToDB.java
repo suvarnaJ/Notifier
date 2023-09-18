@@ -14,6 +14,8 @@ public class ConnectingToDB {
         String dbName = "prjml";
         String userName = "prjaiml";
         String password = "Tataetr@1424";
+        DriverManager.registerDriver(new com.microsoft.sqlserver.jdbc.SQLServerDriver());
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         Connection developmentConnection = DriverManager.getConnection("jdbc:sqlserver://" + host + ":" + port + ";databaseName=" + dbName + ";encrypt=true;trustServerCertificate=true;user=" + userName + ";password=" + password);
         Statement statement = developmentConnection.createStatement();
         ResultSet resultSet = statement.executeQuery(sqlStr);
