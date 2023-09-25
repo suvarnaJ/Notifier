@@ -16,8 +16,7 @@
 	</parent>
 
 	<properties>
-		<start-class>com.netsurfingzone.main.SpringMain</start-class>
-		<java.version>1.8</java.version>
+		<start-class>com.tcl.main.SpringMain</start-class>
 	</properties>
 
 
